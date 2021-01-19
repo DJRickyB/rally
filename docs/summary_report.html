@@ -1,0 +1,479 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Summary Report &mdash; Rally 2.0.4.dev0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Migration Guide" href="migrate.html" />
+    <link rel="prev" title="Metrics" href="metrics.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Rally
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started with Rally</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Running Rally with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="race.html">Run a Benchmark: Races</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tournament.html">Compare Results: Tournaments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cluster_management.html">Setting up a Cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recipes.html">Tips and Tricks</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Extending Rally</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="adding_tracks.html">Define Custom Workloads: Tracks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">Developing Rally</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Elasticsearch Version Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_line_reference.html">Command Line Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="offline.html">Offline Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="track.html">Track Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="car.html">Configure Elasticsearch: Cars</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elasticsearch_plugins.html">Using Elasticsearch Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="telemetry.html">Telemetry Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rally_daemon.html">Rally Daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipelines.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Summary Report</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#cumulative-indexing-time-of-primary-shards">Cumulative indexing time of primary shards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cumulative-indexing-time-across-primary-shards">Cumulative indexing time across primary shards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cumulative-indexing-throttle-time-of-primary-shards">Cumulative indexing throttle time of primary shards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cumulative-indexing-throttle-time-across-primary-shards">Cumulative indexing throttle time across primary shards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cumulative-merge-time-of-primary-shards">Cumulative merge time of primary shards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cumulative-merge-count-of-primary-shards">Cumulative merge count of primary shards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cumulative-merge-time-across-primary-shards">Cumulative merge time across primary shards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cumulative-refresh-time-of-primary-shards">Cumulative refresh time of primary shards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cumulative-refresh-count-of-primary-shards">Cumulative refresh count of primary shards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cumulative-refresh-time-across-primary-shards">Cumulative refresh time across primary shards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cumulative-flush-time-of-primary-shards">Cumulative flush time of primary shards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cumulative-flush-count-of-primary-shards">Cumulative flush count of primary shards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cumulative-flush-time-across-primary-shards">Cumulative flush time across primary shards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cumulative-merge-throttle-time-of-primary-shards">Cumulative merge throttle time of primary shards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cumulative-merge-throttle-time-across-primary-shards">Cumulative merge throttle time across primary shards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ml-processing-time">ML processing time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#total-young-gen-gc-time">Total Young Gen GC time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#total-young-gen-gc-count">Total Young Gen GC count</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#total-old-gen-gc-time">Total Old Gen GC time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#total-old-gen-gc-count">Total Old Gen GC count</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#store-size">Store size</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#translog-size">Translog size</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#heap-used-for-x">Heap used for <code class="docutils literal notranslate"><span class="pre">X</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#segment-count">Segment count</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#throughput">Throughput</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#latency">Latency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#service-time">Service time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#error-rate">Error rate</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Additional Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="migrate.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Community Resources</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Rally</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+    <ul class="wy-breadcrumbs">
+        
+        <li><a href="index.html">Docs</a> &raquo;</li>
+        
+        <li>Summary Report</li>
+        
+        
+        <li class="wy-breadcrumbs-aside">
+            
+            
+            <a href="_sources/summary_report.rst.txt" rel="nofollow"> View page source</a>
+            
+            
+        </li>
+        
+    </ul>
+
+    
+    <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="summary-report">
+<h1>Summary Report<a class="headerlink" href="#summary-report" title="Permalink to this headline">¶</a></h1>
+<p>At the end of each <a class="reference internal" href="race.html"><span class="doc">race</span></a>, Rally shows a summary report. Below we’ll explain the meaning of each line including a reference to its corresponding <a class="reference internal" href="metrics.html"><span class="doc">metrics key</span></a> which can be helpful if you want to build your own reports in Kibana. Note that not every summary report will show all lines.</p>
+<div class="section" id="cumulative-indexing-time-of-primary-shards">
+<h2>Cumulative indexing time of primary shards<a class="headerlink" href="#cumulative-indexing-time-of-primary-shards" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Definition</strong>: Cumulative time used for indexing as reported by the indices stats API. Note that this is not Wall clock time (i.e. if M indexing threads ran for N minutes, we will report M * N minutes, not N minutes).</p></li>
+<li><p><strong>Corresponding metrics key</strong>: <code class="docutils literal notranslate"><span class="pre">indexing_total_time</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="cumulative-indexing-time-across-primary-shards">
+<h2>Cumulative indexing time across primary shards<a class="headerlink" href="#cumulative-indexing-time-across-primary-shards" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Definition</strong>: Minimum, median and maximum cumulative time used for indexing across primary shards as reported by the indices stats API.</p></li>
+<li><p><strong>Corresponding metrics key</strong>: <code class="docutils literal notranslate"><span class="pre">indexing_total_time</span></code> (property: <code class="docutils literal notranslate"><span class="pre">per-shard</span></code>)</p></li>
+</ul>
+</div>
+<div class="section" id="cumulative-indexing-throttle-time-of-primary-shards">
+<h2>Cumulative indexing throttle time of primary shards<a class="headerlink" href="#cumulative-indexing-throttle-time-of-primary-shards" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Definition</strong>: Cumulative time that indexing has been throttled as reported by the indices stats API. Note that this is not Wall clock time (i.e. if M indexing threads ran for N minutes, we will report M * N minutes, not N minutes).</p></li>
+<li><p><strong>Corresponding metrics key</strong>: <code class="docutils literal notranslate"><span class="pre">indexing_throttle_time</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="cumulative-indexing-throttle-time-across-primary-shards">
+<h2>Cumulative indexing throttle time across primary shards<a class="headerlink" href="#cumulative-indexing-throttle-time-across-primary-shards" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Definition</strong>: Minimum, median and maximum cumulative time used that indexing has been throttled across primary shards as reported by the indices stats API.</p></li>
+<li><p><strong>Corresponding metrics key</strong>: <code class="docutils literal notranslate"><span class="pre">indexing_throttle_time</span></code> (property: <code class="docutils literal notranslate"><span class="pre">per-shard</span></code>)</p></li>
+</ul>
+</div>
+<div class="section" id="cumulative-merge-time-of-primary-shards">
+<h2>Cumulative merge time of primary shards<a class="headerlink" href="#cumulative-merge-time-of-primary-shards" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Definition</strong>: Cumulative runtime of merges of primary shards, as reported by the indices stats API. Note that this is not Wall clock time.</p></li>
+<li><p><strong>Corresponding metrics key</strong>: <code class="docutils literal notranslate"><span class="pre">merges_total_time</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="cumulative-merge-count-of-primary-shards">
+<h2>Cumulative merge count of primary shards<a class="headerlink" href="#cumulative-merge-count-of-primary-shards" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Definition</strong>: Cumulative number of merges of primary shards, as reported by indices stats API under <code class="docutils literal notranslate"><span class="pre">_all/primaries</span></code>.</p></li>
+<li><p><strong>Corresponding metrics key</strong>: <code class="docutils literal notranslate"><span class="pre">merges_total_count</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="cumulative-merge-time-across-primary-shards">
+<h2>Cumulative merge time across primary shards<a class="headerlink" href="#cumulative-merge-time-across-primary-shards" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Definition</strong>: Minimum, median and maximum cumulative time of merges across primary shards, as reported by the indices stats API.</p></li>
+<li><p><strong>Corresponding metrics key</strong>: <code class="docutils literal notranslate"><span class="pre">merges_total_time</span></code> (property: <code class="docutils literal notranslate"><span class="pre">per-shard</span></code>)</p></li>
+</ul>
+</div>
+<div class="section" id="cumulative-refresh-time-of-primary-shards">
+<h2>Cumulative refresh time of primary shards<a class="headerlink" href="#cumulative-refresh-time-of-primary-shards" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Definition</strong>: Cumulative time used for index refresh of primary shards, as reported by the indices stats API. Note that this is not Wall clock time.</p></li>
+<li><p><strong>Corresponding metrics key</strong>: <code class="docutils literal notranslate"><span class="pre">refresh_total_time</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="cumulative-refresh-count-of-primary-shards">
+<h2>Cumulative refresh count of primary shards<a class="headerlink" href="#cumulative-refresh-count-of-primary-shards" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Definition</strong>: Cumulative number of refreshes of primary shards, as reported by indices stats API under <code class="docutils literal notranslate"><span class="pre">_all/primaries</span></code>.</p></li>
+<li><p><strong>Corresponding metrics key</strong>: <code class="docutils literal notranslate"><span class="pre">refresh_total_count</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="cumulative-refresh-time-across-primary-shards">
+<h2>Cumulative refresh time across primary shards<a class="headerlink" href="#cumulative-refresh-time-across-primary-shards" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Definition</strong>: Minimum, median and maximum cumulative time for index refresh across primary shards, as reported by the indices stats API.</p></li>
+<li><p><strong>Corresponding metrics key</strong>: <code class="docutils literal notranslate"><span class="pre">refresh_total_time</span></code> (property: <code class="docutils literal notranslate"><span class="pre">per-shard</span></code>)</p></li>
+</ul>
+</div>
+<div class="section" id="cumulative-flush-time-of-primary-shards">
+<h2>Cumulative flush time of primary shards<a class="headerlink" href="#cumulative-flush-time-of-primary-shards" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Definition</strong>: Cumulative time used for index flush of primary shards, as reported by the indices stats API. Note that this is not Wall clock time.</p></li>
+<li><p><strong>Corresponding metrics key</strong>: <code class="docutils literal notranslate"><span class="pre">flush_total_time</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="cumulative-flush-count-of-primary-shards">
+<h2>Cumulative flush count of primary shards<a class="headerlink" href="#cumulative-flush-count-of-primary-shards" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Definition</strong>: Cumulative number of flushes of primary shards, as reported by indices stats API under <code class="docutils literal notranslate"><span class="pre">_all/primaries</span></code>.</p></li>
+<li><p><strong>Corresponding metrics key</strong>: <code class="docutils literal notranslate"><span class="pre">flush_total_count</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="cumulative-flush-time-across-primary-shards">
+<h2>Cumulative flush time across primary shards<a class="headerlink" href="#cumulative-flush-time-across-primary-shards" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Definition</strong>: Minimum, median and maximum time for index flush across primary shards as reported by the indices stats API.</p></li>
+<li><p><strong>Corresponding metrics key</strong>: <code class="docutils literal notranslate"><span class="pre">flush_total_time</span></code> (property: <code class="docutils literal notranslate"><span class="pre">per-shard</span></code>)</p></li>
+</ul>
+</div>
+<div class="section" id="cumulative-merge-throttle-time-of-primary-shards">
+<h2>Cumulative merge throttle time of primary shards<a class="headerlink" href="#cumulative-merge-throttle-time-of-primary-shards" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Definition</strong>: Cumulative time within merges that have been throttled, as reported by the indices stats API. Note that this is not Wall clock time.</p></li>
+<li><p><strong>Corresponding metrics key</strong>: <code class="docutils literal notranslate"><span class="pre">merges_total_throttled_time</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="cumulative-merge-throttle-time-across-primary-shards">
+<h2>Cumulative merge throttle time across primary shards<a class="headerlink" href="#cumulative-merge-throttle-time-across-primary-shards" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Definition</strong>: Minimum, median and maximum cumulative time that merges have been throttled across primary shards as reported by the indices stats API.</p></li>
+<li><p><strong>Corresponding metrics key</strong>: <code class="docutils literal notranslate"><span class="pre">merges_total_throttled_time</span></code> (property: <code class="docutils literal notranslate"><span class="pre">per-shard</span></code>)</p></li>
+</ul>
+</div>
+<div class="section" id="ml-processing-time">
+<h2>ML processing time<a class="headerlink" href="#ml-processing-time" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Definition</strong>: Minimum, mean, median and maximum time in milliseconds that a machine learning job has spent processing a single bucket.</p></li>
+<li><p><strong>Corresponding metrics key</strong>: <code class="docutils literal notranslate"><span class="pre">ml_processing_time</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="total-young-gen-gc-time">
+<h2>Total Young Gen GC time<a class="headerlink" href="#total-young-gen-gc-time" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Definition</strong>: The total runtime of the young generation garbage collector across the whole cluster as reported by the node stats API.</p></li>
+<li><p><strong>Corresponding metrics key</strong>: <code class="docutils literal notranslate"><span class="pre">node_total_young_gen_gc_time</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="total-young-gen-gc-count">
+<h2>Total Young Gen GC count<a class="headerlink" href="#total-young-gen-gc-count" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Definition</strong>: The total number of young generation garbage collections across the whole cluster as reported by the node stats API.</p></li>
+<li><p><strong>Corresponding metrics key</strong>: <code class="docutils literal notranslate"><span class="pre">node_total_young_gen_gc_count</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="total-old-gen-gc-time">
+<h2>Total Old Gen GC time<a class="headerlink" href="#total-old-gen-gc-time" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Definition</strong>: The total runtime of the old generation garbage collector across the whole cluster as reported by the node stats API.</p></li>
+<li><p><strong>Corresponding metrics key</strong>: <code class="docutils literal notranslate"><span class="pre">node_total_old_gen_gc_time</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="total-old-gen-gc-count">
+<h2>Total Old Gen GC count<a class="headerlink" href="#total-old-gen-gc-count" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Definition</strong>: The total number of old generation garbage collections across the whole cluster as reported by the node stats API.</p></li>
+<li><p><strong>Corresponding metrics key</strong>: <code class="docutils literal notranslate"><span class="pre">node_total_old_gen_gc_count</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="store-size">
+<h2>Store size<a class="headerlink" href="#store-size" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Definition</strong>: The size in bytes of the index (excluding the translog) as reported by the indices stats API.</p></li>
+<li><p><strong>Corresponding metrics key</strong>: <code class="docutils literal notranslate"><span class="pre">store_size_in_bytes</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="translog-size">
+<h2>Translog size<a class="headerlink" href="#translog-size" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Definition</strong>: The size in bytes of the translog as reported by the indices stats API.</p></li>
+<li><p><strong>Corresponding metrics key</strong>: <code class="docutils literal notranslate"><span class="pre">translog_size_in_bytes</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="heap-used-for-x">
+<h2>Heap used for <code class="docutils literal notranslate"><span class="pre">X</span></code><a class="headerlink" href="#heap-used-for-x" title="Permalink to this headline">¶</a></h2>
+<p>Where <code class="docutils literal notranslate"><span class="pre">X</span></code> is one of:</p>
+<ul class="simple">
+<li><p>doc values</p></li>
+<li><p>terms</p></li>
+<li><p>norms</p></li>
+<li><p>points</p></li>
+<li><p>stored fields</p></li>
+</ul>
+<ul class="simple">
+<li><p><strong>Definition</strong>: Number of bytes used for the corresponding item as reported by the indices stats API.</p></li>
+<li><p><strong>Corresponding metrics keys</strong>: <code class="docutils literal notranslate"><span class="pre">segments_*_in_bytes</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="segment-count">
+<h2>Segment count<a class="headerlink" href="#segment-count" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Definition</strong>: Total number of segments as reported by the indices stats API.</p></li>
+<li><p><strong>Corresponding metrics key</strong>: <code class="docutils literal notranslate"><span class="pre">segments_count</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="throughput">
+<h2>Throughput<a class="headerlink" href="#throughput" title="Permalink to this headline">¶</a></h2>
+<p>Rally reports the minimum, median and maximum throughput for each task.</p>
+<ul class="simple">
+<li><p><strong>Definition</strong>: Number of operations that Elasticsearch can perform within a certain time period, usually per second.</p></li>
+<li><p><strong>Corresponding metrics key</strong>: <code class="docutils literal notranslate"><span class="pre">throughput</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="latency">
+<h2>Latency<a class="headerlink" href="#latency" title="Permalink to this headline">¶</a></h2>
+<p>Rally reports several percentile numbers for each task. Which percentiles are shown depends on how many requests Rally could capture (i.e. Rally will not show a 99.99th percentile if it could only capture five samples because that would be a vanity metric).</p>
+<ul class="simple">
+<li><p><strong>Definition</strong>: Time period between submission of a request and receiving the complete response. It also includes wait time, i.e. the time the request spends waiting until it is ready to be serviced by Elasticsearch.</p></li>
+<li><p><strong>Corresponding metrics key</strong>: <code class="docutils literal notranslate"><span class="pre">latency</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="service-time">
+<h2>Service time<a class="headerlink" href="#service-time" title="Permalink to this headline">¶</a></h2>
+<p>Rally reports several percentile numbers for each task. Which percentiles are shown depends on how many requests Rally could capture (i.e. Rally will not show a 99.99th percentile if it could only capture five samples because that would be a vanity metric).</p>
+<ul class="simple">
+<li><p><strong>Definition</strong>: Time period between start of request processing and receiving the complete response. This metric can easily be mixed up with <code class="docutils literal notranslate"><span class="pre">latency</span></code> but does not include waiting time. This is what most load testing tools refer to as “latency” (although it is incorrect).</p></li>
+<li><p><strong>Corresponding metrics key</strong>: <code class="docutils literal notranslate"><span class="pre">service_time</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="error-rate">
+<span id="summary-report-error-rate"></span><h2>Error rate<a class="headerlink" href="#error-rate" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Definition</strong>: The ratio of erroneous responses relative to the total number of responses. Any exception thrown by the Python Elasticsearch client is considered erroneous (e.g. HTTP response codes 4xx, 5xx or network errors (network unreachable)). For specific details, check the <a class="reference external" href="https://elasticsearch-py.readthedocs.io">reference documentation of the Elasticsearch client</a>. Usually any error rate greater than zero is alerting. You should investigate the root cause by inspecting Rally and Elasticsearch logs and rerun the benchmark.</p></li>
+<li><p><strong>Corresponding metrics key</strong>: <code class="docutils literal notranslate"><span class="pre">service_time</span></code>. Each <code class="docutils literal notranslate"><span class="pre">service_time</span></code> record has a <code class="docutils literal notranslate"><span class="pre">meta.success</span></code> flag. Rally simply counts how often this flag is <code class="docutils literal notranslate"><span class="pre">true</span></code> and <code class="docutils literal notranslate"><span class="pre">false</span></code> respectively.</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="migrate.html" class="btn btn-neutral float-right" title="Migration Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="metrics.html" class="btn btn-neutral float-left" title="Metrics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Elasticsearch B.V.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

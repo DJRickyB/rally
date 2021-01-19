@@ -1,0 +1,356 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Quickstart &mdash; Rally 2.0.4.dev0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="install.html" />
+    <link rel="prev" title="Rally 2.0.4.dev0" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Rally
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started with Rally</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#install">Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run-your-first-race">Run your first race</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Running Rally with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="race.html">Run a Benchmark: Races</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tournament.html">Compare Results: Tournaments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cluster_management.html">Setting up a Cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recipes.html">Tips and Tricks</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Extending Rally</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="adding_tracks.html">Define Custom Workloads: Tracks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">Developing Rally</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Elasticsearch Version Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_line_reference.html">Command Line Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="offline.html">Offline Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="track.html">Track Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="car.html">Configure Elasticsearch: Cars</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elasticsearch_plugins.html">Using Elasticsearch Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="telemetry.html">Telemetry Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rally_daemon.html">Rally Daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipelines.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="summary_report.html">Summary Report</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Additional Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="migrate.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Community Resources</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Rally</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+    <ul class="wy-breadcrumbs">
+        
+        <li><a href="index.html">Docs</a> &raquo;</li>
+        
+        <li>Quickstart</li>
+        
+        
+        <li class="wy-breadcrumbs-aside">
+            
+            
+            <a href="_sources/quickstart.rst.txt" rel="nofollow"> View page source</a>
+            
+            
+        </li>
+        
+    </ul>
+
+    
+    <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="quickstart">
+<h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
+<p>Rally is developed for Unix and is actively tested on Linux and MacOS. Rally supports <a class="reference external" href="http://esrally.readthedocs.io/en/stable/recipes.html#benchmarking-an-existing-cluster">benchmarking Elasticsearch clusters running on Windows</a> but Rally itself needs to be installed on machines running Unix.</p>
+<div class="section" id="install">
+<h2>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
+<p>Install Python 3.8+ including <code class="docutils literal notranslate"><span class="pre">pip3</span></code>, git 1.9+ and an <a class="reference external" href="https://www.elastic.co/support/matrix#matrix_jvm">appropriate JDK to run Elasticsearch</a> Be sure that <code class="docutils literal notranslate"><span class="pre">JAVA_HOME</span></code> points to that JDK. Then run the following command, optionally prefixed by <code class="docutils literal notranslate"><span class="pre">sudo</span></code> if necessary:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip3</span> <span class="n">install</span> <span class="n">esrally</span>
+</pre></div>
+</div>
+<p>If you have any trouble or need more detailed instructions, look in the <a class="reference internal" href="install.html"><span class="doc">detailed installation guide</span></a>.</p>
+</div>
+<div class="section" id="run-your-first-race">
+<h2>Run your first race<a class="headerlink" href="#run-your-first-race" title="Permalink to this headline">¶</a></h2>
+<p>Now we’re ready to run our first <a class="reference internal" href="glossary.html"><span class="doc">race</span></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">esrally</span> <span class="o">--</span><span class="n">distribution</span><span class="o">-</span><span class="n">version</span><span class="o">=</span><span class="mf">6.5</span><span class="o">.</span><span class="mi">3</span>
+</pre></div>
+</div>
+<p>This will download Elasticsearch 6.5.3 and run Rally’s default <a class="reference internal" href="glossary.html"><span class="doc">track</span></a> - the <a class="reference external" href="https://github.com/elastic/rally-tracks/tree/master/geonames">geonames track</a> - against it. After the race, a <a class="reference internal" href="summary_report.html"><span class="doc">summary report</span></a> is written to the command line::</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>------------------------------------------------------
+    _______             __   _____
+   / ____(_)___  ____ _/ /  / ___/_________  ________
+  / /_  / / __ \/ __ `/ /   \__ \/ ___/ __ \/ ___/ _ \
+ / __/ / / / / / /_/ / /   ___/ / /__/ /_/ / /  /  __/
+/_/   /_/_/ /_/\__,_/_/   /____/\___/\____/_/   \___/
+------------------------------------------------------
+
+|   Lap |                                                          Metric |                   Task |     Value |    Unit |
+|------:|----------------------------------------------------------------:|-----------------------:|----------:|--------:|
+|   All |                      Cumulative indexing time of primary shards |                        |   54.5878 |     min |
+|   All |              Min cumulative indexing time across primary shards |                        |   10.7519 |     min |
+|   All |           Median cumulative indexing time across primary shards |                        |   10.9219 |     min |
+|   All |              Max cumulative indexing time across primary shards |                        |   11.1754 |     min |
+|   All |             Cumulative indexing throttle time of primary shards |                        |         0 |     min |
+|   All |     Min cumulative indexing throttle time across primary shards |                        |         0 |     min |
+|   All |  Median cumulative indexing throttle time across primary shards |                        |         0 |     min |
+|   All |     Max cumulative indexing throttle time across primary shards |                        |         0 |     min |
+|   All |                         Cumulative merge time of primary shards |                        |   20.4128 |     min |
+|   All |                        Cumulative merge count of primary shards |                        |       136 |         |
+|   All |                 Min cumulative merge time across primary shards |                        |   3.82548 |     min |
+|   All |              Median cumulative merge time across primary shards |                        |    4.1088 |     min |
+|   All |                 Max cumulative merge time across primary shards |                        |   4.38148 |     min |
+|   All |                Cumulative merge throttle time of primary shards |                        |   1.17975 |     min |
+|   All |        Min cumulative merge throttle time across primary shards |                        |    0.1169 |     min |
+|   All |     Median cumulative merge throttle time across primary shards |                        |   0.26585 |     min |
+|   All |        Max cumulative merge throttle time across primary shards |                        |  0.291033 |     min |
+|   All |                       Cumulative refresh time of primary shards |                        |    7.0317 |     min |
+|   All |                      Cumulative refresh count of primary shards |                        |       420 |         |
+|   All |               Min cumulative refresh time across primary shards |                        |   1.37088 |     min |
+|   All |            Median cumulative refresh time across primary shards |                        |    1.4076 |     min |
+|   All |               Max cumulative refresh time across primary shards |                        |   1.43343 |     min |
+|   All |                         Cumulative flush time of primary shards |                        |  0.599417 |     min |
+|   All |                        Cumulative flush count of primary shards |                        |        10 |         |
+|   All |                 Min cumulative flush time across primary shards |                        | 0.0946333 |     min |
+|   All |              Median cumulative flush time across primary shards |                        |  0.118767 |     min |
+|   All |                 Max cumulative flush time across primary shards |                        |   0.14145 |     min |
+|   All |                                                Median CPU usage |                        |     284.4 |       % |
+|   All |                                         Total Young Gen GC time |                        |    12.868 |       s |
+|   All |                                        Total Young Gen GC count |                        |        17 |         |
+|   All |                                           Total Old Gen GC time |                        |     3.803 |       s |
+|   All |                                          Total Old Gen GC count |                        |         2 |         |
+|   All |                                                      Store size |                        |   3.17241 |      GB |
+|   All |                                                   Translog size |                        |   2.62736 |      GB |
+|   All |                                                      Index size |                        |   5.79977 |      GB |
+|   All |                                                   Total written |                        |   22.8536 |      GB |
+|   All |                                          Heap used for segments |                        |   18.8885 |      MB |
+|   All |                                        Heap used for doc values |                        | 0.0322647 |      MB |
+|   All |                                             Heap used for terms |                        |   17.7184 |      MB |
+|   All |                                             Heap used for norms |                        | 0.0723877 |      MB |
+|   All |                                            Heap used for points |                        |  0.277171 |      MB |
+|   All |                                     Heap used for stored fields |                        |  0.788307 |      MB |
+|   All |                                                   Segment count |                        |        94 |         |
+|   All |                                                  Min Throughput |           index-append |   38089.5 |  docs/s |
+|   All |                                               Median Throughput |           index-append |   38613.9 |  docs/s |
+|   All |                                                  Max Throughput |           index-append |   40693.3 |  docs/s |
+|   All |                                         50th percentile latency |           index-append |   803.417 |      ms |
+|   All |                                         90th percentile latency |           index-append |    1913.7 |      ms |
+|   All |                                         99th percentile latency |           index-append |   3591.23 |      ms |
+|   All |                                       99.9th percentile latency |           index-append |   6176.23 |      ms |
+|   All |                                        100th percentile latency |           index-append |   6642.97 |      ms |
+|   All |                                    50th percentile service time |           index-append |   803.417 |      ms |
+|   All |                                    90th percentile service time |           index-append |    1913.7 |      ms |
+|   All |                                    99th percentile service time |           index-append |   3591.23 |      ms |
+|   All |                                  99.9th percentile service time |           index-append |   6176.23 |      ms |
+|   All |                                   100th percentile service time |           index-append |   6642.97 |      ms |
+|   All |                                                      error rate |           index-append |         0 |       % |
+|   All |                                                            ...  |                    ... |       ... |     ... |
+|   All |                                                            ...  |                    ... |       ... |     ... |
+|   All |                                                  Min Throughput | large_prohibited_terms |         2 |   ops/s |
+|   All |                                               Median Throughput | large_prohibited_terms |         2 |   ops/s |
+|   All |                                                  Max Throughput | large_prohibited_terms |         2 |   ops/s |
+|   All |                                         50th percentile latency | large_prohibited_terms |   344.429 |      ms |
+|   All |                                         90th percentile latency | large_prohibited_terms |   353.187 |      ms |
+|   All |                                         99th percentile latency | large_prohibited_terms |    377.22 |      ms |
+|   All |                                        100th percentile latency | large_prohibited_terms |   392.918 |      ms |
+|   All |                                    50th percentile service time | large_prohibited_terms |   341.177 |      ms |
+|   All |                                    90th percentile service time | large_prohibited_terms |   349.979 |      ms |
+|   All |                                    99th percentile service time | large_prohibited_terms |   374.958 |      ms |
+|   All |                                   100th percentile service time | large_prohibited_terms |    388.62 |      ms |
+|   All |                                                      error rate | large_prohibited_terms |         0 |       % |
+
+
+----------------------------------
+[INFO] SUCCESS (took 1862 seconds)
+----------------------------------
+</pre></div>
+</div>
+</div>
+<div class="section" id="next-steps">
+<h2>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
+<p>Now you can check <a class="reference internal" href="race.html"><span class="doc">how to run benchmarks</span></a>, get a better understanding how to interpret the numbers in the <a class="reference internal" href="summary_report.html"><span class="doc">summary report</span></a>, <a class="reference internal" href="configuration.html"><span class="doc">configure</span></a> Rally to better suit your needs or start to <a class="reference internal" href="adding_tracks.html"><span class="doc">create your own tracks</span></a>. Be sure to check also some <a class="reference internal" href="recipes.html"><span class="doc">tips and tricks</span></a> to help you understand how to solve specific problems in Rally.</p>
+<p>Also run <code class="docutils literal notranslate"><span class="pre">esrally</span> <span class="pre">--help</span></code> to see what options are available and keep the <a class="reference internal" href="command_line_reference.html"><span class="doc">command line reference</span></a> handy for more detailed explanations of each option.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="install.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Rally 2.0.4.dev0" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Elasticsearch B.V.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

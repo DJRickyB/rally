@@ -1,0 +1,388 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Metrics &mdash; Rally 2.0.4.dev0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Summary Report" href="summary_report.html" />
+    <link rel="prev" title="Pipelines" href="pipelines.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Rally
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started with Rally</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Running Rally with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="race.html">Run a Benchmark: Races</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tournament.html">Compare Results: Tournaments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cluster_management.html">Setting up a Cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recipes.html">Tips and Tricks</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Extending Rally</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="adding_tracks.html">Define Custom Workloads: Tracks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">Developing Rally</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Elasticsearch Version Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_line_reference.html">Command Line Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="offline.html">Offline Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="track.html">Track Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="car.html">Configure Elasticsearch: Cars</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elasticsearch_plugins.html">Using Elasticsearch Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="telemetry.html">Telemetry Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rally_daemon.html">Rally Daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipelines.html">Pipelines</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Metrics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#metrics-records">Metrics Records</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#environment">environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#track-track-params-challenge-car">track, track-params, challenge, car</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sample-type">sample-type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#race-timestamp">race-timestamp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#race-id">race-id</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#timestamp">&#64;timestamp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#relative-time">relative-time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#name-value-unit">name, value, unit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#task-operation-operation-type">task, operation, operation-type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#meta">meta</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#metric-keys">Metric Keys</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="summary_report.html">Summary Report</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Additional Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="migrate.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Community Resources</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Rally</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+    <ul class="wy-breadcrumbs">
+        
+        <li><a href="index.html">Docs</a> &raquo;</li>
+        
+        <li>Metrics</li>
+        
+        
+        <li class="wy-breadcrumbs-aside">
+            
+            
+            <a href="_sources/metrics.rst.txt" rel="nofollow"> View page source</a>
+            
+            
+        </li>
+        
+    </ul>
+
+    
+    <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="metrics">
+<h1>Metrics<a class="headerlink" href="#metrics" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="metrics-records">
+<h2>Metrics Records<a class="headerlink" href="#metrics-records" title="Permalink to this headline">¶</a></h2>
+<p>At the end of a race, Rally stores all metrics records in its metrics store, which is a dedicated Elasticsearch cluster. Rally stores the metrics in the indices <code class="docutils literal notranslate"><span class="pre">rally-metrics-*</span></code>. It will create a new index for each month.</p>
+<p>Here is a typical metrics record:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+      <span class="s2">&quot;environment&quot;</span><span class="p">:</span> <span class="s2">&quot;nightly&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;race-timestamp&quot;</span><span class="p">:</span> <span class="s2">&quot;20160421T042749Z&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;race-id&quot;</span><span class="p">:</span> <span class="s2">&quot;6ebc6e53-ee20-4b0c-99b4-09697987e9f4&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;@timestamp&quot;</span><span class="p">:</span> <span class="mi">1461213093093</span><span class="p">,</span>
+      <span class="s2">&quot;relative-time&quot;</span><span class="p">:</span> <span class="mi">10507328</span><span class="p">,</span>
+      <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="s2">&quot;geonames&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;track-params&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;shard-count&quot;</span><span class="p">:</span> <span class="mi">3</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;challenge&quot;</span><span class="p">:</span> <span class="s2">&quot;append-no-conflicts&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;car&quot;</span><span class="p">:</span> <span class="s2">&quot;defaults&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;sample-type&quot;</span><span class="p">:</span> <span class="s2">&quot;normal&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;throughput&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mi">27385</span><span class="p">,</span>
+      <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="s2">&quot;docs/s&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;task&quot;</span><span class="p">:</span> <span class="s2">&quot;index-append-no-conflicts&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="s2">&quot;index-append-no-conflicts&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;Index&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;cpu_physical_cores&quot;</span><span class="p">:</span> <span class="mi">36</span><span class="p">,</span>
+        <span class="s2">&quot;cpu_logical_cores&quot;</span><span class="p">:</span> <span class="mi">72</span><span class="p">,</span>
+        <span class="s2">&quot;cpu_model&quot;</span><span class="p">:</span> <span class="s2">&quot;Intel(R) Xeon(R) CPU E5-2699 v3 @ 2.30GHz&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;os_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Linux&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;os_version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.19.0-21-generic&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;host_name&quot;</span><span class="p">:</span> <span class="s2">&quot;beast2&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;node_name&quot;</span><span class="p">:</span> <span class="s2">&quot;rally-node0&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source_revision&quot;</span><span class="p">:</span> <span class="s2">&quot;a6c0a81&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;distribution_version&quot;</span><span class="p">:</span> <span class="s2">&quot;5.0.0-SNAPSHOT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tag_reference&quot;</span><span class="p">:</span> <span class="s2">&quot;Github ticket 1234&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>As you can see, we do not only store the metrics name and its value but lots of meta-information. This allows you to create different visualizations and reports in Kibana.</p>
+<p>Below we describe each field in more detail.</p>
+<div class="section" id="environment">
+<h3>environment<a class="headerlink" href="#environment" title="Permalink to this headline">¶</a></h3>
+<p>The environment describes the origin of a metric record. You define this value in the initial configuration of Rally. The intention is to clearly separate different benchmarking environments but still allow to store them in the same index.</p>
+</div>
+<div class="section" id="track-track-params-challenge-car">
+<h3>track, track-params, challenge, car<a class="headerlink" href="#track-track-params-challenge-car" title="Permalink to this headline">¶</a></h3>
+<p>This is the track, challenge and car for which the metrics record has been produced. If the user has provided track parameters with the command line parameter, <code class="docutils literal notranslate"><span class="pre">--track-params</span></code>, each of them is listed here too.</p>
+<p>If you specify a car with mixins, it will be stored as one string separated with “+”, e.g. <code class="docutils literal notranslate"><span class="pre">--car=&quot;4gheap,ea&quot;</span></code> will be stored as <code class="docutils literal notranslate"><span class="pre">4gheap+ea</span></code> in the metrics store in order to simplify querying in Kibana. Check the <a class="reference internal" href="car.html"><span class="doc">cars</span></a> documentation for more details.</p>
+</div>
+<div class="section" id="sample-type">
+<h3>sample-type<a class="headerlink" href="#sample-type" title="Permalink to this headline">¶</a></h3>
+<p>Rally can be configured to run for a certain period in warmup mode. In this mode samples will be collected with the <code class="docutils literal notranslate"><span class="pre">sample-type</span></code> “warmup” but only “normal” samples are considered for the results that reported.</p>
+</div>
+<div class="section" id="race-timestamp">
+<h3>race-timestamp<a class="headerlink" href="#race-timestamp" title="Permalink to this headline">¶</a></h3>
+<p>A constant timestamp (always in UTC) that is determined when Rally is invoked.</p>
+</div>
+<div class="section" id="race-id">
+<h3>race-id<a class="headerlink" href="#race-id" title="Permalink to this headline">¶</a></h3>
+<p>A UUID that changes on every invocation of Rally. It is intended to group all samples of a benchmarking run.</p>
+</div>
+<div class="section" id="timestamp">
+<h3>&#64;timestamp<a class="headerlink" href="#timestamp" title="Permalink to this headline">¶</a></h3>
+<p>The timestamp in milliseconds since epoch determined when the sample was taken.</p>
+</div>
+<div class="section" id="relative-time">
+<h3>relative-time<a class="headerlink" href="#relative-time" title="Permalink to this headline">¶</a></h3>
+<p>The relative time in microseconds since the start of the benchmark. This is useful for comparing time-series graphs over multiple races, e.g. you might want to compare the indexing throughput over time across multiple races. Obviously, they should always start at the same (relative) point in time and absolute timestamps are useless for that.</p>
+</div>
+<div class="section" id="name-value-unit">
+<h3>name, value, unit<a class="headerlink" href="#name-value-unit" title="Permalink to this headline">¶</a></h3>
+<p>This is the actual metric name and value with an optional unit (counter metrics don’t have a unit). Depending on the nature of a metric, it is either sampled periodically by Rally, e.g. the CPU utilization or query latency or just measured once like the final size of the index.</p>
+</div>
+<div class="section" id="task-operation-operation-type">
+<h3>task, operation, operation-type<a class="headerlink" href="#task-operation-operation-type" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">task</span></code> is the name of the task (as specified in the track file) that ran when this metric has been gathered. Most of the time, this value will be identical to the operation’s name but if the same operation is ran multiple times, the task name will be unique whereas the operation may occur multiple times. It will only be set for metrics with name <code class="docutils literal notranslate"><span class="pre">latency</span></code> and <code class="docutils literal notranslate"><span class="pre">throughput</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">operation</span></code> is the name of the operation (as specified in the track file) that ran when this metric has been gathered. It will only be set for metrics with name <code class="docutils literal notranslate"><span class="pre">latency</span></code> and <code class="docutils literal notranslate"><span class="pre">throughput</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">operation-type</span></code> is the more abstract type of an operation. During a race, multiple queries may be issued which are different <code class="docutils literal notranslate"><span class="pre">operation``s</span> <span class="pre">but</span> <span class="pre">they</span> <span class="pre">all</span> <span class="pre">have</span> <span class="pre">the</span> <span class="pre">same</span> <span class="pre">``operation-type</span></code> (Search). For some metrics, only the operation type matters, e.g. it does not make any sense to attribute the CPU usage to an individual query but instead attribute it just to the operation type.</p>
+</div>
+<div class="section" id="meta">
+<h3>meta<a class="headerlink" href="#meta" title="Permalink to this headline">¶</a></h3>
+<p>Rally captures also some meta information for each metric record:</p>
+<ul class="simple">
+<li><p>CPU info: number of physical and logical cores and also the model name</p></li>
+<li><p>OS info: OS name and version</p></li>
+<li><p>Host name</p></li>
+<li><p>Node name: If Rally provisions the cluster, it will choose a unique name for each node.</p></li>
+<li><p>Source revision: We always record the git hash of the version of Elasticsearch that is benchmarked. This is even done if you benchmark an official binary release.</p></li>
+<li><p>Distribution version: We always record the distribution version of Elasticsearch that is benchmarked. This is even done if you benchmark a source release.</p></li>
+<li><p>Custom tag: You can define one custom tag with the command line flag <code class="docutils literal notranslate"><span class="pre">--user-tag</span></code>. The tag is prefixed by <code class="docutils literal notranslate"><span class="pre">tag_</span></code> in order to avoid accidental clashes with Rally internal tags.</p></li>
+<li><p>Operation-specific: The optional substructure <code class="docutils literal notranslate"><span class="pre">operation</span></code> contains additional information depending on the type of operation. For bulk requests, this may be the number of documents or for searches the number of hits.</p></li>
+</ul>
+<p>Note that depending on the “level” of a metric record, certain meta information might be missing. It makes no sense to record host level meta info for a cluster wide metric record, like a query latency (as it cannot be attributed to a single node).</p>
+</div>
+</div>
+<div class="section" id="metric-keys">
+<h2>Metric Keys<a class="headerlink" href="#metric-keys" title="Permalink to this headline">¶</a></h2>
+<p>Rally stores the following metrics:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">latency</span></code>: Time period between submission of a request and receiving the complete response. It also includes wait time, i.e. the time the request spends waiting until it is ready to be serviced by Elasticsearch.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">service_time</span></code> Time period between start of request processing and receiving the complete response. This metric can easily be mixed up with <code class="docutils literal notranslate"><span class="pre">latency</span></code> but does not include waiting time. This is what most load testing tools refer to as “latency” (although it is incorrect).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">throughput</span></code>: Number of operations that Elasticsearch can perform within a certain time period, usually per second. See the <a class="reference internal" href="track.html"><span class="doc">track reference</span></a> for a definition of what is meant by one “operation” for each operation type.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">disk_io_write_bytes</span></code>: number of bytes that have been written to disk during the benchmark. On Linux this metric reports only the bytes that have been written by Elasticsearch, on Mac OS X it reports the number of bytes written by all processes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">disk_io_read_bytes</span></code>: number of bytes that have been read from disk during the benchmark. The same caveats apply on Mac OS X as for <code class="docutils literal notranslate"><span class="pre">disk_io_write_bytes</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">node_startup_time</span></code>: The time in seconds it took from process start until the node is up.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">node_total_young_gen_gc_time</span></code>: The total runtime of the young generation garbage collector across the whole cluster as reported by the node stats API.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">node_total_young_gen_gc_count</span></code>: The total number of young generation garbage collections across the whole cluster as reported by the node stats API.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">node_total_old_gen_gc_time</span></code>: The total runtime of the old generation garbage collector across the whole cluster as reported by the node stats API.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">node_total_old_gen_gc_count</span></code>: The total number of old generation garbage collections across the whole cluster as reported by the node stats API.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">segments_count</span></code>: Total number of segments as reported by the indices stats API.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">segments_memory_in_bytes</span></code>: Number of bytes used for segments as reported by the indices stats API.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">segments_doc_values_memory_in_bytes</span></code>: Number of bytes used for doc values as reported by the indices stats API.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">segments_stored_fields_memory_in_bytes</span></code>: Number of bytes used for stored fields as reported by the indices stats API.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">segments_terms_memory_in_bytes</span></code>: Number of bytes used for terms as reported by the indices stats API.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">segments_norms_memory_in_bytes</span></code>: Number of bytes used for norms as reported by the indices stats API.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">segments_points_memory_in_bytes</span></code>: Number of bytes used for points as reported by the indices stats API.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">merges_total_time</span></code>: Cumulative runtime of merges of primary shards, as reported by the indices stats API. Note that this is not Wall clock time (i.e. if M merge threads ran for N minutes, we will report M * N minutes, not N minutes). These metrics records also have a <code class="docutils literal notranslate"><span class="pre">per-shard</span></code> property that contains the times across primary shards in an array.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">merges_total_count</span></code>: Cumulative number of merges of primary shards, as reported by indices stats API under <code class="docutils literal notranslate"><span class="pre">_all/primaries</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">merges_total_throttled_time</span></code>: Cumulative time within merges have been throttled as reported by the indices stats API. Note that this is not Wall clock time.  These metrics records also have a <code class="docutils literal notranslate"><span class="pre">per-shard</span></code> property that contains the times across primary shards in an array.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">indexing_total_time</span></code>: Cumulative time used for indexing of primary shards, as reported by the indices stats API. Note that this is not Wall clock time.  These metrics records also have a <code class="docutils literal notranslate"><span class="pre">per-shard</span></code> property that contains the times across primary shards in an array.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">indexing_throttle_time</span></code>: Cumulative time that indexing has been throttled, as reported by the indices stats API. Note that this is not Wall clock time.  These metrics records also have a <code class="docutils literal notranslate"><span class="pre">per-shard</span></code> property that contains the times across primary shards in an array.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">refresh_total_time</span></code>: Cumulative time used for index refresh of primary shards, as reported by the indices stats API. Note that this is not Wall clock time.  These metrics records also have a <code class="docutils literal notranslate"><span class="pre">per-shard</span></code> property that contains the times across primary shards in an array.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">refresh_total_count</span></code>: Cumulative number of refreshes of primary shards, as reported by indices stats API under <code class="docutils literal notranslate"><span class="pre">_all/primaries</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">flush_total_time</span></code>: Cumulative time used for index flush of primary shards, as reported by the indices stats API. Note that this is not Wall clock time.  These metrics records also have a <code class="docutils literal notranslate"><span class="pre">per-shard</span></code> property that contains the times across primary shards in an array.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">flush_total_count</span></code>: Cumulative number of flushes of primary shards, as reported by indices stats API under <code class="docutils literal notranslate"><span class="pre">_all/primaries</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">final_index_size_bytes</span></code>: Final resulting index size on the file system after all nodes have been shutdown at the end of the benchmark. It includes all files in the nodes’ data directories (actual index files and translog).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">store_size_in_bytes</span></code>: The size in bytes of the index (excluding the translog), as reported by the indices stats API.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">translog_size_in_bytes</span></code>: The size in bytes of the translog, as reported by the indices stats API.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ml_processing_time</span></code>: A structure containing the minimum, mean, median and maximum bucket processing time in milliseconds per machine learning job. These metrics are only available if a machine learning job has been created in the respective benchmark.</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="summary_report.html" class="btn btn-neutral float-right" title="Summary Report" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pipelines.html" class="btn btn-neutral float-left" title="Pipelines" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Elasticsearch B.V.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

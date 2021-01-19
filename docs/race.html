@@ -1,0 +1,361 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Run a Benchmark: Races &mdash; Rally 2.0.4.dev0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Compare Results: Tournaments" href="tournament.html" />
+    <link rel="prev" title="Running Rally with Docker" href="docker.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Rally
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started with Rally</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Running Rally with Docker</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Run a Benchmark: Races</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#definition">Definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#list-tracks">List Tracks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#starting-a-race">Starting a Race</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tournament.html">Compare Results: Tournaments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cluster_management.html">Setting up a Cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recipes.html">Tips and Tricks</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Extending Rally</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="adding_tracks.html">Define Custom Workloads: Tracks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">Developing Rally</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Elasticsearch Version Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_line_reference.html">Command Line Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="offline.html">Offline Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="track.html">Track Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="car.html">Configure Elasticsearch: Cars</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elasticsearch_plugins.html">Using Elasticsearch Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="telemetry.html">Telemetry Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rally_daemon.html">Rally Daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipelines.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="summary_report.html">Summary Report</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Additional Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="migrate.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Community Resources</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Rally</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+    <ul class="wy-breadcrumbs">
+        
+        <li><a href="index.html">Docs</a> &raquo;</li>
+        
+        <li>Run a Benchmark: Races</li>
+        
+        
+        <li class="wy-breadcrumbs-aside">
+            
+            
+            <a href="_sources/race.rst.txt" rel="nofollow"> View page source</a>
+            
+            
+        </li>
+        
+    </ul>
+
+    
+    <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="run-a-benchmark-races">
+<h1>Run a Benchmark: Races<a class="headerlink" href="#run-a-benchmark-races" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="definition">
+<h2>Definition<a class="headerlink" href="#definition" title="Permalink to this headline">¶</a></h2>
+<p>A “race” in Rally is the execution of a benchmarking experiment. You can choose different benchmarking scenarios (called <a class="reference internal" href="track.html"><span class="doc">tracks</span></a>) for your benchmarks.</p>
+</div>
+<div class="section" id="list-tracks">
+<h2>List Tracks<a class="headerlink" href="#list-tracks" title="Permalink to this headline">¶</a></h2>
+<p>Start by finding out which tracks are available:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">esrally</span> <span class="nb">list</span> <span class="n">tracks</span>
+</pre></div>
+</div>
+<p>This will show the following list:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Name</span>        <span class="n">Description</span>                                          <span class="n">Documents</span>  <span class="n">Compressed</span> <span class="n">Size</span>    <span class="n">Uncompressed</span> <span class="n">Size</span>    <span class="n">Default</span> <span class="n">Challenge</span>        <span class="n">All</span> <span class="n">Challenges</span>
+<span class="o">----------</span>  <span class="o">-------------------------------------------------</span>  <span class="o">-----------</span>  <span class="o">-----------------</span>  <span class="o">-------------------</span>  <span class="o">-----------------------</span>  <span class="o">---------------------------</span>
+<span class="n">geonames</span>    <span class="n">POIs</span> <span class="kn">from</span> <span class="nn">Geonames</span>                                    <span class="mi">11396505</span>  <span class="mf">252.4</span> <span class="n">MB</span>           <span class="mf">3.3</span> <span class="n">GB</span>               <span class="n">append</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">conflicts</span>      <span class="n">append</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">conflicts</span><span class="p">,</span><span class="n">appe</span><span class="o">...</span>
+<span class="n">geopoint</span>    <span class="n">Point</span> <span class="n">coordinates</span> <span class="kn">from</span> <span class="nn">PlanetOSM</span>                      <span class="mi">60844404</span>  <span class="mf">481.9</span> <span class="n">MB</span>           <span class="mf">2.3</span> <span class="n">GB</span>               <span class="n">append</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">conflicts</span>      <span class="n">append</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">conflicts</span><span class="p">,</span><span class="n">appe</span><span class="o">...</span>
+<span class="n">http_logs</span>   <span class="n">HTTP</span> <span class="n">server</span> <span class="n">log</span> <span class="n">data</span>                                 <span class="mi">247249096</span>  <span class="mf">1.2</span> <span class="n">GB</span>             <span class="mf">31.1</span> <span class="n">GB</span>              <span class="n">append</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">conflicts</span>      <span class="n">append</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">conflicts</span><span class="p">,</span><span class="n">appe</span><span class="o">...</span>
+<span class="n">nested</span>      <span class="n">StackOverflow</span> <span class="n">Q</span><span class="o">&amp;</span><span class="n">A</span> <span class="n">stored</span> <span class="k">as</span> <span class="n">nested</span> <span class="n">docs</span>               <span class="mi">11203029</span>  <span class="mf">663.1</span> <span class="n">MB</span>           <span class="mf">3.4</span> <span class="n">GB</span>               <span class="n">nested</span><span class="o">-</span><span class="n">search</span><span class="o">-</span><span class="n">challenge</span>  <span class="n">nested</span><span class="o">-</span><span class="n">search</span><span class="o">-</span><span class="n">challenge</span><span class="p">,</span><span class="o">...</span>
+<span class="n">noaa</span>        <span class="n">Global</span> <span class="n">daily</span> <span class="n">weather</span> <span class="n">measurements</span> <span class="kn">from</span> <span class="nn">NOAA</span>           <span class="mi">33659481</span>  <span class="mf">947.3</span> <span class="n">MB</span>           <span class="mf">9.0</span> <span class="n">GB</span>               <span class="n">append</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">conflicts</span>      <span class="n">append</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">conflicts</span><span class="p">,</span><span class="n">appe</span><span class="o">...</span>
+<span class="n">nyc_taxis</span>   <span class="n">Taxi</span> <span class="n">rides</span> <span class="ow">in</span> <span class="n">New</span> <span class="n">York</span> <span class="ow">in</span> <span class="mi">2015</span>                       <span class="mi">165346692</span>  <span class="mf">4.5</span> <span class="n">GB</span>             <span class="mf">74.3</span> <span class="n">GB</span>              <span class="n">append</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">conflicts</span>      <span class="n">append</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">conflicts</span><span class="p">,</span><span class="n">appe</span><span class="o">...</span>
+<span class="n">percolator</span>  <span class="n">Percolator</span> <span class="n">benchmark</span> <span class="n">based</span> <span class="n">on</span> <span class="n">AOL</span> <span class="n">queries</span>              <span class="mi">2000000</span>  <span class="mf">102.7</span> <span class="n">kB</span>           <span class="mf">104.9</span> <span class="n">MB</span>             <span class="n">append</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">conflicts</span>      <span class="n">append</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">conflicts</span><span class="p">,</span><span class="n">appe</span><span class="o">...</span>
+<span class="n">pmc</span>         <span class="n">Full</span> <span class="n">text</span> <span class="n">benchmark</span> <span class="k">with</span> <span class="n">academic</span> <span class="n">papers</span> <span class="kn">from</span> <span class="nn">PMC</span>       <span class="mi">574199</span>  <span class="mf">5.5</span> <span class="n">GB</span>             <span class="mf">21.7</span> <span class="n">GB</span>              <span class="n">append</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">conflicts</span>      <span class="n">append</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">conflicts</span><span class="p">,</span><span class="n">appe</span><span class="o">...</span>
+</pre></div>
+</div>
+<p>The first two columns show the name and a description of each track. A track also specifies one or more challenges which describe the workload to run.</p>
+</div>
+<div class="section" id="starting-a-race">
+<h2>Starting a Race<a class="headerlink" href="#starting-a-race" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Do not run Rally as root as Elasticsearch will refuse to start with root privileges.</p>
+</div>
+<p>To start a race you have to define the track and challenge to run. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">esrally</span> <span class="o">--</span><span class="n">distribution</span><span class="o">-</span><span class="n">version</span><span class="o">=</span><span class="mf">6.0</span><span class="o">.</span><span class="mi">0</span> <span class="o">--</span><span class="n">track</span><span class="o">=</span><span class="n">geopoint</span> <span class="o">--</span><span class="n">challenge</span><span class="o">=</span><span class="n">append</span><span class="o">-</span><span class="n">fast</span><span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">conflicts</span>
+</pre></div>
+</div>
+<p>Rally will then start racing on this track. If you have never started Rally before, it should look similar to the following output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>dm@io:~ $ esrally --distribution-version=6.0.0 --track=geopoint --challenge=append-fast-with-conflicts
+
+    ____        ____
+   / __ \____ _/ / /_  __
+  / /_/ / __ `/ / / / / /
+ / _, _/ /_/ / / / /_/ /
+/_/ |_|\__,_/_/_/\__, /
+                /____/
+
+[INFO] Racing on track [geopoint], challenge [append-fast-with-conflicts] and car [&#39;defaults&#39;] with version [6.0.0].
+[INFO] Downloading Elasticsearch 6.0.0 ... [OK]
+[INFO] Rally will delete the benchmark candidate after the benchmark
+[INFO] Downloading data from [http://benchmarks.elasticsearch.org.s3.amazonaws.com/corpora/geopoint/documents.json.bz2] (482 MB) to [/Users/dm/.rally/benchmarks/data/geopoint/documents.json.bz2] ... [OK]
+[INFO] Decompressing track data from [/Users/dm/.rally/benchmarks/data/geopoint/documents.json.bz2] to [/Users/dm/.rally/benchmarks/data/geopoint/documents.json] (resulting size: 2.28 GB) ... [OK]
+[INFO] Preparing file offset table for [/Users/dm/.rally/benchmarks/data/geopoint/documents.json] ... [OK]
+Running index-update                                                           [  0% done]
+</pre></div>
+</div>
+<p>The benchmark will take a while to run, so be patient.</p>
+<p>When the race has finished, Rally will show a summary on the command line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">|</span>                          <span class="n">Metric</span> <span class="o">|</span>         <span class="n">Task</span> <span class="o">|</span>     <span class="n">Value</span> <span class="o">|</span>   <span class="n">Unit</span> <span class="o">|</span>
+<span class="o">|--------------------------------</span><span class="p">:</span><span class="o">|-------------</span><span class="p">:</span><span class="o">|----------</span><span class="p">:</span><span class="o">|-------</span><span class="p">:</span><span class="o">|</span>
+<span class="o">|</span>             <span class="n">Total</span> <span class="n">indexing</span> <span class="n">time</span> <span class="o">|</span>              <span class="o">|</span>   <span class="mf">124.712</span> <span class="o">|</span>    <span class="nb">min</span> <span class="o">|</span>
+<span class="o">|</span>                <span class="n">Total</span> <span class="n">merge</span> <span class="n">time</span> <span class="o">|</span>              <span class="o">|</span>   <span class="mf">21.8604</span> <span class="o">|</span>    <span class="nb">min</span> <span class="o">|</span>
+<span class="o">|</span>              <span class="n">Total</span> <span class="n">refresh</span> <span class="n">time</span> <span class="o">|</span>              <span class="o">|</span>   <span class="mf">4.49527</span> <span class="o">|</span>    <span class="nb">min</span> <span class="o">|</span>
+<span class="o">|</span>       <span class="n">Total</span> <span class="n">merge</span> <span class="n">throttle</span> <span class="n">time</span> <span class="o">|</span>              <span class="o">|</span>  <span class="mf">0.120433</span> <span class="o">|</span>    <span class="nb">min</span> <span class="o">|</span>
+<span class="o">|</span>                <span class="n">Median</span> <span class="n">CPU</span> <span class="n">usage</span> <span class="o">|</span>              <span class="o">|</span>     <span class="mf">546.5</span> <span class="o">|</span>      <span class="o">%</span> <span class="o">|</span>
+<span class="o">|</span>         <span class="n">Total</span> <span class="n">Young</span> <span class="n">Gen</span> <span class="n">GC</span> <span class="n">time</span> <span class="o">|</span>              <span class="o">|</span>    <span class="mf">72.078</span> <span class="o">|</span>      <span class="n">s</span> <span class="o">|</span>
+<span class="o">|</span>        <span class="n">Total</span> <span class="n">Young</span> <span class="n">Gen</span> <span class="n">GC</span> <span class="n">count</span> <span class="o">|</span>              <span class="o">|</span>        <span class="mi">43</span> <span class="o">|</span>        <span class="o">|</span>
+<span class="o">|</span>           <span class="n">Total</span> <span class="n">Old</span> <span class="n">Gen</span> <span class="n">GC</span> <span class="n">time</span> <span class="o">|</span>              <span class="o">|</span>     <span class="mf">3.426</span> <span class="o">|</span>      <span class="n">s</span> <span class="o">|</span>
+<span class="o">|</span>          <span class="n">Total</span> <span class="n">Old</span> <span class="n">Gen</span> <span class="n">GC</span> <span class="n">count</span> <span class="o">|</span>              <span class="o">|</span>         <span class="mi">1</span> <span class="o">|</span>        <span class="o">|</span>
+<span class="o">|</span>                      <span class="n">Index</span> <span class="n">size</span> <span class="o">|</span>              <span class="o">|</span>   <span class="mf">2.26661</span> <span class="o">|</span>     <span class="n">GB</span> <span class="o">|</span>
+<span class="o">|</span>                   <span class="n">Total</span> <span class="n">written</span> <span class="o">|</span>              <span class="o">|</span>    <span class="mf">30.083</span> <span class="o">|</span>     <span class="n">GB</span> <span class="o">|</span>
+<span class="o">|</span>          <span class="n">Heap</span> <span class="n">used</span> <span class="k">for</span> <span class="n">segments</span> <span class="o">|</span>              <span class="o">|</span>   <span class="mf">10.7148</span> <span class="o">|</span>     <span class="n">MB</span> <span class="o">|</span>
+<span class="o">|</span>        <span class="n">Heap</span> <span class="n">used</span> <span class="k">for</span> <span class="n">doc</span> <span class="n">values</span> <span class="o">|</span>              <span class="o">|</span> <span class="mf">0.0135536</span> <span class="o">|</span>     <span class="n">MB</span> <span class="o">|</span>
+<span class="o">|</span>             <span class="n">Heap</span> <span class="n">used</span> <span class="k">for</span> <span class="n">terms</span> <span class="o">|</span>              <span class="o">|</span>   <span class="mf">9.22965</span> <span class="o">|</span>     <span class="n">MB</span> <span class="o">|</span>
+<span class="o">|</span>            <span class="n">Heap</span> <span class="n">used</span> <span class="k">for</span> <span class="n">points</span> <span class="o">|</span>              <span class="o">|</span>   <span class="mf">0.78789</span> <span class="o">|</span>     <span class="n">MB</span> <span class="o">|</span>
+<span class="o">|</span>     <span class="n">Heap</span> <span class="n">used</span> <span class="k">for</span> <span class="n">stored</span> <span class="n">fields</span> <span class="o">|</span>              <span class="o">|</span>  <span class="mf">0.683708</span> <span class="o">|</span>     <span class="n">MB</span> <span class="o">|</span>
+<span class="o">|</span>                   <span class="n">Segment</span> <span class="n">count</span> <span class="o">|</span>              <span class="o">|</span>       <span class="mi">115</span> <span class="o">|</span>        <span class="o">|</span>
+<span class="o">|</span>                  <span class="n">Min</span> <span class="n">Throughput</span> <span class="o">|</span> <span class="n">index</span><span class="o">-</span><span class="n">update</span> <span class="o">|</span>   <span class="mf">59210.4</span> <span class="o">|</span> <span class="n">docs</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span>
+<span class="o">|</span>               <span class="n">Median</span> <span class="n">Throughput</span> <span class="o">|</span> <span class="n">index</span><span class="o">-</span><span class="n">update</span> <span class="o">|</span>   <span class="mf">65276.2</span> <span class="o">|</span> <span class="n">docs</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span>
+<span class="o">|</span>                  <span class="n">Max</span> <span class="n">Throughput</span> <span class="o">|</span> <span class="n">index</span><span class="o">-</span><span class="n">update</span> <span class="o">|</span>   <span class="mf">76516.6</span> <span class="o">|</span> <span class="n">docs</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span>
+<span class="o">|</span>       <span class="mf">50.0</span><span class="n">th</span> <span class="n">percentile</span> <span class="n">latency</span> <span class="o">|</span> <span class="n">index</span><span class="o">-</span><span class="n">update</span> <span class="o">|</span>   <span class="mf">556.269</span> <span class="o">|</span>     <span class="n">ms</span> <span class="o">|</span>
+<span class="o">|</span>       <span class="mf">90.0</span><span class="n">th</span> <span class="n">percentile</span> <span class="n">latency</span> <span class="o">|</span> <span class="n">index</span><span class="o">-</span><span class="n">update</span> <span class="o">|</span>   <span class="mf">852.779</span> <span class="o">|</span>     <span class="n">ms</span> <span class="o">|</span>
+<span class="o">|</span>       <span class="mf">99.0</span><span class="n">th</span> <span class="n">percentile</span> <span class="n">latency</span> <span class="o">|</span> <span class="n">index</span><span class="o">-</span><span class="n">update</span> <span class="o">|</span>   <span class="mf">1854.31</span> <span class="o">|</span>     <span class="n">ms</span> <span class="o">|</span>
+<span class="o">|</span>       <span class="mf">99.9</span><span class="n">th</span> <span class="n">percentile</span> <span class="n">latency</span> <span class="o">|</span> <span class="n">index</span><span class="o">-</span><span class="n">update</span> <span class="o">|</span>   <span class="mf">2972.96</span> <span class="o">|</span>     <span class="n">ms</span> <span class="o">|</span>
+<span class="o">|</span>      <span class="mf">99.99</span><span class="n">th</span> <span class="n">percentile</span> <span class="n">latency</span> <span class="o">|</span> <span class="n">index</span><span class="o">-</span><span class="n">update</span> <span class="o">|</span>   <span class="mf">4106.91</span> <span class="o">|</span>     <span class="n">ms</span> <span class="o">|</span>
+<span class="o">|</span>        <span class="mi">100</span><span class="n">th</span> <span class="n">percentile</span> <span class="n">latency</span> <span class="o">|</span> <span class="n">index</span><span class="o">-</span><span class="n">update</span> <span class="o">|</span>   <span class="mf">4542.84</span> <span class="o">|</span>     <span class="n">ms</span> <span class="o">|</span>
+<span class="o">|</span>  <span class="mf">50.0</span><span class="n">th</span> <span class="n">percentile</span> <span class="n">service</span> <span class="n">time</span> <span class="o">|</span> <span class="n">index</span><span class="o">-</span><span class="n">update</span> <span class="o">|</span>   <span class="mf">556.269</span> <span class="o">|</span>     <span class="n">ms</span> <span class="o">|</span>
+<span class="o">|</span>  <span class="mf">90.0</span><span class="n">th</span> <span class="n">percentile</span> <span class="n">service</span> <span class="n">time</span> <span class="o">|</span> <span class="n">index</span><span class="o">-</span><span class="n">update</span> <span class="o">|</span>   <span class="mf">852.779</span> <span class="o">|</span>     <span class="n">ms</span> <span class="o">|</span>
+<span class="o">|</span>  <span class="mf">99.0</span><span class="n">th</span> <span class="n">percentile</span> <span class="n">service</span> <span class="n">time</span> <span class="o">|</span> <span class="n">index</span><span class="o">-</span><span class="n">update</span> <span class="o">|</span>   <span class="mf">1854.31</span> <span class="o">|</span>     <span class="n">ms</span> <span class="o">|</span>
+<span class="o">|</span>  <span class="mf">99.9</span><span class="n">th</span> <span class="n">percentile</span> <span class="n">service</span> <span class="n">time</span> <span class="o">|</span> <span class="n">index</span><span class="o">-</span><span class="n">update</span> <span class="o">|</span>   <span class="mf">2972.96</span> <span class="o">|</span>     <span class="n">ms</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mf">99.99</span><span class="n">th</span> <span class="n">percentile</span> <span class="n">service</span> <span class="n">time</span> <span class="o">|</span> <span class="n">index</span><span class="o">-</span><span class="n">update</span> <span class="o">|</span>   <span class="mf">4106.91</span> <span class="o">|</span>     <span class="n">ms</span> <span class="o">|</span>
+<span class="o">|</span>   <span class="mi">100</span><span class="n">th</span> <span class="n">percentile</span> <span class="n">service</span> <span class="n">time</span> <span class="o">|</span> <span class="n">index</span><span class="o">-</span><span class="n">update</span> <span class="o">|</span>   <span class="mf">4542.84</span> <span class="o">|</span>     <span class="n">ms</span> <span class="o">|</span>
+<span class="o">|</span>                  <span class="n">Min</span> <span class="n">Throughput</span> <span class="o">|</span>  <span class="n">force</span><span class="o">-</span><span class="n">merge</span> <span class="o">|</span>  <span class="mf">0.221067</span> <span class="o">|</span>  <span class="n">ops</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span>
+<span class="o">|</span>               <span class="n">Median</span> <span class="n">Throughput</span> <span class="o">|</span>  <span class="n">force</span><span class="o">-</span><span class="n">merge</span> <span class="o">|</span>  <span class="mf">0.221067</span> <span class="o">|</span>  <span class="n">ops</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span>
+<span class="o">|</span>                  <span class="n">Max</span> <span class="n">Throughput</span> <span class="o">|</span>  <span class="n">force</span><span class="o">-</span><span class="n">merge</span> <span class="o">|</span>  <span class="mf">0.221067</span> <span class="o">|</span>  <span class="n">ops</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span>
+<span class="o">|</span>        <span class="mi">100</span><span class="n">th</span> <span class="n">percentile</span> <span class="n">latency</span> <span class="o">|</span>  <span class="n">force</span><span class="o">-</span><span class="n">merge</span> <span class="o">|</span>   <span class="mf">4523.52</span> <span class="o">|</span>     <span class="n">ms</span> <span class="o">|</span>
+<span class="o">|</span>   <span class="mi">100</span><span class="n">th</span> <span class="n">percentile</span> <span class="n">service</span> <span class="n">time</span> <span class="o">|</span>  <span class="n">force</span><span class="o">-</span><span class="n">merge</span> <span class="o">|</span>   <span class="mf">4523.52</span> <span class="o">|</span>     <span class="n">ms</span> <span class="o">|</span>
+
+
+<span class="o">----------------------------------</span>
+<span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="n">SUCCESS</span> <span class="p">(</span><span class="n">took</span> <span class="mi">1624</span> <span class="n">seconds</span><span class="p">)</span>
+<span class="o">----------------------------------</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can save this report also to a file by using <code class="docutils literal notranslate"><span class="pre">--report-file=/path/to/your/report.md</span></code> and save it as CSV with <code class="docutils literal notranslate"><span class="pre">--report-format=csv</span></code>.</p>
+</div>
+<p>What did Rally just do?</p>
+<ul class="simple">
+<li><p>It downloaded and started Elasticsearch 6.0.0</p></li>
+<li><p>It downloaded the relevant data for the geopoint track</p></li>
+<li><p>It ran the actual benchmark</p></li>
+<li><p>And finally it reported the results</p></li>
+</ul>
+<p>If you are curious about the operations that Rally has run, inspect the <a class="reference external" href="https://github.com/elastic/rally-tracks/blob/5/geopoint/track.json">geopoint track specification</a> or start to <a class="reference internal" href="adding_tracks.html"><span class="doc">write your own tracks</span></a>. You can also configure Rally to <a class="reference internal" href="configuration.html"><span class="doc">store all data samples in Elasticsearch</span></a> so you can analyze the results with Kibana. Finally, you may want to <a class="reference internal" href="car.html"><span class="doc">change the Elasticsearch configuration</span></a>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tournament.html" class="btn btn-neutral float-right" title="Compare Results: Tournaments" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="docker.html" class="btn btn-neutral float-left" title="Running Rally with Docker" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Elasticsearch B.V.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

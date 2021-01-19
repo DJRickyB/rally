@@ -1,0 +1,304 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Offline Usage &mdash; Rally 2.0.4.dev0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Track Reference" href="track.html" />
+    <link rel="prev" title="Configuration" href="configuration.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Rally
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started with Rally</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Running Rally with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="race.html">Run a Benchmark: Races</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tournament.html">Compare Results: Tournaments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cluster_management.html">Setting up a Cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recipes.html">Tips and Tricks</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Extending Rally</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="adding_tracks.html">Define Custom Workloads: Tracks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">Developing Rally</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Elasticsearch Version Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_line_reference.html">Command Line Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Offline Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation-and-configuration">Installation and Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#command-line-usage">Command Line Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-tracks">Using tracks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-cars">Using cars</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="track.html">Track Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="car.html">Configure Elasticsearch: Cars</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elasticsearch_plugins.html">Using Elasticsearch Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="telemetry.html">Telemetry Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rally_daemon.html">Rally Daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipelines.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="summary_report.html">Summary Report</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Additional Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="migrate.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Community Resources</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Rally</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+    <ul class="wy-breadcrumbs">
+        
+        <li><a href="index.html">Docs</a> &raquo;</li>
+        
+        <li>Offline Usage</li>
+        
+        
+        <li class="wy-breadcrumbs-aside">
+            
+            
+            <a href="_sources/offline.rst.txt" rel="nofollow"> View page source</a>
+            
+            
+        </li>
+        
+    </ul>
+
+    
+    <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="offline-usage">
+<h1>Offline Usage<a class="headerlink" href="#offline-usage" title="Permalink to this headline">¶</a></h1>
+<p>In some corporate environments servers do not have Internet access. You can still use Rally in such environments and this page summarizes all information that you need to get started.</p>
+<div class="section" id="installation-and-configuration">
+<h2>Installation and Configuration<a class="headerlink" href="#installation-and-configuration" title="Permalink to this headline">¶</a></h2>
+<p>We provide a special offline installation package. Follow the <a class="reference internal" href="install.html#install-offline-install"><span class="std std-ref">offline installation guide</span></a> and <a class="reference internal" href="configuration.html"><span class="doc">configure Rally as usual</span></a> afterwards.</p>
+</div>
+<div class="section" id="command-line-usage">
+<h2>Command Line Usage<a class="headerlink" href="#command-line-usage" title="Permalink to this headline">¶</a></h2>
+<p>Rally will automatically detect upon startup that no Internet connection is available and print the following warning:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">WARNING</span><span class="p">]</span> <span class="n">No</span> <span class="n">Internet</span> <span class="n">connection</span> <span class="n">detected</span><span class="o">.</span> <span class="n">Automatic</span> <span class="n">download</span> <span class="n">of</span> <span class="n">track</span> <span class="n">data</span> <span class="n">sets</span> <span class="n">etc</span><span class="o">.</span> <span class="ow">is</span> <span class="n">disabled</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>It detects this by trying to connect to <code class="docutils literal notranslate"><span class="pre">https://github.com</span></code>. If you want it to probe against a different HTTP endpoint (e.g. a company-internal git server) you need to add a configuration property named <code class="docutils literal notranslate"><span class="pre">probing.url</span></code> in the <code class="docutils literal notranslate"><span class="pre">system</span></code> section of Rally’s configuration file at <code class="docutils literal notranslate"><span class="pre">~/.rally/rally.ini</span></code>. Specify <code class="docutils literal notranslate"><span class="pre">--offline</span></code> if you want to disable probing entirely.</p>
+<p>Example of <code class="docutils literal notranslate"><span class="pre">system</span></code> section with custom probing url in <code class="docutils literal notranslate"><span class="pre">~/.rally/rally.ini</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">system</span><span class="p">]</span>
+<span class="n">env</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">local</span>
+<span class="n">probing</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">company</span><span class="o">-</span><span class="n">internal</span><span class="o">-</span><span class="n">server</span><span class="o">.</span><span class="n">com</span><span class="o">/</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-tracks">
+<h2>Using tracks<a class="headerlink" href="#using-tracks" title="Permalink to this headline">¶</a></h2>
+<p>A Rally track describes a benchmarking scenario. You can either write your own tracks or use the tracks that Rally provides out of the box. In the former case, Rally will work just fine in an offline environment. In the latter case, Rally would normally download the track and its associated data from the Internet. If you want to use one of Rally’s standard tracks in offline mode, you need to download all relevant files first on a machine that has Internet access and copy it to the target machine(s).</p>
+<p>Use the <a class="reference external" href="https://raw.githubusercontent.com/elastic/rally-tracks/master/download.sh">download script</a> to download all data for a track on a machine that has access to the Internet. Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># downloads the script from Github</span>
+<span class="n">curl</span> <span class="o">-</span><span class="n">O</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">elastic</span><span class="o">/</span><span class="n">rally</span><span class="o">-</span><span class="n">tracks</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">download</span><span class="o">.</span><span class="n">sh</span>
+<span class="n">chmod</span> <span class="n">u</span><span class="o">+</span><span class="n">x</span> <span class="n">download</span><span class="o">.</span><span class="n">sh</span>
+<span class="c1"># download all data for the geonames track</span>
+<span class="o">./</span><span class="n">download</span><span class="o">.</span><span class="n">sh</span> <span class="n">geonames</span>
+</pre></div>
+</div>
+<p>This will download all data for the geonames track and create a tar file <code class="docutils literal notranslate"><span class="pre">rally-track-data-geonames.tar</span></code> in the current directory. Copy this file to the home directory of the user which will execute Rally on the target machine (e.g. <code class="docutils literal notranslate"><span class="pre">/home/rally-user</span></code>).</p>
+<p>On the target machine, run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">~</span>
+<span class="n">tar</span> <span class="o">-</span><span class="n">xf</span> <span class="n">rally</span><span class="o">-</span><span class="n">track</span><span class="o">-</span><span class="n">data</span><span class="o">-</span><span class="n">geonames</span><span class="o">.</span><span class="n">tar</span>
+</pre></div>
+</div>
+<p>The download script does not require a Rally installation on the machine with Internet access but assumes that <code class="docutils literal notranslate"><span class="pre">git</span></code> and <code class="docutils literal notranslate"><span class="pre">curl</span></code> are available.</p>
+<p>After you’ve copied the data, you can list the available tracks with <code class="docutils literal notranslate"><span class="pre">esrally</span> <span class="pre">list</span> <span class="pre">tracks</span></code>. If a track shows up in this list, it just means that the track description is available locally but not necessarily all data files.</p>
+</div>
+<div class="section" id="using-cars">
+<h2>Using cars<a class="headerlink" href="#using-cars" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can skip this section if you use Rally only as a load generator.</p>
+</div>
+<p>If you have Rally configure and start Elasticsearch then you also need the out-of-the-box configurations available. Run the following command on a machine with Internet access:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">elastic</span><span class="o">/</span><span class="n">rally</span><span class="o">-</span><span class="n">teams</span><span class="o">.</span><span class="n">git</span> <span class="o">~/.</span><span class="n">rally</span><span class="o">/</span><span class="n">benchmarks</span><span class="o">/</span><span class="n">teams</span><span class="o">/</span><span class="n">default</span>
+<span class="n">tar</span> <span class="o">-</span><span class="n">C</span> <span class="o">~</span> <span class="o">-</span><span class="n">czf</span> <span class="n">rally</span><span class="o">-</span><span class="n">teams</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span> <span class="o">.</span><span class="n">rally</span><span class="o">/</span><span class="n">benchmarks</span><span class="o">/</span><span class="n">teams</span><span class="o">/</span><span class="n">default</span>
+</pre></div>
+</div>
+<p>Copy that file to the target machine(s) and run on the target machine:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">~</span>
+<span class="n">tar</span> <span class="o">-</span><span class="n">xzf</span> <span class="n">rally</span><span class="o">-</span><span class="n">teams</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+<p>After you’ve copied the data, you can list the available tracks with <code class="docutils literal notranslate"><span class="pre">esrally</span> <span class="pre">list</span> <span class="pre">cars</span></code>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="track.html" class="btn btn-neutral float-right" title="Track Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="configuration.html" class="btn btn-neutral float-left" title="Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Elasticsearch B.V.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,482 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Configuration &mdash; Rally 2.0.4.dev0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Offline Usage" href="offline.html" />
+    <link rel="prev" title="Command Line Reference" href="command_line_reference.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Rally
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started with Rally</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Running Rally with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="race.html">Run a Benchmark: Races</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tournament.html">Compare Results: Tournaments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cluster_management.html">Setting up a Cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recipes.html">Tips and Tricks</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Extending Rally</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="adding_tracks.html">Define Custom Workloads: Tracks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">Developing Rally</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Elasticsearch Version Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_line_reference.html">Command Line Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#rally-configuration">Rally Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#meta">meta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#system">system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#node">node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#source">source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#benchmarks">benchmarks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reporting">reporting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tracks">tracks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#teams">teams</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#defaults">defaults</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#distributions">distributions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#proxy-configuration">Proxy Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#logging">Logging</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="offline.html">Offline Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="track.html">Track Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="car.html">Configure Elasticsearch: Cars</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elasticsearch_plugins.html">Using Elasticsearch Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="telemetry.html">Telemetry Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rally_daemon.html">Rally Daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipelines.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="summary_report.html">Summary Report</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Additional Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="migrate.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Community Resources</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Rally</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+    <ul class="wy-breadcrumbs">
+        
+        <li><a href="index.html">Docs</a> &raquo;</li>
+        
+        <li>Configuration</li>
+        
+        
+        <li class="wy-breadcrumbs-aside">
+            
+            
+            <a href="_sources/configuration.rst.txt" rel="nofollow"> View page source</a>
+            
+            
+        </li>
+        
+    </ul>
+
+    
+    <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="configuration">
+<h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="rally-configuration">
+<h2>Rally Configuration<a class="headerlink" href="#rally-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Rally stores its configuration in the file <code class="docutils literal notranslate"><span class="pre">~/.rally/rally.ini</span></code> which is automatically created the first time Rally is executed. It comprises the following sections.</p>
+<div class="section" id="meta">
+<h3>meta<a class="headerlink" href="#meta" title="Permalink to this headline">¶</a></h3>
+<p>This section contains meta information about the configuration file.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">config.version</span></code>: The version of the configuration file format. This property is managed by Rally and should not be changed.</p></li>
+</ul>
+</div>
+<div class="section" id="system">
+<h3>system<a class="headerlink" href="#system" title="Permalink to this headline">¶</a></h3>
+<p>This section contains global information for the current benchmark environment. This information should be identical on all machines where Rally is installed.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">env.name</span></code> (default: “local”): The name of this benchmark environment. It is used as meta-data in metrics documents if an Elasticsearch metrics store is configured. Only alphanumeric characters are allowed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">probing.url</span></code> (default: “<a class="reference external" href="https://github.com">https://github.com</a>”): This URL is used by Rally to check for a working Internet connection. It’s useful to change this to an internal server if all data are hosted inside the corporate network and connections to the outside world are prohibited.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">available.cores</span></code> (default: number of logical CPU cores): Determines the number of available CPU cores. Rally aims to create one asyncio event loop per core and will distribute clients evenly across event loops.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">async.debug</span></code> (default: false): Enables debug mode on Rally’s internal <a class="reference external" href="https://docs.python.org/3/library/asyncio-eventloop.html#enabling-debug-mode">asyncio event loop</a>. This setting is mainly intended for troubleshooting.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">passenv</span></code> (default: “PATH”): A comma-separated list of environment variable names that should be passed to the Elasticsearch process.</p></li>
+</ul>
+</div>
+<div class="section" id="node">
+<h3>node<a class="headerlink" href="#node" title="Permalink to this headline">¶</a></h3>
+<p>This section contains machine-specific information.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">root.dir</span></code> (default: “~/.rally/benchmarks”): Rally uses this directory to store all benchmark-related data. It assumes that it has complete control over this directory and any of its subdirectories.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">src.root.dir</span></code> (default: “~/.rally/benchmarks/src”): The directory where the source code of Elasticsearch or any plugins is checked out. Only relevant for benchmarks from sources.</p></li>
+</ul>
+</div>
+<div class="section" id="source">
+<h3>source<a class="headerlink" href="#source" title="Permalink to this headline">¶</a></h3>
+<p>This section contains more details about the source tree.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">remote.repo.url</span></code> (default: “<a class="reference external" href="https://github.com/elastic/elasticsearch.git">https://github.com/elastic/elasticsearch.git</a>”): The URL from which to checkout Elasticsearch.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">elasticsearch.src.subdir</span></code> (default: “elasticsearch”): The local path, relative to <code class="docutils literal notranslate"><span class="pre">src.root.dir</span></code>, of the Elasticsearch source tree.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cache</span></code> (default: true): Enables Rally’s internal <a class="reference internal" href="pipelines.html#pipelines-from-sources"><span class="std std-ref">source artifact</span></a> cache (<code class="docutils literal notranslate"><span class="pre">elasticsearch*.tar.gz</span></code> and optionally <code class="docutils literal notranslate"><span class="pre">*.zip</span></code> files for plugins). Artifacts are cached based on their git revision.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cache.days</span></code> (default: 7): The number of days for which an artifact should be kept in the source artifact cache.</p></li>
+</ul>
+</div>
+<div class="section" id="benchmarks">
+<h3>benchmarks<a class="headerlink" href="#benchmarks" title="Permalink to this headline">¶</a></h3>
+<p>This section contains details about the benchmark data directory.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">local.dataset.cache</span></code> (default: “~/.rally/benchmarks/data”): The directory in which benchmark data sets are stored. Depending on the benchmarks that are executed, this directory may contain hundreds of GB of data.</p></li>
+</ul>
+</div>
+<div class="section" id="reporting">
+<h3>reporting<a class="headerlink" href="#reporting" title="Permalink to this headline">¶</a></h3>
+<p>This section defines how metrics are stored.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">datastore.type</span></code> (default: “in-memory”): If set to “in-memory” all metrics will be kept in memory while running the benchmark. If set to “elasticsearch” all metrics will instead be written to a persistent metrics store and the data are available for further analysis.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sample.queue.size</span></code> (default: 2^20): The number of metrics samples that can be stored in Rally’s in-memory queue.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;metrics.request.downsample.factor</span></code> (default: 1): Determines how many service time and latency samples should be kept in the metrics store. By default all values will be kept. To keep only e.g. every 100th sample, specify 100. This is useful to avoid overwhelming the metrics store in benchmarks with many clients (tens of thousands).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">output.processingtime</span></code> (default: false): If set to “true”, Rally will show a metric, called “processing time” in the command line report. Contrary to “service time” which is measured as close as possible to the wire, “processing time” also includes Rally’s client side processing overhead. Large differences between the service time and the reporting time indicate a high overhead in the client and can thus point to a potential client-side bottleneck which requires investigation.</p></li>
+</ul>
+<p>The following settings are applicable only if <code class="docutils literal notranslate"><span class="pre">datastore.type</span></code> is set to “elasticsearch”:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">datastore.host</span></code>: The host name of the metrics store, e.g. “10.17.20.33”.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">datastore.port</span></code>: The port of the metrics store, e.g. “9200”.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">datastore.secure</span></code>: If set to <code class="docutils literal notranslate"><span class="pre">false</span></code>, Rally assumes a HTTP connection. If set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, it assumes a HTTPS connection.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">datastore.ssl.verification_mode</span></code> (default: “full”): By default the metric store’s SSL certificate is checked (“full”). To disable certificate verification set this value to “none”.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">datastore.ssl.certificate_authorities</span></code> (default: empty): Determines the path on the local file system to the certificate authority’s signing certificate.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">datastore.user</span></code>: Sets the name of the Elasticsearch user for the metrics store.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">datastore.password</span></code>: Sets the password of the Elasticsearch user for the metrics store.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">datastore.probe.cluster_version</span></code> (default: true): Enables automatic detection of the metric store’s version.</p></li>
+</ul>
+<p><strong>Examples</strong></p>
+<p>Define an unprotected metrics store in the local network:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">reporting</span><span class="p">]</span>
+<span class="n">datastore</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">elasticsearch</span>
+<span class="n">datastore</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.17</span>
+<span class="n">datastore</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="mi">9200</span>
+<span class="n">datastore</span><span class="o">.</span><span class="n">secure</span> <span class="o">=</span> <span class="n">false</span>
+<span class="n">datastore</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span>
+<span class="n">datastore</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span>
+</pre></div>
+</div>
+<p>Define a secure connection to a metrics store in the local network with a self-signed certificate:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">reporting</span><span class="p">]</span>
+<span class="n">datastore</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">elasticsearch</span>
+<span class="n">datastore</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.22</span>
+<span class="n">datastore</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="mi">9200</span>
+<span class="n">datastore</span><span class="o">.</span><span class="n">secure</span> <span class="o">=</span> <span class="n">true</span>
+<span class="n">datastore</span><span class="o">.</span><span class="n">ssl</span><span class="o">.</span><span class="n">verification_mode</span> <span class="o">=</span> <span class="n">none</span>
+<span class="n">datastore</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">rally</span>
+<span class="n">datastore</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">the</span><span class="o">-</span><span class="n">password</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">your</span><span class="o">-</span><span class="n">cluster</span>
+</pre></div>
+</div>
+<p>Define a secure connection to an Elastic Cloud cluster:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">reporting</span><span class="p">]</span>
+<span class="n">datastore</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">elasticsearch</span>
+<span class="n">datastore</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="mi">123456789</span><span class="n">abcdef123456789abcdef1</span><span class="o">.</span><span class="n">europe</span><span class="o">-</span><span class="n">west4</span><span class="o">.</span><span class="n">gcp</span><span class="o">.</span><span class="n">elastic</span><span class="o">-</span><span class="n">cloud</span><span class="o">.</span><span class="n">com</span>
+<span class="n">datastore</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="mi">9243</span>
+<span class="n">datastore</span><span class="o">.</span><span class="n">secure</span> <span class="o">=</span> <span class="n">true</span>
+<span class="n">datastore</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">rally</span>
+<span class="n">datastore</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">the</span><span class="o">-</span><span class="n">password</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">your</span><span class="o">-</span><span class="n">cluster</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tracks">
+<h3>tracks<a class="headerlink" href="#tracks" title="Permalink to this headline">¶</a></h3>
+<p>This section defines how <a class="reference internal" href="track.html"><span class="doc">tracks</span></a> are retrieved. All keys are read by Rally using the convention <code class="docutils literal notranslate"><span class="pre">&lt;&lt;track-repository-name&gt;&gt;.url</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">custom-track-repo.url</span></code> which can be selected the command-line via <code class="docutils literal notranslate"><span class="pre">--track-repository=&quot;custom-track-repo&quot;</span></code>. By default, Rally chooses the track repository specified via <code class="docutils literal notranslate"><span class="pre">default.url</span></code> which points to <a class="reference external" href="https://github.com/elastic/rally-tracks">https://github.com/elastic/rally-tracks</a>.</p>
+</div>
+<div class="section" id="teams">
+<h3>teams<a class="headerlink" href="#teams" title="Permalink to this headline">¶</a></h3>
+<p>This section defines how <a class="reference internal" href="car.html"><span class="doc">teams</span></a> are retrieved. All keys are read by Rally using the convention <code class="docutils literal notranslate"><span class="pre">&lt;&lt;team-repository-name&gt;&gt;.url</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">custom-team-repo.url</span></code> which can be selected the command-line via <code class="docutils literal notranslate"><span class="pre">--team-repository=&quot;custom-team-repo&quot;</span></code>. By default, Rally chooses the track repository specified via <code class="docutils literal notranslate"><span class="pre">default.url</span></code> which points to <a class="reference external" href="https://github.com/elastic/rally-teams">https://github.com/elastic/rally-teams</a>.</p>
+</div>
+<div class="section" id="defaults">
+<h3>defaults<a class="headerlink" href="#defaults" title="Permalink to this headline">¶</a></h3>
+<p>This section defines default values for certain command line parameters of Rally.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">preserve_benchmark_candidate</span></code> (default: false): Determines whether Elasticsearch installations will be preserved or wiped by default after a benchmark. For preserving an installation for a single benchmark, use the command line flag <code class="docutils literal notranslate"><span class="pre">--preserve-install</span></code>.</p></li>
+</ul>
+</div>
+<div class="section" id="distributions">
+<h3>distributions<a class="headerlink" href="#distributions" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">release.cache</span></code> (default: true): Determines whether released Elasticsearch versions should be cached locally.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="proxy-configuration">
+<h2>Proxy Configuration<a class="headerlink" href="#proxy-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Rally downloads all necessary data automatically for you:</p>
+<ul class="simple">
+<li><p>Elasticsearch distributions from elastic.co if you specify <code class="docutils literal notranslate"><span class="pre">--distribution-version=SOME_VERSION_NUMBER</span></code></p></li>
+<li><p>Elasticsearch source code from Github if you specify a revision number e.g. <code class="docutils literal notranslate"><span class="pre">--revision=952097b</span></code></p></li>
+<li><p>Track meta-data from Github</p></li>
+<li><p>Track data from an S3 bucket</p></li>
+</ul>
+<p>Hence, it needs to connect via http(s) to the outside world. If you are behind a corporate proxy you need to configure Rally and git. As many other Unix programs, Rally relies that the HTTP proxy URL is available in the environment variable <code class="docutils literal notranslate"><span class="pre">http_proxy</span></code> (note that this is in lower-case). Hence, you should add this line to your shell profile, e.g. <code class="docutils literal notranslate"><span class="pre">~/.bash_profile</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">http_proxy</span><span class="o">=</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">proxy</span><span class="o">.</span><span class="n">acme</span><span class="o">.</span><span class="n">org</span><span class="p">:</span><span class="mi">8888</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>Afterwards, source the shell profile with <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">~/.bash_profile</span></code> and verify that the proxy URL is correctly set with <code class="docutils literal notranslate"><span class="pre">echo</span> <span class="pre">$http_proxy</span></code>.</p>
+<p>Finally, you can set up git (see also the <a class="reference external" href="https://git-scm.com/docs/git-config">Git config documentation</a>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>git config --global http.proxy $http_proxy
+</pre></div>
+</div>
+<p>Verify that the proxy setup for git works correctly by cloning any repository, e.g. the <code class="docutils literal notranslate"><span class="pre">rally-tracks</span></code> repository:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">elastic</span><span class="o">/</span><span class="n">rally</span><span class="o">-</span><span class="n">tracks</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+<p>If the configuration is correct, git will clone this repository. You can delete the folder <code class="docutils literal notranslate"><span class="pre">rally-tracks</span></code> after this verification step.</p>
+<p>To verify that Rally will connect via the proxy server you can check the log file. If the proxy server is configured successfully, Rally will log the following line on startup:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Rally</span> <span class="n">connects</span> <span class="n">via</span> <span class="n">proxy</span> <span class="n">URL</span> <span class="p">[</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">proxy</span><span class="o">.</span><span class="n">acme</span><span class="o">.</span><span class="n">org</span><span class="p">:</span><span class="mi">3128</span><span class="o">/</span><span class="p">]</span> <span class="n">to</span> <span class="n">the</span> <span class="n">Internet</span> <span class="p">(</span><span class="n">picked</span> <span class="n">up</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">environment</span> <span class="n">variable</span> <span class="p">[</span><span class="n">http_proxy</span><span class="p">])</span><span class="o">.</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Rally will use this proxy server only for downloading benchmark-related data. It will not use this proxy for the actual benchmark.</p>
+</div>
+</div>
+<div class="section" id="logging">
+<span id="id1"></span><h2>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h2>
+<p>Logging in Rally is configured in <code class="docutils literal notranslate"><span class="pre">~/.rally/logging.json</span></code>. For more information about the log file format please refer to the following documents:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/howto/logging-cookbook.html">Python logging cookbook</a> provides general tips and tricks.</p></li>
+<li><p>The Python reference documentation on the <a class="reference external" href="https://docs.python.org/3/library/logging.config.html#logging-config-dictschema">logging configuration schema</a> explains the file format.</p></li>
+<li><p>The <a class="reference external" href="https://docs.python.org/3/library/logging.handlers.html">logging handler documentation</a> describes how to customize where log output is written to.</p></li>
+</ul>
+<p>By default, Rally will log all output to <code class="docutils literal notranslate"><span class="pre">~/.rally/logs/rally.log</span></code>.</p>
+<p>The log file will not be rotated automatically as this is problematic due to Rally’s multi-process architecture. Setup an external tool like <a class="reference external" href="https://linux.die.net/man/8/logrotate">logrotate</a> to achieve that. See the following example as a starting point for your own <code class="docutils literal notranslate"><span class="pre">logrotate</span></code> configuration and ensure to replace the path <code class="docutils literal notranslate"><span class="pre">/home/user/.rally/logs/rally.log</span></code> with the proper one:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">user</span><span class="o">/.</span><span class="n">rally</span><span class="o">/</span><span class="n">logs</span><span class="o">/</span><span class="n">rally</span><span class="o">.</span><span class="n">log</span> <span class="p">{</span>
+        <span class="c1"># rotate daily</span>
+        <span class="n">daily</span>
+        <span class="c1"># keep the last seven log files</span>
+        <span class="n">rotate</span> <span class="mi">7</span>
+        <span class="c1"># remove logs older than 14 days</span>
+        <span class="n">maxage</span> <span class="mi">14</span>
+        <span class="c1"># compress old logs ...</span>
+        <span class="n">compress</span>
+        <span class="c1"># ... after moving them</span>
+        <span class="n">delaycompress</span>
+        <span class="c1"># ignore missing log files</span>
+        <span class="n">missingok</span>
+        <span class="c1"># don&#39;t attempt to rotate empty ones</span>
+        <span class="n">notifempty</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="example">
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<p>With the following configuration Rally will log all output to standard error:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s2">&quot;formatters&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;normal&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2">,</span><span class="si">%(msecs)d</span><span class="s2"> </span><span class="si">%(actorAddress)s</span><span class="s2">/PID:</span><span class="si">%(process)d</span><span class="s2"> </span><span class="si">%(name)s</span><span class="s2"> </span><span class="si">%(levelname)s</span><span class="s2"> </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;datefmt&quot;</span><span class="p">:</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;()&quot;</span><span class="p">:</span> <span class="s2">&quot;esrally.log.configure_utc_formatter&quot;</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;filters&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;isActorLog&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;()&quot;</span><span class="p">:</span> <span class="s2">&quot;thespian.director.ActorAddressLogFilter&quot;</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;handlers&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;console_log_handler&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;logging.StreamHandler&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;formatter&quot;</span><span class="p">:</span> <span class="s2">&quot;normal&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filters&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;isActorLog&quot;</span><span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;root&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;handlers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;console_log_handler&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;level&quot;</span><span class="p">:</span> <span class="s2">&quot;INFO&quot;</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;loggers&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;elasticsearch&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;handlers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;console_log_handler&quot;</span><span class="p">],</span>
+      <span class="s2">&quot;level&quot;</span><span class="p">:</span> <span class="s2">&quot;WARNING&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;propagate&quot;</span><span class="p">:</span> <span class="n">false</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="offline.html" class="btn btn-neutral float-right" title="Offline Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="command_line_reference.html" class="btn btn-neutral float-left" title="Command Line Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Elasticsearch B.V.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

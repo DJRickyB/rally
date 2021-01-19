@@ -1,0 +1,1102 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Migration Guide &mdash; Rally 2.0.4.dev0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Frequently Asked Questions (FAQ)" href="faq.html" />
+    <link rel="prev" title="Summary Report" href="summary_report.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Rally
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started with Rally</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Running Rally with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="race.html">Run a Benchmark: Races</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tournament.html">Compare Results: Tournaments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cluster_management.html">Setting up a Cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recipes.html">Tips and Tricks</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Extending Rally</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="adding_tracks.html">Define Custom Workloads: Tracks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">Developing Rally</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Elasticsearch Version Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_line_reference.html">Command Line Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="offline.html">Offline Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="track.html">Track Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="car.html">Configure Elasticsearch: Cars</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elasticsearch_plugins.html">Using Elasticsearch Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="telemetry.html">Telemetry Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rally_daemon.html">Rally Daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipelines.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="summary_report.html">Summary Report</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Additional Information</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Migration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#migrating-to-rally-2-0-3">Migrating to Rally 2.0.3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#scheduler-api-has-changed">Scheduler API has changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bulk-size-metrics-property-is-dropped">bulk-size metrics property is dropped</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#include-tasks-and-exclude-tasks-affect-all-operations">–include-tasks and –exclude-tasks affect all operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-subcommand-is-dropped">configure subcommand is dropped</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#migrating-to-rally-2-0-1">Migrating to Rally 2.0.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pipelines-from-sources-complete-and-from-sources-skip-build-are-deprecated">Pipelines from-sources-complete and from-sources-skip-build are deprecated</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wait-for-recovery-requires-an-index-parameter">wait-for-recovery requires an <code class="docutils literal notranslate"><span class="pre">index</span></code> parameter</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#migrating-to-rally-2-0-0">Migrating to Rally 2.0.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#minimum-python-version-is-3-8-0">Minimum Python version is 3.8.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#java-home-and-the-bundled-runtime-jdk">JAVA_HOME and the bundled runtime JDK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#meta-data-for-queries-are-omitted">Meta-Data for queries are omitted</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#runner-api-uses-asyncio">Runner API uses asyncio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#trial-id-and-trial-timestamp-are-removed"><code class="docutils literal notranslate"><span class="pre">trial-id</span></code> and <code class="docutils literal notranslate"><span class="pre">trial-timestamp</span></code> are removed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#migrating-to-rally-1-4-1">Migrating to Rally 1.4.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#document-ids-are-now-padded-with-0-instead-of-spaces">Document IDs are now padded with 0 instead of spaces</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#migrating-to-rally-1-4-0">Migrating to Rally 1.4.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cluster-settings-is-deprecated-in-favor-of-the-put-settings-operation">cluster-settings is deprecated in favor of the put-settings operation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-logs-are-stored-in-rally-s-log-directory">Build logs are stored in Rally’s log directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#index-size-and-total-written-are-not-included-in-the-command-line-report">Index size and Total Written are not included in the command line report</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#node-details-are-omitted-from-race-metadata">Node details are omitted from race metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#trial-id-and-trial-timestamp-are-deprecated"><code class="docutils literal notranslate"><span class="pre">trial-id</span></code> and <code class="docutils literal notranslate"><span class="pre">trial-timestamp</span></code> are deprecated</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-parameter-sources">Custom Parameter Sources</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#migrating-to-rally-1-3-0">Migrating to Rally 1.3.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#races-now-stored-by-id-instead-of-timestamp">Races now stored by ID instead of timestamp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#laps-feature-removed">Laps feature removed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#migrating-to-rally-1-2-1">Migrating to Rally 1.2.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cpu-usage-is-not-measured-anymore">CPU usage is not measured anymore</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#migrating-to-rally-1-1-0">Migrating to Rally 1.1.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#request-params-in-operations-are-passed-as-is-and-not-serialized"><code class="docutils literal notranslate"><span class="pre">request-params</span></code> in operations are passed as is and not serialized</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#migrating-to-rally-1-0-1">Migrating to Rally 1.0.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#logs-are-not-rotated">Logs are not rotated</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#migrating-to-rally-1-0-0">Migrating to Rally 1.0.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#handling-of-jdk-versions">Handling of JDK versions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Custom Parameter Sources</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#migrating-to-rally-0-11-0">Migrating to Rally 0.11.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#versioned-teams">Versioned teams</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#migrating-to-rally-0-10-0">Migrating to Rally 0.10.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#removal-of-auto-detection-and-dependency-on-gradle">Removal of auto-detection and dependency on Gradle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#use-full-build-command-in-plugin-configuration">Use full build command in plugin configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#removal-of-operation-type-index">Removal of operation type <code class="docutils literal notranslate"><span class="pre">index</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#removal-of-the-command-line-parameter-cluster-health">Removal of the command line parameter <code class="docutils literal notranslate"><span class="pre">--cluster-health</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#removal-of-index-automanagement">Removal of index-automanagement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Custom Parameter Sources</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#migrating-to-rally-0-9-0">Migrating to Rally 0.9.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#track-syntax">Track Syntax</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#define-the-document-corpus-separately">Define the document corpus separately</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#change-the-index-definition">Change the index definition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#explicitly-delete-and-recreate-the-index">Explicitly delete and recreate the index</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Custom Parameter Sources</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Community Resources</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Rally</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+    <ul class="wy-breadcrumbs">
+        
+        <li><a href="index.html">Docs</a> &raquo;</li>
+        
+        <li>Migration Guide</li>
+        
+        
+        <li class="wy-breadcrumbs-aside">
+            
+            
+            <a href="_sources/migrate.rst.txt" rel="nofollow"> View page source</a>
+            
+            
+        </li>
+        
+    </ul>
+
+    
+    <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="migration-guide">
+<h1>Migration Guide<a class="headerlink" href="#migration-guide" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="migrating-to-rally-2-0-3">
+<h2>Migrating to Rally 2.0.3<a class="headerlink" href="#migrating-to-rally-2-0-3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="scheduler-api-has-changed">
+<h3>Scheduler API has changed<a class="headerlink" href="#scheduler-api-has-changed" title="Permalink to this headline">¶</a></h3>
+<p>With Rally 2.0.3, the scheduler API has changed. The existing API still works but is deprecated and will be removed in Rally 2.1.0:</p>
+<ul class="simple">
+<li><p>Scheduler functions should be replaced by scheduler classes</p></li>
+<li><p>The constructor for scheduler classes changes. Instead of receiving <code class="docutils literal notranslate"><span class="pre">params</span></code>, it receives the entire <code class="docutils literal notranslate"><span class="pre">task</span></code> and the precalculated target throughput.</p></li>
+</ul>
+<p>Consider the following scheduler implemented as a function using the deprecated API. The target throughput is hardcoded to one operation per second:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">scheduler_function</span><span class="p">(</span><span class="n">current</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">current</span> <span class="o">+</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>This needs to be reimplemented as follows. We assume that the property <code class="docutils literal notranslate"><span class="pre">target-throughput</span></code> is now specified on the respective task instead of hard-coding it in the scheduler. Rally will calculate the correct target throughput and inject it into the scheduler class:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SchedulerClass</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task</span><span class="p">,</span> <span class="n">target_throughput</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rate</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">target_throughput</span>
+
+    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">current</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">rate</span>
+</pre></div>
+</div>
+<p>Also schedulers that are implemented as a class using the deprecated API, need to be changed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyScheduler</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="c1"># assume one client by default</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clients</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;clients&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">target_throughput</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s2">&quot;target-throughput&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">clients</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rate</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">target_throughput</span>
+
+    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">current</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">rate</span>
+</pre></div>
+</div>
+<p>To use the new API introduced with Rally 2.0.3, this class needs to be changed as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyScheduler</span><span class="p">:</span>
+    <span class="c1"># target throughput is already calculated by Rally and is injected here</span>
+    <span class="c1"># Additional parameters can be retrieved from the task if needed (task.params).</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task</span><span class="p">,</span> <span class="n">target_throughput</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rate</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">target_throughput</span>
+
+    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">current</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">rate</span>
+</pre></div>
+</div>
+<p>For more details, please see the <a class="reference internal" href="adding_tracks.html#adding-tracks-custom-schedulers"><span class="std std-ref">updated scheduler documentation</span></a>.</p>
+</div>
+<div class="section" id="bulk-size-metrics-property-is-dropped">
+<h3>bulk-size metrics property is dropped<a class="headerlink" href="#bulk-size-metrics-property-is-dropped" title="Permalink to this headline">¶</a></h3>
+<p>Metrics records for bulk request don’t contain the <code class="docutils literal notranslate"><span class="pre">bulk-size</span></code> property anymore. Please use the <code class="docutils literal notranslate"><span class="pre">weight</span></code> property instead and consider the <code class="docutils literal notranslate"><span class="pre">unit</span></code> property to interpret the value.</p>
+</div>
+<div class="section" id="include-tasks-and-exclude-tasks-affect-all-operations">
+<h3>–include-tasks and –exclude-tasks affect all operations<a class="headerlink" href="#include-tasks-and-exclude-tasks-affect-all-operations" title="Permalink to this headline">¶</a></h3>
+<p>Prior to 2.0.3, administrative tasks (see <a class="reference internal" href="track.html#track-operations"><span class="std std-ref">operations documentation</span></a>) were exempt from filtering and would run regardless of filtering. <code class="docutils literal notranslate"><span class="pre">--include-tasks</span></code> and <code class="docutils literal notranslate"><span class="pre">--exclude-tasks</span></code> flags now can affect all operations in a track. If you make use of include filters, it is advised to check that all desired operations are listed.</p>
+</div>
+<div class="section" id="configure-subcommand-is-dropped">
+<h3>configure subcommand is dropped<a class="headerlink" href="#configure-subcommand-is-dropped" title="Permalink to this headline">¶</a></h3>
+<p>Prior to Rally 2.0.3, Rally had to be configured initially using <code class="docutils literal notranslate"><span class="pre">esrally</span> <span class="pre">configure</span></code>. With Rally 2.0.3, Rally creates a default configuration automatically and users are encouraged to edit Rally’s configuration file themselves. Refer to the new <a class="reference internal" href="configuration.html"><span class="doc">configuration reference</span></a> for the configurable properties.</p>
+</div>
+</div>
+<div class="section" id="migrating-to-rally-2-0-1">
+<h2>Migrating to Rally 2.0.1<a class="headerlink" href="#migrating-to-rally-2-0-1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="pipelines-from-sources-complete-and-from-sources-skip-build-are-deprecated">
+<h3>Pipelines from-sources-complete and from-sources-skip-build are deprecated<a class="headerlink" href="#pipelines-from-sources-complete-and-from-sources-skip-build-are-deprecated" title="Permalink to this headline">¶</a></h3>
+<p>Rally 2.0.1 caches source artifacts automatically in <code class="docutils literal notranslate"><span class="pre">~/.rally/benchmarks/distributions/src</span></code>. Therefore, it is not necessary anymore to explicitly skip the build with <code class="docutils literal notranslate"><span class="pre">--pipeline=from-sources-skip-build</span></code>. Specify <code class="docutils literal notranslate"><span class="pre">--pipeline=from-sources</span></code> instead. See the <a class="reference internal" href="pipelines.html"><span class="doc">pipeline reference documentation</span></a> for more details.</p>
+</div>
+<div class="section" id="wait-for-recovery-requires-an-index-parameter">
+<h3>wait-for-recovery requires an <code class="docutils literal notranslate"><span class="pre">index</span></code> parameter<a class="headerlink" href="#wait-for-recovery-requires-an-index-parameter" title="Permalink to this headline">¶</a></h3>
+<p>Previously, the <code class="docutils literal notranslate"><span class="pre">wait-for-recovery</span></code> operation checked all indices but with Rally 2.0.1 an <code class="docutils literal notranslate"><span class="pre">index</span></code> parameter is required and only that index (or index pattern) is checked.</p>
+</div>
+</div>
+<div class="section" id="migrating-to-rally-2-0-0">
+<h2>Migrating to Rally 2.0.0<a class="headerlink" href="#migrating-to-rally-2-0-0" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="minimum-python-version-is-3-8-0">
+<h3>Minimum Python version is 3.8.0<a class="headerlink" href="#minimum-python-version-is-3-8-0" title="Permalink to this headline">¶</a></h3>
+<p>Rally 2.0.0 requires Python 3.8.0. Check the <a class="reference internal" href="install.html#install-python"><span class="std std-ref">updated installation instructions</span></a> for more details.</p>
+</div>
+<div class="section" id="java-home-and-the-bundled-runtime-jdk">
+<h3>JAVA_HOME and the bundled runtime JDK<a class="headerlink" href="#java-home-and-the-bundled-runtime-jdk" title="Permalink to this headline">¶</a></h3>
+<p>Rally can optionally use the bundled runtime JDK by setting <code class="docutils literal notranslate"><span class="pre">--runtime-jdk=&quot;bundled&quot;</span></code>. This setting will use the JDK that is bundled with
+Elasticsearch and not honor any <code class="docutils literal notranslate"><span class="pre">JAVA_HOME</span></code> settings you may have set.</p>
+</div>
+<div class="section" id="meta-data-for-queries-are-omitted">
+<h3>Meta-Data for queries are omitted<a class="headerlink" href="#meta-data-for-queries-are-omitted" title="Permalink to this headline">¶</a></h3>
+<p>Rally 2.0.0 does not determine query meta-data anymore by default to reduce the risk of client-side bottlenecks. The following meta-data fields are affected:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">hits</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hits_relation</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">timed_out</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">took</span></code></p></li>
+</ul>
+<p>If you still want to retrieve them (risking skewed results due to additional overhead), set the new property <code class="docutils literal notranslate"><span class="pre">detailed-results</span></code> to <code class="docutils literal notranslate"><span class="pre">true</span></code> for any operation of type <code class="docutils literal notranslate"><span class="pre">search</span></code>.</p>
+</div>
+<div class="section" id="runner-api-uses-asyncio">
+<h3>Runner API uses asyncio<a class="headerlink" href="#runner-api-uses-asyncio" title="Permalink to this headline">¶</a></h3>
+<p>In order to support more concurrent clients in the future, Rally is moving from a synchronous model to an asynchronous model internally. With Rally 2.0.0 all custom runners need to be implemented using async APIs and a new bool argument <code class="docutils literal notranslate"><span class="pre">async_runner=True</span></code> needs to be provided upon registration. Below is an example how to migrate a custom runner function.</p>
+<p>A custom runner prior to Rally 2.0.0:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">percolate</span><span class="p">(</span><span class="n">es</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+    <span class="n">es</span><span class="o">.</span><span class="n">percolate</span><span class="p">(</span>
+       <span class="n">index</span><span class="o">=</span><span class="s2">&quot;queries&quot;</span><span class="p">,</span>
+       <span class="n">doc_type</span><span class="o">=</span><span class="s2">&quot;content&quot;</span><span class="p">,</span>
+       <span class="n">body</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;body&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="n">registry</span><span class="p">):</span>
+    <span class="n">registry</span><span class="o">.</span><span class="n">register_runner</span><span class="p">(</span><span class="s2">&quot;percolate&quot;</span><span class="p">,</span> <span class="n">percolate</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>With Rally 2.0.0, the implementation changes as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">def</span> <span class="nf">percolate</span><span class="p">(</span><span class="n">es</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+    <span class="k">await</span> <span class="n">es</span><span class="o">.</span><span class="n">percolate</span><span class="p">(</span>
+            <span class="n">index</span><span class="o">=</span><span class="s2">&quot;queries&quot;</span><span class="p">,</span>
+            <span class="n">doc_type</span><span class="o">=</span><span class="s2">&quot;content&quot;</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;body&quot;</span><span class="p">]</span>
+          <span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="n">registry</span><span class="p">):</span>
+    <span class="n">registry</span><span class="o">.</span><span class="n">register_runner</span><span class="p">(</span><span class="s2">&quot;percolate&quot;</span><span class="p">,</span> <span class="n">percolate</span><span class="p">,</span> <span class="n">async_runner</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Apply to the following changes for each custom runner:</p>
+<ul class="simple">
+<li><p>Prefix the function signature with <code class="docutils literal notranslate"><span class="pre">async</span></code>.</p></li>
+<li><p>Add an <code class="docutils literal notranslate"><span class="pre">await</span></code> keyword before each Elasticsearch API call.</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">async_runner=True</span></code> as the last argument to the <code class="docutils literal notranslate"><span class="pre">register_runner</span></code> function.</p></li>
+</ul>
+<p>For more details please refer to the updated documentation on <a class="reference internal" href="adding_tracks.html#adding-tracks-custom-runners"><span class="std std-ref">custom runners</span></a>.</p>
+</div>
+<div class="section" id="trial-id-and-trial-timestamp-are-removed">
+<h3><code class="docutils literal notranslate"><span class="pre">trial-id</span></code> and <code class="docutils literal notranslate"><span class="pre">trial-timestamp</span></code> are removed<a class="headerlink" href="#trial-id-and-trial-timestamp-are-removed" title="Permalink to this headline">¶</a></h3>
+<p>Since Rally 1.4.0, Rally uses the properties <code class="docutils literal notranslate"><span class="pre">race-id</span></code> and <code class="docutils literal notranslate"><span class="pre">race-timestamp</span></code> when writing data to the Elasticsearch metrics store. The properties <code class="docutils literal notranslate"><span class="pre">trial-id</span></code> and <code class="docutils literal notranslate"><span class="pre">trial-timestamp</span></code> were populated but are removed in this release. Any visualizations that still rely on these properties need to be changed to the new ones.</p>
+</div>
+</div>
+<div class="section" id="migrating-to-rally-1-4-1">
+<h2>Migrating to Rally 1.4.1<a class="headerlink" href="#migrating-to-rally-1-4-1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="document-ids-are-now-padded-with-0-instead-of-spaces">
+<h3>Document IDs are now padded with 0 instead of spaces<a class="headerlink" href="#document-ids-are-now-padded-with-0-instead-of-spaces" title="Permalink to this headline">¶</a></h3>
+<p>When Rally 1.4.1 generates document IDs, it will pad them with ‘0’ instead of ‘ ‘ - 0000000000 instead of ‘         0’, etc.
+Elasticsearch has optimizations for numeric IDs, so observed performance in Elasticsearch should improve slightly.</p>
+</div>
+</div>
+<div class="section" id="migrating-to-rally-1-4-0">
+<h2>Migrating to Rally 1.4.0<a class="headerlink" href="#migrating-to-rally-1-4-0" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="cluster-settings-is-deprecated-in-favor-of-the-put-settings-operation">
+<h3>cluster-settings is deprecated in favor of the put-settings operation<a class="headerlink" href="#cluster-settings-is-deprecated-in-favor-of-the-put-settings-operation" title="Permalink to this headline">¶</a></h3>
+<p>Before Rally 1.4.0, cluster settings could be specified on the track with the <code class="docutils literal notranslate"><span class="pre">cluster-settings</span></code> property. This functionality is deprecated and you should set dynamic cluster settings via the new <code class="docutils literal notranslate"><span class="pre">put-settings</span></code> runner. Static settings should instead be set via <code class="docutils literal notranslate"><span class="pre">--car-params</span></code>.</p>
+</div>
+<div class="section" id="build-logs-are-stored-in-rally-s-log-directory">
+<h3>Build logs are stored in Rally’s log directory<a class="headerlink" href="#build-logs-are-stored-in-rally-s-log-directory" title="Permalink to this headline">¶</a></h3>
+<p>If you benchmark source builds of Elasticsearch, Rally has previously stored the build output log in a race-specific directory. With this release, Rally will store the most recent build log in <code class="docutils literal notranslate"><span class="pre">/home/user/.rally/logs/build.log</span></code>.</p>
+</div>
+<div class="section" id="index-size-and-total-written-are-not-included-in-the-command-line-report">
+<h3>Index size and Total Written are not included in the command line report<a class="headerlink" href="#index-size-and-total-written-are-not-included-in-the-command-line-report" title="Permalink to this headline">¶</a></h3>
+<p>Elasticsearch nodes are now managed independently of benchmark execution and thus all system metrics (“index size” and “total written”) may be determined after the command line report has been written. The corresponding metrics (<code class="docutils literal notranslate"><span class="pre">final_index_size_bytes</span></code> and <code class="docutils literal notranslate"><span class="pre">disk_io_write_bytes</span></code>) are still written to the Elasticsearch metrics store if one is configured.</p>
+</div>
+<div class="section" id="node-details-are-omitted-from-race-metadata">
+<h3>Node details are omitted from race metadata<a class="headerlink" href="#node-details-are-omitted-from-race-metadata" title="Permalink to this headline">¶</a></h3>
+<p>Before Rally 1.4.0, the file <code class="docutils literal notranslate"><span class="pre">race.json</span></code> contained node details (such as the number of cluster nodes or details about the nodes’ operating system version) if Rally provisioned the cluster. With this release, this information is now omitted. This change also applies to the indices <code class="docutils literal notranslate"><span class="pre">rally-races*</span></code> in case you have setup an Elasticsearch metrics store. We recommend to use user tags in case such information is important, e.g. for visualising results.</p>
+</div>
+<div class="section" id="trial-id-and-trial-timestamp-are-deprecated">
+<h3><code class="docutils literal notranslate"><span class="pre">trial-id</span></code> and <code class="docutils literal notranslate"><span class="pre">trial-timestamp</span></code> are deprecated<a class="headerlink" href="#trial-id-and-trial-timestamp-are-deprecated" title="Permalink to this headline">¶</a></h3>
+<p>With Rally 1.4.0, Rally will use the properties <code class="docutils literal notranslate"><span class="pre">race-id</span></code> and <code class="docutils literal notranslate"><span class="pre">race-timestamp</span></code> when writing data to the Elasticsearch metrics store. The properties <code class="docutils literal notranslate"><span class="pre">trial-id</span></code> and <code class="docutils literal notranslate"><span class="pre">trial-timestamp</span></code> are still populated but will be removed in a future release. Any visualizations that rely on these properties should be changed to the new ones.</p>
+</div>
+<div class="section" id="custom-parameter-sources">
+<h3>Custom Parameter Sources<a class="headerlink" href="#custom-parameter-sources" title="Permalink to this headline">¶</a></h3>
+<p>With Rally 1.4.0, we have changed the API for custom parameter sources. The <code class="docutils literal notranslate"><span class="pre">size()</span></code> method is now deprecated and is instead replaced with a new property called <code class="docutils literal notranslate"><span class="pre">infinite</span></code>. If you have previously returned <code class="docutils literal notranslate"><span class="pre">None</span></code> in <code class="docutils literal notranslate"><span class="pre">size()</span></code>, <code class="docutils literal notranslate"><span class="pre">infinite</span></code> should be set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, otherwise <code class="docutils literal notranslate"><span class="pre">False</span></code>. Also, we recommend to implement the property <code class="docutils literal notranslate"><span class="pre">percent_completed</span></code> as Rally might not be able to determine progress in some cases. See below for some examples.</p>
+<p>Old:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CustomFiniteParamSource</span><span class="p">:</span>
+    <span class="c1"># ...</span>
+    <span class="k">def</span> <span class="nf">size</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">calculate_size</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">params</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">next_parameters</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">CustomInfiniteParamSource</span><span class="p">:</span>
+    <span class="c1"># ...</span>
+    <span class="k">def</span> <span class="nf">size</span><span class="p">():</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="c1"># ...</span>
+</pre></div>
+</div>
+<p>New:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CustomFiniteParamSource</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">infinite</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># to track progress</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_invocation</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># ...</span>
+    <span class="c1"># Note that we have removed the size() method</span>
+
+    <span class="k">def</span> <span class="nf">params</span><span class="p">():</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_invocation</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">next_parameters</span><span class="p">()</span>
+
+    <span class="c1"># Implementing this is optional but recommended for proper progress reports</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">percent_completed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># for demonstration purposes we use calculate_size() here</span>
+        <span class="c1"># to determine the expected number of invocations. However, if</span>
+        <span class="c1"># it is possible to determine this value upfront, it is best</span>
+        <span class="c1"># to cache it in a field and just reuse the value</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_invocation</span> <span class="o">/</span> <span class="n">calculate_size</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">CustomInfiniteParamSource</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">infinite</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="c1"># ...</span>
+
+    <span class="c1"># ...</span>
+    <span class="c1"># Note that we have removed the size() method</span>
+    <span class="c1"># ...</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="migrating-to-rally-1-3-0">
+<h2>Migrating to Rally 1.3.0<a class="headerlink" href="#migrating-to-rally-1-3-0" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="races-now-stored-by-id-instead-of-timestamp">
+<h3>Races now stored by ID instead of timestamp<a class="headerlink" href="#races-now-stored-by-id-instead-of-timestamp" title="Permalink to this headline">¶</a></h3>
+<p>With Rally 1.3.0, Races will be stored by their Trial ID instead of their timestamp.
+This means that on disk, a given race will be found at <code class="docutils literal notranslate"><span class="pre">benchmarks/races/62d1e928-48b0-4d07-9899-07b45d031566/</span></code> instead of <code class="docutils literal notranslate"><span class="pre">benchmarks/races/2019-07-03-17-52-07</span></code></p>
+</div>
+<div class="section" id="laps-feature-removed">
+<h3>Laps feature removed<a class="headerlink" href="#laps-feature-removed" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">--laps</span></code> parameter and corresponding multi-run trial functionality has been removed from execution and reporting.
+If you need lap functionality, the following shell script can be used instead:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>RALLY_LAPS=3
+
+for lap in $(seq 1 ${RALLY_LAPS})
+do
+  esrally --pipeline=benchmark-only --user-tag lap:$lap
+done
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="migrating-to-rally-1-2-1">
+<h2>Migrating to Rally 1.2.1<a class="headerlink" href="#migrating-to-rally-1-2-1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="cpu-usage-is-not-measured-anymore">
+<h3>CPU usage is not measured anymore<a class="headerlink" href="#cpu-usage-is-not-measured-anymore" title="Permalink to this headline">¶</a></h3>
+<p>With Rally 1.2.1, CPU usage will neither be measured nor reported. We suggest to use system monitoring tools like <code class="docutils literal notranslate"><span class="pre">mpstat</span></code>, <code class="docutils literal notranslate"><span class="pre">sar</span></code> or <a class="reference external" href="https://www.elastic.co/downloads/beats/metricbeat">Metricbeat</a> to measure CPU usage instead.</p>
+</div>
+</div>
+<div class="section" id="migrating-to-rally-1-1-0">
+<h2>Migrating to Rally 1.1.0<a class="headerlink" href="#migrating-to-rally-1-1-0" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="request-params-in-operations-are-passed-as-is-and-not-serialized">
+<h3><code class="docutils literal notranslate"><span class="pre">request-params</span></code> in operations are passed as is and not serialized<a class="headerlink" href="#request-params-in-operations-are-passed-as-is-and-not-serialized" title="Permalink to this headline">¶</a></h3>
+<p>With Rally 1.1.0 any operations supporting the optional <code class="docutils literal notranslate"><span class="pre">request-params</span></code> property will pass the structure as is without attempting to serialize values.
+Until now, <code class="docutils literal notranslate"><span class="pre">request-params</span></code> relied on parameters being supported by the Elasticsearch Python client API calls. This means that for example boolean type parameters
+should be specified as strings i.e. <code class="docutils literal notranslate"><span class="pre">&quot;true&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;false&quot;</span></code> rather than <code class="docutils literal notranslate"><span class="pre">true/false</span></code>.</p>
+<p><strong>Example</strong></p>
+<p>Using <code class="docutils literal notranslate"><span class="pre">create-index</span></code> before <code class="docutils literal notranslate"><span class="pre">1.1.0</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;create-all-indices&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;create-index&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;settings&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;index.number_of_shards&quot;</span><span class="p">:</span> <span class="mi">1</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;request-params&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">:</span> <span class="n">true</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Using <code class="docutils literal notranslate"><span class="pre">create-index</span></code> starting with <code class="docutils literal notranslate"><span class="pre">1.1.0</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;create-all-indices&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;create-index&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;settings&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;index.number_of_shards&quot;</span><span class="p">:</span> <span class="mi">1</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;request-params&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;wait_for_active_shards&quot;</span><span class="p">:</span> <span class="s2">&quot;true&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="migrating-to-rally-1-0-1">
+<h2>Migrating to Rally 1.0.1<a class="headerlink" href="#migrating-to-rally-1-0-1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="logs-are-not-rotated">
+<h3>Logs are not rotated<a class="headerlink" href="#logs-are-not-rotated" title="Permalink to this headline">¶</a></h3>
+<p>With Rally 1.0.1 we have disabled automatic rotation of logs by default because it can lead to race conditions due to Rally’s multi-process architecture. If you did not change the default out-of-the-box logging configuration, Rally will automatically fix your configuration. Otherwise, you need to replace all instances of <code class="docutils literal notranslate"><span class="pre">logging.handlers.TimedRotatingFileHandler</span></code> with <code class="docutils literal notranslate"><span class="pre">logging.handlers.WatchedFileHandler</span></code> to disable log rotation.</p>
+<p>To rotate logs we recommend to use external tools like <a class="reference external" href="https://linux.die.net/man/8/logrotate">logrotate</a>. See the following example as a starting point for your own <code class="docutils literal notranslate"><span class="pre">logrotate</span></code> configuration and ensure to replace the path <code class="docutils literal notranslate"><span class="pre">/home/user/.rally/logs/rally.log</span></code> with the proper one:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">user</span><span class="o">/.</span><span class="n">rally</span><span class="o">/</span><span class="n">logs</span><span class="o">/</span><span class="n">rally</span><span class="o">.</span><span class="n">log</span> <span class="p">{</span>
+        <span class="c1"># rotate daily</span>
+        <span class="n">daily</span>
+        <span class="c1"># keep the last seven log files</span>
+        <span class="n">rotate</span> <span class="mi">7</span>
+        <span class="c1"># remove logs older than 14 days</span>
+        <span class="n">maxage</span> <span class="mi">14</span>
+        <span class="c1"># compress old logs ...</span>
+        <span class="n">compress</span>
+        <span class="c1"># ... after moving them</span>
+        <span class="n">delaycompress</span>
+        <span class="c1"># ignore missing log files</span>
+        <span class="n">missingok</span>
+        <span class="c1"># don&#39;t attempt to rotate empty ones</span>
+        <span class="n">notifempty</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="migrating-to-rally-1-0-0">
+<h2>Migrating to Rally 1.0.0<a class="headerlink" href="#migrating-to-rally-1-0-0" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="handling-of-jdk-versions">
+<h3>Handling of JDK versions<a class="headerlink" href="#handling-of-jdk-versions" title="Permalink to this headline">¶</a></h3>
+<p>Previously the path to the JDK needed to be configured in Rally’s configuration file (<code class="docutils literal notranslate"><span class="pre">~/.rally/rally.ini</span></code>) but this is too inflexible given the increased JDK release cadence. In order to keep up, we define now the allowed runtime JDKs in <a class="reference external" href="https://github.com/elastic/rally-teams/blob/master/cars/v1/vanilla/config.ini">rally-teams</a> per Elasticsearch version.</p>
+<p>To resolve the path to the appropriate JDK you need to define the environment variable <code class="docutils literal notranslate"><span class="pre">JAVA_HOME</span></code> on each targeted machine.</p>
+<p>You can also set version-specific environment variables, e.g. <code class="docutils literal notranslate"><span class="pre">JAVA7_HOME</span></code>, <code class="docutils literal notranslate"><span class="pre">JAVA8_HOME</span></code> or <code class="docutils literal notranslate"><span class="pre">JAVA10_HOME</span></code> which will take precedence over <code class="docutils literal notranslate"><span class="pre">JAVA_HOME</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Rally will choose the highest appropriate JDK per Elasticsearch version. You can use <code class="docutils literal notranslate"><span class="pre">--runtime-jdk</span></code> to force a specific JDK version but the path will still be resolved according to the logic above.</p>
+</div>
+</div>
+<div class="section" id="id1">
+<h3>Custom Parameter Sources<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>In Rally 0.10.0 we have deprecated some parameter names in custom parameter sources. In Rally 1.0.0, these deprecated names have been removed. Therefore you need to replace the following parameter names if you use them in custom parameter sources:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 38%" />
+<col style="width: 38%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Operation type</p></th>
+<th class="head"><p>Old name</p></th>
+<th class="head"><p>New name</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>search</p></td>
+<td><p>use_request_cache</p></td>
+<td><p>cache</p></td>
+</tr>
+<tr class="row-odd"><td><p>search</p></td>
+<td><p>request_params</p></td>
+<td><p>request-params</p></td>
+</tr>
+<tr class="row-even"><td><p>search</p></td>
+<td><p>items_per_page</p></td>
+<td><p>results-per-page</p></td>
+</tr>
+<tr class="row-odd"><td><p>bulk</p></td>
+<td><p>action_metadata_present</p></td>
+<td><p>action-metadata-present</p></td>
+</tr>
+<tr class="row-even"><td><p>force-merge</p></td>
+<td><p>max_num_segments</p></td>
+<td><p>max-num-segments</p></td>
+</tr>
+</tbody>
+</table>
+<p>In Rally 0.9.0 the signature of custom parameter sources has also changed. In Rally 1.0.0 we have removed the backwards compatibility layer so you need to change the signatures.</p>
+<p>Old:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># for parameter sources implemented as functions</span>
+<span class="k">def</span> <span class="nf">custom_param_source</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+
+<span class="c1"># for parameter sources implemented as classes</span>
+<span class="k">class</span> <span class="nc">CustomParamSource</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+</pre></div>
+</div>
+<p>New:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># for parameter sources implemented as functions</span>
+<span class="k">def</span> <span class="nf">custom_param_source</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<span class="c1"># for parameter sources implemented as classes</span>
+<span class="k">class</span> <span class="nc">CustomParamSource</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</pre></div>
+</div>
+<p>You can use the property <code class="docutils literal notranslate"><span class="pre">track.indices</span></code> to access indices.</p>
+</div>
+</div>
+<div class="section" id="migrating-to-rally-0-11-0">
+<h2>Migrating to Rally 0.11.0<a class="headerlink" href="#migrating-to-rally-0-11-0" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="versioned-teams">
+<h3>Versioned teams<a class="headerlink" href="#versioned-teams" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can skip this section if you do not create custom Rally teams.</p>
+</div>
+<p>We have introduced versioned team specifications and consequently the directory structure changes. All cars and plugins need to reside in a version-specific subdirectory now. Up to now the structure of a team repository was as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>.
+├── cars
+│   ├── 1gheap.ini
+│   ├── 2gheap.ini
+│   ├── defaults.ini
+│   ├── ea
+│   │   └── config
+│   │       └── jvm.options
+│   ├── ea.ini
+│   └── vanilla
+│       └── config
+│           ├── elasticsearch.yml
+│           ├── jvm.options
+│           └── log4j2.properties
+└── plugins
+    ├── core-plugins.txt
+    └── transport_nio
+        ├── default
+        │   └── config
+        │       └── elasticsearch.yml
+        └── transport.ini
+</pre></div>
+</div>
+<p>Starting with Rally 0.11.0, Rally will look for a directory “v1” within <code class="docutils literal notranslate"><span class="pre">cars</span></code> and <code class="docutils literal notranslate"><span class="pre">plugins</span></code>. The files that should be copied to the Elasticsearch directory, need to be contained in a <code class="docutils literal notranslate"><span class="pre">templates</span></code> subdirectory. Therefore, the new structure is as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>.
+├── cars
+│   └── v1
+│       ├── 1gheap.ini
+│       ├── 2gheap.ini
+│       ├── defaults.ini
+│       ├── ea
+│       │   └── templates
+│       │       └── config
+│       │           └── jvm.options
+│       ├── ea.ini
+│       └── vanilla
+│           └── templates
+│               └── config
+│                   ├── elasticsearch.yml
+│                   ├── jvm.options
+│                   └── log4j2.properties
+└── plugins
+    └── v1
+        ├── core-plugins.txt
+        └── transport_nio
+            ├── default
+            │   └── templates
+            │       └── config
+            │           └── elasticsearch.yml
+            └── transport.ini
+</pre></div>
+</div>
+<p>It is also required that you create a file <code class="docutils literal notranslate"><span class="pre">variables.ini</span></code> for all your car config bases (optional for mixins). Therefore, the full directory structure is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>.
+├── cars
+│   └── v1
+│       ├── 1gheap.ini
+│       ├── 2gheap.ini
+│       ├── defaults.ini
+│       ├── ea
+│       │   └── templates
+│       │       └── config
+│       │           └── jvm.options
+│       ├── ea.ini
+│       └── vanilla
+│           ├── config.ini
+│           └── templates
+│               └── config
+│                   ├── elasticsearch.yml
+│                   ├── jvm.options
+│                   └── log4j2.properties
+└── plugins
+    └── v1
+        ├── core-plugins.txt
+        └── transport_nio
+            ├── default
+            │   └── templates
+            │       └── config
+            │           └── elasticsearch.yml
+            └── transport.ini
+</pre></div>
+</div>
+<p>For distribution-based builds, <code class="docutils literal notranslate"><span class="pre">config.ini</span></code> file needs to contain a section <code class="docutils literal notranslate"><span class="pre">variables</span></code> and a <code class="docutils literal notranslate"><span class="pre">release_url</span></code> property:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">variables</span><span class="p">]</span>
+<span class="n">release_url</span><span class="o">=</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">artifacts</span><span class="o">.</span><span class="n">elastic</span><span class="o">.</span><span class="n">co</span><span class="o">/</span><span class="n">downloads</span><span class="o">/</span><span class="n">elasticsearch</span><span class="o">/</span><span class="n">elasticsearch</span><span class="o">-</span><span class="n">oss</span><span class="o">-</span><span class="p">{{</span><span class="n">VERSION</span><span class="p">}}</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="migrating-to-rally-0-10-0">
+<h2>Migrating to Rally 0.10.0<a class="headerlink" href="#migrating-to-rally-0-10-0" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="removal-of-auto-detection-and-dependency-on-gradle">
+<h3>Removal of auto-detection and dependency on Gradle<a class="headerlink" href="#removal-of-auto-detection-and-dependency-on-gradle" title="Permalink to this headline">¶</a></h3>
+<p>We have removed the auto-detection and dependency on Gradle, required until now to build from source, in favor of the <a class="reference external" href="https://docs.gradle.org/current/userguide/gradle_wrapper.html">Gradle Wrapper</a> which is present in the <a class="reference external" href="https://github.com/elastic/elasticsearch">Elasticsearch repository</a> for all branches &gt;= 5.0.0.</p>
+</div>
+<div class="section" id="use-full-build-command-in-plugin-configuration">
+<h3>Use full build command in plugin configuration<a class="headerlink" href="#use-full-build-command-in-plugin-configuration" title="Permalink to this headline">¶</a></h3>
+<p>With Rally 0.10.0 we have removed the property <code class="code docutils literal notranslate"><span class="pre">build.task</span></code> for plugin definitions, in the <code class="code docutils literal notranslate"><span class="pre">source</span></code> section of the Rally configuration file.
+Instead, a new property <code class="code docutils literal notranslate"><span class="pre">build.command</span></code> has been introduced where the <strong>full build command</strong> needs to be supplied.</p>
+<p>The earlier syntax, to build a hypothetical plugin called <code class="code docutils literal notranslate"><span class="pre">my-plugin</span></code> <a class="reference external" href="elasticsearch_plugins.html#plugins-built-alongside-elasticsearch">alongside Elasticsearch</a>, required:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plugin</span><span class="o">.</span><span class="n">my</span><span class="o">-</span><span class="n">plugin</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">task</span> <span class="o">=</span> <span class="p">:</span><span class="n">my</span><span class="o">-</span><span class="n">plugin</span><span class="p">:</span><span class="n">plugin</span><span class="p">:</span><span class="n">assemble</span>
+</pre></div>
+</div>
+<p>This needs to be changed to the full command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plugin</span><span class="o">.</span><span class="n">my</span><span class="o">-</span><span class="n">plugin</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">command</span> <span class="o">=</span> <span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">my</span><span class="o">-</span><span class="n">plugin</span><span class="p">:</span><span class="n">plugin</span><span class="p">:</span><span class="n">assemble</span>
+</pre></div>
+</div>
+<p>Note that if you are configuring <a class="reference external" href="elasticsearch_plugins.html#plugins-based-on-a-released-elasticsearch-version">Plugins based on a released Elasticsearch version</a> the command specified in <code class="code docutils literal notranslate"><span class="pre">build.command</span></code> will be executed from the plugins root directory. It’s likely this directory won’t have the Gradle Wrapper so you’ll need to specify the full path to a Gradle command e.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plugin</span><span class="o">.</span><span class="n">my</span><span class="o">-</span><span class="n">plugin</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">command</span> <span class="o">=</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">gradle</span> <span class="p">:</span><span class="n">my</span><span class="o">-</span><span class="n">plugin</span><span class="p">:</span><span class="n">plugin</span><span class="p">:</span><span class="n">assemble</span>
+</pre></div>
+</div>
+<p>Check <a class="reference external" href="elasticsearch_plugins.html#building-plugins-from-sources">Building plugins from sources</a> for more information.</p>
+</div>
+<div class="section" id="removal-of-operation-type-index">
+<h3>Removal of operation type <code class="docutils literal notranslate"><span class="pre">index</span></code><a class="headerlink" href="#removal-of-operation-type-index" title="Permalink to this headline">¶</a></h3>
+<p>We have removed the operation type <code class="docutils literal notranslate"><span class="pre">index</span></code> which has been deprecated with Rally 0.8.0. Use <code class="docutils literal notranslate"><span class="pre">bulk</span></code> instead as operation type.</p>
+</div>
+<div class="section" id="removal-of-the-command-line-parameter-cluster-health">
+<h3>Removal of the command line parameter <code class="docutils literal notranslate"><span class="pre">--cluster-health</span></code><a class="headerlink" href="#removal-of-the-command-line-parameter-cluster-health" title="Permalink to this headline">¶</a></h3>
+<p>We have removed the command line parameter <code class="docutils literal notranslate"><span class="pre">--cluster-health</span></code> which has been deprecated with Rally 0.8.0. When using Rally’s standard tracks, specify the expected cluster health as a track parameter instead, e.g.: <code class="docutils literal notranslate"><span class="pre">--track-params=&quot;cluster_health:'yellow'&quot;</span></code>.</p>
+</div>
+<div class="section" id="removal-of-index-automanagement">
+<h3>Removal of index-automanagement<a class="headerlink" href="#removal-of-index-automanagement" title="Permalink to this headline">¶</a></h3>
+<p>We have removed the possibility that Rally automatically deletes and creates indices. Therefore, you need to add the following definitions explicitly at the beginning of a schedule if you want Rally to create declared indices:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;schedule&quot;</span><span class="p">:</span> <span class="p">[</span>
+  <span class="p">{</span>
+    <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="s2">&quot;delete-index&quot;</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;create-index&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;settings&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;index.number_of_replicas&quot;</span><span class="p">:</span> <span class="mi">0</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;cluster-health&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;request-params&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;wait_for_status&quot;</span><span class="p">:</span> <span class="s2">&quot;green&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+</pre></div>
+</div>
+<p>The example above also shows how to provide per-challenge index settings. If per-challenge index settings are not required, you can just specify them in the index definition file.</p>
+<p>This behavior applies similarly to index templates as well.</p>
+</div>
+<div class="section" id="id2">
+<h3>Custom Parameter Sources<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>We have aligned the internal names between parameter sources and runners with the ones that are specified by the user in the track file. If you have implemented custom parameter sources or runners, adjust the parameter names as follows:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 38%" />
+<col style="width: 38%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Operation type</p></th>
+<th class="head"><p>Old name</p></th>
+<th class="head"><p>New name</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>search</p></td>
+<td><p>use_request_cache</p></td>
+<td><p>cache</p></td>
+</tr>
+<tr class="row-odd"><td><p>search</p></td>
+<td><p>request_params</p></td>
+<td><p>request-params</p></td>
+</tr>
+<tr class="row-even"><td><p>search</p></td>
+<td><p>items_per_page</p></td>
+<td><p>results-per-page</p></td>
+</tr>
+<tr class="row-odd"><td><p>bulk</p></td>
+<td><p>action_metadata_present</p></td>
+<td><p>action-metadata-present</p></td>
+</tr>
+<tr class="row-even"><td><p>force-merge</p></td>
+<td><p>max_num_segments</p></td>
+<td><p>max-num-segments</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="migrating-to-rally-0-9-0">
+<h2>Migrating to Rally 0.9.0<a class="headerlink" href="#migrating-to-rally-0-9-0" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="track-syntax">
+<h3>Track Syntax<a class="headerlink" href="#track-syntax" title="Permalink to this headline">¶</a></h3>
+<p>With Rally 0.9.0, we have changed the track file format. While the previous format is still supported with deprecation warnings, we recommend that you adapt your tracks as we will remove the deprecated syntax with the next minor release.</p>
+<p>Below is an example of a track with the previous syntax:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Tutorial benchmark for Rally&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;data-url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://benchmarks.elasticsearch.org.s3.amazonaws.com/corpora/geonames&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;indices&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;geonames&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;types&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;type&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;mapping&quot;</span><span class="p">:</span> <span class="s2">&quot;mappings.json&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;documents&quot;</span><span class="p">:</span> <span class="s2">&quot;documents.json&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;document-count&quot;</span><span class="p">:</span> <span class="mi">8647880</span><span class="p">,</span>
+          <span class="s2">&quot;uncompressed-bytes&quot;</span><span class="p">:</span> <span class="mi">2790927196</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;challenge&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;index-only&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;index-settings&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;index.number_of_replicas&quot;</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;schedule&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;bulk&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;bulk-size&quot;</span><span class="p">:</span> <span class="mi">5000</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;warmup-time-period&quot;</span><span class="p">:</span> <span class="mi">120</span><span class="p">,</span>
+        <span class="s2">&quot;clients&quot;</span><span class="p">:</span> <span class="mi">8</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Before Rally 0.9.0, indices have been created implicitly. We will remove this ability and thus you need to tell Rally explicitly that you want to create indices. With Rally 0.9.0 your track should look as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Tutorial benchmark for Rally&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;indices&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;geonames&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;index.json&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;auto-managed&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+      <span class="s2">&quot;types&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;type&quot;</span> <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;corpora&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;geonames&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;documents&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="s2">&quot;base-url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://benchmarks.elasticsearch.org.s3.amazonaws.com/corpora/geonames&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;source-file&quot;</span><span class="p">:</span> <span class="s2">&quot;documents.json&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;document-count&quot;</span><span class="p">:</span> <span class="mi">8647880</span><span class="p">,</span>
+          <span class="s2">&quot;uncompressed-bytes&quot;</span><span class="p">:</span> <span class="mi">2790927196</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;challenge&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;index-only&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;schedule&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="s2">&quot;delete-index&quot;</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;create-index&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;settings&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;index.number_of_replicas&quot;</span><span class="p">:</span> <span class="mi">0</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;cluster-health&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;request-params&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;wait_for_status&quot;</span><span class="p">:</span> <span class="s2">&quot;green&quot;</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;bulk&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;bulk-size&quot;</span><span class="p">:</span> <span class="mi">5000</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;warmup-time-period&quot;</span><span class="p">:</span> <span class="mi">120</span><span class="p">,</span>
+        <span class="s2">&quot;clients&quot;</span><span class="p">:</span> <span class="mi">8</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Let’s go through the necessary changes one by one.</p>
+<div class="section" id="define-the-document-corpus-separately">
+<h4>Define the document corpus separately<a class="headerlink" href="#define-the-document-corpus-separately" title="Permalink to this headline">¶</a></h4>
+<p>Previously you had to define the document corpus together with the document type. In order to allow you to reuse existing document corpora across tracks, you now need to specify any document corpora separately:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;corpora&quot;</span><span class="p">:</span> <span class="p">[</span>
+  <span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;geonames&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;documents&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">&quot;base-url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://benchmarks.elasticsearch.org.s3.amazonaws.com/corpora/geonames&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source-file&quot;</span><span class="p">:</span> <span class="s2">&quot;documents.json&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;document-count&quot;</span><span class="p">:</span> <span class="mi">8647880</span><span class="p">,</span>
+        <span class="s2">&quot;uncompressed-bytes&quot;</span><span class="p">:</span> <span class="mi">2790927196</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>Note that this is just a simple example that should cover the most basic case. Be sure to check the <a class="reference internal" href="track.html"><span class="doc">track reference</span></a> for all details.</p>
+</div>
+<div class="section" id="change-the-index-definition">
+<h4>Change the index definition<a class="headerlink" href="#change-the-index-definition" title="Permalink to this headline">¶</a></h4>
+<p>The new index definition now looks as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;geonames&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;index.json&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;auto-managed&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+  <span class="s2">&quot;types&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;type&quot;</span> <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>We have added a <code class="docutils literal notranslate"><span class="pre">body</span></code> property to the index and removed the <code class="docutils literal notranslate"><span class="pre">mapping</span></code> property from the type. In fact, the only information that we need about the document type is its name, hence it is now a simple list of strings. Just put all type mappings now into the <code class="docutils literal notranslate"><span class="pre">mappings</span></code> property of the index definition; see also the <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html">create index API documentation</a>.</p>
+<p>Secondly, we have disabled index auto-management by setting <code class="docutils literal notranslate"><span class="pre">auto-managed</span></code> to <code class="docutils literal notranslate"><span class="pre">false</span></code>. This allows us to define explicit tasks below to manage our index. Note that index auto-management is still working in Rally 0.9.0 but it will be removed with the next minor release Rally 0.10.0.</p>
+</div>
+<div class="section" id="explicitly-delete-and-recreate-the-index">
+<h4>Explicitly delete and recreate the index<a class="headerlink" href="#explicitly-delete-and-recreate-the-index" title="Permalink to this headline">¶</a></h4>
+<p>We have also added three tasks at the beginning of the schedule:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="s2">&quot;delete-index&quot;</span>
+<span class="p">},</span>
+<span class="p">{</span>
+  <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;create-index&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;settings&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;index.number_of_replicas&quot;</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">},</span>
+<span class="p">{</span>
+  <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;cluster-health&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;request-params&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;wait_for_status&quot;</span><span class="p">:</span> <span class="s2">&quot;green&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>These tasks represent what Rally previously did implicitly.</p>
+<p>The first task will delete all indices that have been declared in the <code class="docutils literal notranslate"><span class="pre">indices</span></code> section if they existed previously. This ensures that we don’t have any leftovers from previous benchmarks.</p>
+<p>After that we will create all indices that have been declared in the <code class="docutils literal notranslate"><span class="pre">indices</span></code> section. Note that we have also removed the special property <code class="docutils literal notranslate"><span class="pre">index-settings</span></code> and moved it to the <code class="docutils literal notranslate"><span class="pre">settings</span></code> parameter of <code class="docutils literal notranslate"><span class="pre">create-index</span></code>. Rally will merge any settings from the index body definition with these settings. This means you should define settings that are always the same in the index body and settings that change from challenge to challenge in the <code class="docutils literal notranslate"><span class="pre">settings</span></code> property.</p>
+<p>Finally, Rally will check that the cluster health is green. If you want to be able to override the cluster health check parameters from the command line, you can leverage Rally’s track parameter feature:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;cluster-health&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;request-params&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;wait_for_status&quot;</span><span class="p">:</span> <span class="s2">&quot;{{ cluster_health|default(&#39;green&#39;) }}&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If you don’t specify anything on the command line, Rally will use the default value but you can e.g. specify <code class="docutils literal notranslate"><span class="pre">--track-params=&quot;cluster_health:'yellow'&quot;</span></code> so Rally will check for (at least) a yellow cluster health status.</p>
+<p>Note that you can <a class="reference internal" href="track.html"><span class="doc">customize these operations</span></a>.</p>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>Custom Parameter Sources<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>With Rally 0.9.0, the API for custom parameter sources has changed. Previously, the following syntax was valid:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># for parameter sources implemented as functions</span>
+<span class="k">def</span> <span class="nf">custom_param_source</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+
+<span class="c1"># for parameter sources implemented as classes</span>
+<span class="k">class</span> <span class="nc">CustomParamSource</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+</pre></div>
+</div>
+<p>With Rally 0.9.0, the signatures need to be changed to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># for parameter sources implemented as functions</span>
+<span class="k">def</span> <span class="nf">custom_param_source</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<span class="c1"># for parameter sources implemented as classes</span>
+<span class="k">class</span> <span class="nc">CustomParamSource</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</pre></div>
+</div>
+<p>Rally will issue a warning along the lines of <code class="docutils literal notranslate"><span class="pre">Parameter</span> <span class="pre">source</span> <span class="pre">'custom_param_source'</span> <span class="pre">is</span> <span class="pre">using</span> <span class="pre">deprecated</span> <span class="pre">method</span> <span class="pre">signature</span></code> if your track is affected. If you need access to the <code class="docutils literal notranslate"><span class="pre">indices</span></code> list, you can call <code class="docutils literal notranslate"><span class="pre">track.indices</span></code> to retrieve it from the track.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="faq.html" class="btn btn-neutral float-right" title="Frequently Asked Questions (FAQ)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="summary_report.html" class="btn btn-neutral float-left" title="Summary Report" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Elasticsearch B.V.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

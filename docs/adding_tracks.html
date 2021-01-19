@@ -1,0 +1,1324 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Define Custom Workloads: Tracks &mdash; Rally 2.0.4.dev0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Developing Rally" href="developing.html" />
+    <link rel="prev" title="Tips and Tricks" href="recipes.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Rally
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started with Rally</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Running Rally with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="race.html">Run a Benchmark: Races</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tournament.html">Compare Results: Tournaments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cluster_management.html">Setting up a Cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recipes.html">Tips and Tricks</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Extending Rally</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Define Custom Workloads: Tracks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#definition">Definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-a-track-from-data-in-an-existing-cluster">Creating a track from data in an existing cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-a-track-from-scratch">Creating a track from scratch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-support-for-test-mode">Adding support for test mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#challenges">Challenges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#structuring-your-track">Structuring your track</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sharing-your-track-with-others">Sharing your track with others</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-topics">Advanced topics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#template-language">Template Language</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#extensions">Extensions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-parameter-sources">Custom parameter sources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-runners">Custom runners</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-schedulers">Custom schedulers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">Developing Rally</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Elasticsearch Version Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_line_reference.html">Command Line Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="offline.html">Offline Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="track.html">Track Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="car.html">Configure Elasticsearch: Cars</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elasticsearch_plugins.html">Using Elasticsearch Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="telemetry.html">Telemetry Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rally_daemon.html">Rally Daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipelines.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="summary_report.html">Summary Report</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Additional Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="migrate.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Community Resources</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Rally</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+    <ul class="wy-breadcrumbs">
+        
+        <li><a href="index.html">Docs</a> &raquo;</li>
+        
+        <li>Define Custom Workloads: Tracks</li>
+        
+        
+        <li class="wy-breadcrumbs-aside">
+            
+            
+            <a href="_sources/adding_tracks.rst.txt" rel="nofollow"> View page source</a>
+            
+            
+        </li>
+        
+    </ul>
+
+    
+    <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="define-custom-workloads-tracks">
+<h1>Define Custom Workloads: Tracks<a class="headerlink" href="#define-custom-workloads-tracks" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="definition">
+<h2>Definition<a class="headerlink" href="#definition" title="Permalink to this headline">¶</a></h2>
+<p>A track describes one or more benchmarking scenarios. Its structure is described in detail in the <a class="reference internal" href="track.html"><span class="doc">track reference</span></a>.</p>
+</div>
+<div class="section" id="creating-a-track-from-data-in-an-existing-cluster">
+<span id="add-track-create-track"></span><h2>Creating a track from data in an existing cluster<a class="headerlink" href="#creating-a-track-from-data-in-an-existing-cluster" title="Permalink to this headline">¶</a></h2>
+<p>If you already have a cluster with data in it you can use the <code class="docutils literal notranslate"><span class="pre">create-track</span></code> subcommand of Rally to create a basic Rally track. To create a Rally track with data from the indices <code class="docutils literal notranslate"><span class="pre">products</span></code> and <code class="docutils literal notranslate"><span class="pre">companies</span></code> that are hosted by a locally running Elasticsearch cluster, issue the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">esrally</span> <span class="n">create</span><span class="o">-</span><span class="n">track</span> <span class="o">--</span><span class="n">track</span><span class="o">=</span><span class="n">acme</span> <span class="o">--</span><span class="n">target</span><span class="o">-</span><span class="n">hosts</span><span class="o">=</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">9200</span> <span class="o">--</span><span class="n">indices</span><span class="o">=</span><span class="s2">&quot;products,companies&quot;</span> <span class="o">--</span><span class="n">output</span><span class="o">-</span><span class="n">path</span><span class="o">=~/</span><span class="n">tracks</span>
+</pre></div>
+</div>
+<p>If you want to connect to a cluster with TLS and basic authentication enabled, for example via Elastic Cloud, also specify <a class="reference internal" href="command_line_reference.html#clr-client-options"><span class="std std-ref">–client-options</span></a> and change <code class="docutils literal notranslate"><span class="pre">basic_auth_user</span></code> and <code class="docutils literal notranslate"><span class="pre">basic_auth_password</span></code> accordingly:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">esrally</span> <span class="n">create</span><span class="o">-</span><span class="n">track</span> <span class="o">--</span><span class="n">track</span><span class="o">=</span><span class="n">acme</span> <span class="o">--</span><span class="n">target</span><span class="o">-</span><span class="n">hosts</span><span class="o">=</span><span class="n">abcdef123</span><span class="o">.</span><span class="n">us</span><span class="o">-</span><span class="n">central</span><span class="o">-</span><span class="mf">1.</span><span class="n">gcp</span><span class="o">.</span><span class="n">cloud</span><span class="o">.</span><span class="n">es</span><span class="o">.</span><span class="n">io</span><span class="p">:</span><span class="mi">9243</span> <span class="o">--</span><span class="n">client</span><span class="o">-</span><span class="n">options</span><span class="o">=</span><span class="s2">&quot;timeout:60,use_ssl:true,verify_certs:true,basic_auth_user:&#39;elastic&#39;,basic_auth_password:&#39;secret-password&#39;&quot;</span> <span class="o">--</span><span class="n">indices</span><span class="o">=</span><span class="s2">&quot;products,companies&quot;</span> <span class="o">--</span><span class="n">output</span><span class="o">-</span><span class="n">path</span><span class="o">=~/</span><span class="n">tracks</span>
+</pre></div>
+</div>
+<p>The track generator will create a folder with the track’s name in the specified output directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">find</span> <span class="n">tracks</span><span class="o">/</span><span class="n">acme</span>
+<span class="n">tracks</span><span class="o">/</span><span class="n">acme</span>
+<span class="n">tracks</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">companies</span><span class="o">-</span><span class="n">documents</span><span class="o">.</span><span class="n">json</span>
+<span class="n">tracks</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">companies</span><span class="o">-</span><span class="n">documents</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">bz2</span>
+<span class="n">tracks</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">companies</span><span class="o">-</span><span class="n">documents</span><span class="o">-</span><span class="mi">1</span><span class="n">k</span><span class="o">.</span><span class="n">json</span>
+<span class="n">tracks</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">companies</span><span class="o">-</span><span class="n">documents</span><span class="o">-</span><span class="mi">1</span><span class="n">k</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">bz2</span>
+<span class="n">tracks</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">companies</span><span class="o">.</span><span class="n">json</span>
+<span class="n">tracks</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">products</span><span class="o">-</span><span class="n">documents</span><span class="o">.</span><span class="n">json</span>
+<span class="n">tracks</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">products</span><span class="o">-</span><span class="n">documents</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">bz2</span>
+<span class="n">tracks</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">products</span><span class="o">-</span><span class="n">documents</span><span class="o">-</span><span class="mi">1</span><span class="n">k</span><span class="o">.</span><span class="n">json</span>
+<span class="n">tracks</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">products</span><span class="o">-</span><span class="n">documents</span><span class="o">-</span><span class="mi">1</span><span class="n">k</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">bz2</span>
+<span class="n">tracks</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">products</span><span class="o">.</span><span class="n">json</span>
+<span class="n">tracks</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">track</span><span class="o">.</span><span class="n">json</span>
+</pre></div>
+</div>
+<p>The files are organized as follows:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">track.json</span></code> contains the actual Rally track. For details see the <a class="reference internal" href="track.html"><span class="doc">track reference</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">companies.json</span></code> and <code class="docutils literal notranslate"><span class="pre">products.json</span></code> contain the mapping and settings for the extracted indices.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*-documents.json(.bz2)</span></code> contains the sources of all the documents from the extracted indices. The files suffixed with <code class="docutils literal notranslate"><span class="pre">-1k</span></code> contain a smaller version of the document corpus to support <a class="reference internal" href="#add-track-test-mode"><span class="std std-ref">test mode</span></a>.</p></li>
+</ul>
+</div>
+<div class="section" id="creating-a-track-from-scratch">
+<h2>Creating a track from scratch<a class="headerlink" href="#creating-a-track-from-scratch" title="Permalink to this headline">¶</a></h2>
+<p>We will create the track “tutorial” step by step. We store everything in the directory <code class="docutils literal notranslate"><span class="pre">~/rally-tracks/tutorial</span></code> but you can choose any other location.</p>
+<p>First, get some data. <a class="reference external" href="http://www.geonames.org/">Geonames</a> provides geo data under a <a class="reference external" href="http://creativecommons.org/licenses/by/3.0/">creative commons license</a>. Download <a class="reference external" href="http://download.geonames.org/export/dump/allCountries.zip">allCountries.zip</a> (around 300MB), extract it and inspect <code class="docutils literal notranslate"><span class="pre">allCountries.txt</span></code>.</p>
+<p>The file is tab-delimited but to bulk-index data with Elasticsearch we need JSON. Convert the data with the following script:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">cols</span> <span class="o">=</span> <span class="p">((</span><span class="s2">&quot;geonameid&quot;</span><span class="p">,</span> <span class="s2">&quot;int&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;asciiname&quot;</span><span class="p">,</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;alternatenames&quot;</span><span class="p">,</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;double&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;double&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;feature_class&quot;</span><span class="p">,</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;feature_code&quot;</span><span class="p">,</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;country_code&quot;</span><span class="p">,</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;cc2&quot;</span><span class="p">,</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;admin1_code&quot;</span><span class="p">,</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;admin2_code&quot;</span><span class="p">,</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;admin3_code&quot;</span><span class="p">,</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;admin4_code&quot;</span><span class="p">,</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;population&quot;</span><span class="p">,</span> <span class="s2">&quot;long&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;elevation&quot;</span><span class="p">,</span> <span class="s2">&quot;int&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;dem&quot;</span><span class="p">,</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;timezone&quot;</span><span class="p">,</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;allCountries.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;rt&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;UTF-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">tup</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">record</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cols</span><span class="p">)):</span>
+                <span class="n">name</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">include</span> <span class="o">=</span> <span class="n">cols</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">tup</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">include</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">type</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;int&quot;</span><span class="p">,</span> <span class="s2">&quot;long&quot;</span><span class="p">):</span>
+                        <span class="n">record</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">tup</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                    <span class="k">elif</span> <span class="nb">type</span> <span class="o">==</span> <span class="s2">&quot;double&quot;</span><span class="p">:</span>
+                        <span class="n">record</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">tup</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                    <span class="k">elif</span> <span class="nb">type</span> <span class="o">==</span> <span class="s2">&quot;string&quot;</span><span class="p">:</span>
+                        <span class="n">record</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">tup</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Store the script as <code class="docutils literal notranslate"><span class="pre">toJSON.py</span></code> in the tutorial directory (<code class="docutils literal notranslate"><span class="pre">~/rally-tracks/tutorial</span></code>). Invoke it with <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">toJSON.py</span> <span class="pre">&gt;</span> <span class="pre">documents.json</span></code>.</p>
+<p>Then store the following mapping file as <code class="docutils literal notranslate"><span class="pre">index.json</span></code> in the tutorial directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;settings&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;index.number_of_replicas&quot;</span><span class="p">:</span> <span class="mi">0</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;mappings&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;docs&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;dynamic&quot;</span><span class="p">:</span> <span class="s2">&quot;strict&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;geonameid&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;long&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;latitude&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;double&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;longitude&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;double&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;country_code&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;population&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;long&quot;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This tutorial assumes that you want to benchmark a version of Elasticsearch prior to 7.0.0. If you want to benchmark Elasticsearch 7.0.0 or later you need to remove the mapping type above.</p>
+</div>
+<p>For details on the allowed syntax, see the Elasticsearch documentation on <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping.html">mappings</a> and the <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html">create index API</a>.</p>
+<p>Finally, store the track as <code class="docutils literal notranslate"><span class="pre">track.json</span></code> in the tutorial directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Tutorial benchmark for Rally&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;indices&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;geonames&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;index.json&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;types&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;docs&quot;</span> <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;corpora&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;rally-tutorial&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;documents&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="s2">&quot;source-file&quot;</span><span class="p">:</span> <span class="s2">&quot;documents.json&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;document-count&quot;</span><span class="p">:</span> <span class="mi">11658903</span><span class="p">,</span>
+          <span class="s2">&quot;uncompressed-bytes&quot;</span><span class="p">:</span> <span class="mi">1544799789</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;schedule&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;delete-index&quot;</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;create-index&quot;</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;cluster-health&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;request-params&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">&quot;wait_for_status&quot;</span><span class="p">:</span> <span class="s2">&quot;green&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;retry-until-success&quot;</span><span class="p">:</span> <span class="n">true</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;bulk&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;bulk-size&quot;</span><span class="p">:</span> <span class="mi">5000</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;warmup-time-period&quot;</span><span class="p">:</span> <span class="mi">120</span><span class="p">,</span>
+      <span class="s2">&quot;clients&quot;</span><span class="p">:</span> <span class="mi">8</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;force-merge&quot;</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;query-match-all&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;search&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;match_all&quot;</span><span class="p">:</span> <span class="p">{}</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;clients&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+      <span class="s2">&quot;warmup-iterations&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+      <span class="s2">&quot;iterations&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+      <span class="s2">&quot;target-throughput&quot;</span><span class="p">:</span> <span class="mi">100</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The numbers under the <code class="docutils literal notranslate"><span class="pre">documents</span></code> property are needed to verify integrity and provide progress reports. Determine the correct document count with <code class="docutils literal notranslate"><span class="pre">wc</span> <span class="pre">-l</span> <span class="pre">documents.json</span></code> and the size in bytes with <code class="docutils literal notranslate"><span class="pre">stat</span> <span class="pre">-f</span> <span class="pre">&quot;%z&quot;</span> <span class="pre">documents.json</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This tutorial assumes that you want to benchmark a version of Elasticsearch prior to 7.0.0. If you want to benchmark Elasticsearch 7.0.0 or later you need to remove the <code class="docutils literal notranslate"><span class="pre">types</span></code> property above.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can store any supporting scripts along with your track. However, you need to place them in a directory starting with “_”, e.g. “_support”. Rally loads track plugins (see below) from any directory but will ignore directories starting with “_”.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We have defined a <a class="reference external" href="https://github.com/elastic/rally/blob/master/esrally/resources/track-schema.json">JSON schema for tracks</a> which you can use to check how to define your track. You should also check the tracks provided by Rally for inspiration.</p>
+</div>
+<p>The new track appears when you run <code class="docutils literal notranslate"><span class="pre">esrally</span> <span class="pre">list</span> <span class="pre">tracks</span> <span class="pre">--track-path=~/rally-tracks/tutorial</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>dm@io:~ $ esrally list tracks --track-path=~/rally-tracks/tutorial
+
+    ____        ____
+   / __ \____ _/ / /_  __
+  / /_/ / __ `/ / / / / /
+ / _, _/ /_/ / / / /_/ /
+/_/ |_|\__,_/_/_/\__, /
+                /____/
+Available tracks:
+
+Name        Description                   Documents    Compressed Size  Uncompressed Size
+----------  ----------------------------- -----------  ---------------  -----------------
+tutorial    Tutorial benchmark for Rally      11658903  N/A              1.4 GB
+</pre></div>
+</div>
+<p>You can also show details about your track with <code class="docutils literal notranslate"><span class="pre">esrally</span> <span class="pre">info</span> <span class="pre">--track-path=~/rally-tracks/tutorial</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>dm@io:~ $ esrally info --track-path=~/rally-tracks/tutorial
+
+    ____        ____
+   / __ \____ _/ / /_  __
+  / /_/ / __ `/ / / / / /
+ / _, _/ /_/ / / / /_/ /
+/_/ |_|\__,_/_/_/\__, /
+                /____/
+
+Showing details for track [tutorial]:
+
+* Description: Tutorial benchmark for Rally
+* Documents: 11,658,903
+* Compressed Size: N/A
+* Uncompressed Size: 1.4 GB
+
+
+Schedule:
+----------
+
+1. delete-index
+2. create-index
+3. cluster-health
+4. bulk (8 clients)
+5. force-merge
+6. query-match-all (8 clients)
+</pre></div>
+</div>
+<p>Congratulations, you have created your first track! You can test it with <code class="docutils literal notranslate"><span class="pre">esrally</span> <span class="pre">--distribution-version=7.0.0</span> <span class="pre">--track-path=~/rally-tracks/tutorial</span></code>.</p>
+</div>
+<div class="section" id="adding-support-for-test-mode">
+<span id="add-track-test-mode"></span><h2>Adding support for test mode<a class="headerlink" href="#adding-support-for-test-mode" title="Permalink to this headline">¶</a></h2>
+<p>You can check your track very quickly for syntax errors when you invoke Rally with <code class="docutils literal notranslate"><span class="pre">--test-mode</span></code>. Rally postprocesses its internal track representation as follows:</p>
+<ul class="simple">
+<li><p>Iteration-based tasks run at most one warmup iteration and one measurement iteration.</p></li>
+<li><p>Time-period-based tasks run at most for 10 seconds without warmup.</p></li>
+</ul>
+<p>Rally also postprocesses all data file names. Instead of <code class="docutils literal notranslate"><span class="pre">documents.json</span></code>, Rally expects <code class="docutils literal notranslate"><span class="pre">documents-1k.json</span></code> and assumes the file contains 1.000 documents. You need to prepare these data files though. Pick 1.000 documents for every data file in your track and store them in a file with the suffix <code class="docutils literal notranslate"><span class="pre">-1k</span></code>. We choose the first 1.000 with <code class="docutils literal notranslate"><span class="pre">head</span> <span class="pre">-n</span> <span class="pre">1000</span> <span class="pre">documents.json</span> <span class="pre">&gt;</span> <span class="pre">documents-1k.json</span></code>.</p>
+</div>
+<div class="section" id="challenges">
+<h2>Challenges<a class="headerlink" href="#challenges" title="Permalink to this headline">¶</a></h2>
+<p>To specify different workloads in the same track you can use so-called challenges. Instead of specifying the <code class="docutils literal notranslate"><span class="pre">schedule</span></code> property on top-level you specify a <code class="docutils literal notranslate"><span class="pre">challenges</span></code> array:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Tutorial benchmark for Rally&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;indices&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;geonames&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;index.json&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;types&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;docs&quot;</span> <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;corpora&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;rally-tutorial&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;documents&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="s2">&quot;source-file&quot;</span><span class="p">:</span> <span class="s2">&quot;documents.json&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;document-count&quot;</span><span class="p">:</span> <span class="mi">11658903</span><span class="p">,</span>
+          <span class="s2">&quot;uncompressed-bytes&quot;</span><span class="p">:</span> <span class="mi">1544799789</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;challenges&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;index-and-query&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;default&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+      <span class="s2">&quot;schedule&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;delete-index&quot;</span>
+          <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;create-index&quot;</span>
+          <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;cluster-health&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;request-params&quot;</span><span class="p">:</span> <span class="p">{</span>
+              <span class="s2">&quot;wait_for_status&quot;</span><span class="p">:</span> <span class="s2">&quot;green&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;retry-until-success&quot;</span><span class="p">:</span> <span class="n">true</span>
+          <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;bulk&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;bulk-size&quot;</span><span class="p">:</span> <span class="mi">5000</span>
+          <span class="p">},</span>
+          <span class="s2">&quot;warmup-time-period&quot;</span><span class="p">:</span> <span class="mi">120</span><span class="p">,</span>
+          <span class="s2">&quot;clients&quot;</span><span class="p">:</span> <span class="mi">8</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;force-merge&quot;</span>
+          <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;query-match-all&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;search&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="p">{</span>
+              <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;match_all&quot;</span><span class="p">:</span> <span class="p">{}</span>
+              <span class="p">}</span>
+            <span class="p">}</span>
+          <span class="p">},</span>
+          <span class="s2">&quot;clients&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+          <span class="s2">&quot;warmup-iterations&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+          <span class="s2">&quot;iterations&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+          <span class="s2">&quot;target-throughput&quot;</span><span class="p">:</span> <span class="mi">100</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you define multiple challenges, Rally runs the challenge where <code class="docutils literal notranslate"><span class="pre">default</span></code> is set to <code class="docutils literal notranslate"><span class="pre">true</span></code>. If you want to run a different challenge, provide the command line option <code class="docutils literal notranslate"><span class="pre">--challenge=YOUR_CHALLENGE_NAME</span></code>.</p>
+</div>
+<p>When should you use challenges? Challenges are useful when you want to run completely different workloads based on the same track but for the majority of cases you should get away without using challenges:</p>
+<ul class="simple">
+<li><p>To run only a subset of the tasks, you can use <a class="reference internal" href="command_line_reference.html#clr-include-tasks"><span class="std std-ref">task filtering</span></a>, e.g. <code class="docutils literal notranslate"><span class="pre">--include-tasks=&quot;create-index,bulk&quot;</span></code> will only run these two tasks in the track above or <code class="docutils literal notranslate"><span class="pre">--exclude-tasks=&quot;bulk&quot;</span></code> will run all tasks except for <code class="docutils literal notranslate"><span class="pre">bulk</span></code>.</p></li>
+<li><p>To vary parameters, e.g. the number of clients, you can use <a class="reference internal" href="command_line_reference.html#clr-track-params"><span class="std std-ref">track parameters</span></a></p></li>
+</ul>
+</div>
+<div class="section" id="structuring-your-track">
+<h2>Structuring your track<a class="headerlink" href="#structuring-your-track" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">track.json</span></code> is the entry point to a track but you can split your track as you see fit. Suppose you want to add more challenges to the track but keep them in separate files. Create a <code class="docutils literal notranslate"><span class="pre">challenges</span></code> directory and store the following in <code class="docutils literal notranslate"><span class="pre">challenges/index-and-query.json</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;index-and-query&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;default&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+  <span class="s2">&quot;schedule&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;delete-index&quot;</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;create-index&quot;</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;cluster-health&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;request-params&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">&quot;wait_for_status&quot;</span><span class="p">:</span> <span class="s2">&quot;green&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;retry-until-success&quot;</span><span class="p">:</span> <span class="n">true</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;bulk&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;bulk-size&quot;</span><span class="p">:</span> <span class="mi">5000</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;warmup-time-period&quot;</span><span class="p">:</span> <span class="mi">120</span><span class="p">,</span>
+      <span class="s2">&quot;clients&quot;</span><span class="p">:</span> <span class="mi">8</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;force-merge&quot;</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;query-match-all&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;search&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;match_all&quot;</span><span class="p">:</span> <span class="p">{}</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;clients&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+      <span class="s2">&quot;warmup-iterations&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+      <span class="s2">&quot;iterations&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+      <span class="s2">&quot;target-throughput&quot;</span><span class="p">:</span> <span class="mi">100</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Include the new file in <code class="docutils literal notranslate"><span class="pre">track.json</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Tutorial benchmark for Rally&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;indices&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;geonames&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;index.json&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;types&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;docs&quot;</span> <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;corpora&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;rally-tutorial&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;documents&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="s2">&quot;source-file&quot;</span><span class="p">:</span> <span class="s2">&quot;documents.json&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;document-count&quot;</span><span class="p">:</span> <span class="mi">11658903</span><span class="p">,</span>
+          <span class="s2">&quot;uncompressed-bytes&quot;</span><span class="p">:</span> <span class="mi">1544799789</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;challenges&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span><span class="o">%</span> <span class="n">include</span> <span class="s2">&quot;challenges/index-and-query.json&quot;</span> <span class="o">%</span><span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>We replaced the challenge content with  <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">include</span> <span class="pre">&quot;challenges/index-and-query.json&quot;</span> <span class="pre">%}</span></code> which tells Rally to include the challenge from the provided file. You can use <code class="docutils literal notranslate"><span class="pre">include</span></code> on arbitrary parts of your track.</p>
+<p>To reuse operation definitions across challenges, you can define them in a separate <code class="docutils literal notranslate"><span class="pre">operations</span></code> block and refer to them by name in the corresponding challenge:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Tutorial benchmark for Rally&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;indices&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;geonames&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;index.json&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;types&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;docs&quot;</span> <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;corpora&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;rally-tutorial&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;documents&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="s2">&quot;source-file&quot;</span><span class="p">:</span> <span class="s2">&quot;documents.json&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;document-count&quot;</span><span class="p">:</span> <span class="mi">11658903</span><span class="p">,</span>
+          <span class="s2">&quot;uncompressed-bytes&quot;</span><span class="p">:</span> <span class="mi">1544799789</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;operations&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;delete&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;delete-index&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;create-index&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;wait-for-green&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;cluster-health&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;request-params&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;wait_for_status&quot;</span><span class="p">:</span> <span class="s2">&quot;green&quot;</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;retry-until-success&quot;</span><span class="p">:</span> <span class="n">true</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;bulk-index&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;bulk&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;bulk-size&quot;</span><span class="p">:</span> <span class="mi">5000</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;force-merge&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;force-merge&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;query-match-all&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;search&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">&quot;match_all&quot;</span><span class="p">:</span> <span class="p">{}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;challenges&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span><span class="o">%</span> <span class="n">include</span> <span class="s2">&quot;challenges/index-and-query.json&quot;</span> <span class="o">%</span><span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">challenges/index-and-query.json</span></code> then becomes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;index-and-query&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;default&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+  <span class="s2">&quot;schedule&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="s2">&quot;delete&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="s2">&quot;create&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="s2">&quot;wait-for-green&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="s2">&quot;bulk-index&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;warmup-time-period&quot;</span><span class="p">:</span> <span class="mi">120</span><span class="p">,</span>
+      <span class="s2">&quot;clients&quot;</span><span class="p">:</span> <span class="mi">8</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="s2">&quot;force-merge&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="s2">&quot;query-match-all&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;clients&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+      <span class="s2">&quot;warmup-iterations&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+      <span class="s2">&quot;iterations&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+      <span class="s2">&quot;target-throughput&quot;</span><span class="p">:</span> <span class="mi">100</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Note how we reference to the operations by their name (e.g. <code class="docutils literal notranslate"><span class="pre">create</span></code>, <code class="docutils literal notranslate"><span class="pre">bulk-index</span></code>, <code class="docutils literal notranslate"><span class="pre">force-merge</span></code> or <code class="docutils literal notranslate"><span class="pre">query-match-all</span></code>).</p>
+<p id="track-collect-helper">You can also use Rally’s collect helper to simplify including multiple challenges:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="kn">import</span> <span class="s2">&quot;rally.helpers&quot;</span> <span class="k">as</span> <span class="n">rally</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span>
+  <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Tutorial benchmark for Rally&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;indices&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;geonames&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;index.json&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;types&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;docs&quot;</span> <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;corpora&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;rally-tutorial&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;documents&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="s2">&quot;source-file&quot;</span><span class="p">:</span> <span class="s2">&quot;documents.json&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;document-count&quot;</span><span class="p">:</span> <span class="mi">11658903</span><span class="p">,</span>
+          <span class="s2">&quot;uncompressed-bytes&quot;</span><span class="p">:</span> <span class="mi">1544799789</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;operations&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;delete&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;delete-index&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;create&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;create-index&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;wait-for-green&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;cluster-health&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;request-params&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;wait_for_status&quot;</span><span class="p">:</span> <span class="s2">&quot;green&quot;</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;retry-until-success&quot;</span><span class="p">:</span> <span class="n">true</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;bulk-index&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;bulk&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;bulk-size&quot;</span><span class="p">:</span> <span class="mi">5000</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;force-merge&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;force-merge&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;query-match-all&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;search&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">&quot;match_all&quot;</span><span class="p">:</span> <span class="p">{}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;challenges&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{{</span> <span class="n">rally</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="n">parts</span><span class="o">=</span><span class="s2">&quot;challenges/*.json&quot;</span><span class="p">)</span> <span class="p">}}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The changes are:</p>
+<ol class="arabic simple">
+<li><p>We import helper functions from Rally by adding <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">import</span> <span class="pre">&quot;rally.helpers&quot;</span> <span class="pre">as</span> <span class="pre">rally</span> <span class="pre">%}</span></code> in line 1.</p></li>
+<li><p>We use Rally’s <code class="docutils literal notranslate"><span class="pre">collect</span></code> helper to find and include all JSON files in the <code class="docutils literal notranslate"><span class="pre">challenges</span></code> subdirectory with the statement <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">rally.collect(parts=&quot;challenges/*.json&quot;)</span> <span class="pre">}}</span></code>.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Rally’s log file contains the fully rendered track after it has loaded it successfully.</p>
+</div>
+<p>You can even use <a class="reference external" href="http://jinja.pocoo.org/docs/dev/templates/#assignments">Jinja2 variables</a> but then you need to import the Rally helpers a bit differently. You also need to declare all variables before the <code class="docutils literal notranslate"><span class="pre">import</span></code> statement:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="nb">set</span> <span class="n">clients</span> <span class="o">=</span> <span class="mi">16</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="kn">import</span> <span class="s2">&quot;rally.helpers&quot;</span> <span class="k">as</span> <span class="n">rally</span> <span class="k">with</span> <span class="n">context</span> <span class="o">%</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>If you use this idiom you can refer to the <code class="docutils literal notranslate"><span class="pre">clients</span></code> variable inside your snippets with <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">clients</span> <span class="pre">}}</span></code>.</p>
+</div>
+<div class="section" id="sharing-your-track-with-others">
+<h2>Sharing your track with others<a class="headerlink" href="#sharing-your-track-with-others" title="Permalink to this headline">¶</a></h2>
+<p>So far the track is only available on your local machine. To share your track you could check it into version control. To avoid committing the potentially huge data file you can expose it via http (e.g. via an S3 bucket) and reference it in your track with the property <code class="docutils literal notranslate"><span class="pre">base-url</span></code>. Rally expects that the URL points to the parent path and appends the document file name automatically.</p>
+<p>You should also compress your document corpus to save network bandwidth; <a class="reference external" href="https://linux.die.net/man/1/pbzip2">pbzip2</a> works well, is backwards compatible with <code class="docutils literal notranslate"><span class="pre">bzip2</span></code> and makes use of all available cpu cores for compression and decompression. You can create a compressed archive with the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pbzip2</span> <span class="o">-</span><span class="mi">9</span> <span class="o">-</span><span class="n">k</span> <span class="o">-</span><span class="n">m2000</span> <span class="o">-</span><span class="n">v</span> <span class="n">documents</span><span class="o">.</span><span class="n">json</span>
+</pre></div>
+</div>
+<p>If you want to support Rally’s test mode, also compress your test mode corpus with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pbzip2</span> <span class="o">-</span><span class="mi">9</span> <span class="o">-</span><span class="n">k</span> <span class="o">-</span><span class="n">m2000</span> <span class="o">-</span><span class="n">v</span> <span class="n">documents</span><span class="o">-</span><span class="mi">1</span><span class="n">k</span><span class="o">.</span><span class="n">json</span>
+</pre></div>
+</div>
+<p>Then upload the generated archives <code class="docutils literal notranslate"><span class="pre">documents.json.bz2</span></code> and <code class="docutils literal notranslate"><span class="pre">documents-1k.json.bz2</span></code> to the remote location.</p>
+<p>Finally, specify the compressed file name in the <code class="docutils literal notranslate"><span class="pre">source-file</span></code> property and also add the <code class="docutils literal notranslate"><span class="pre">base-url</span></code> property:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Tutorial benchmark for Rally&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;corpora&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;rally-tutorial&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;documents&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="s2">&quot;base-url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://benchmarks.elasticsearch.org.s3.amazonaws.com/corpora/geonames&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;source-file&quot;</span><span class="p">:</span> <span class="s2">&quot;documents.json.bz2&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;document-count&quot;</span><span class="p">:</span> <span class="mi">11658903</span><span class="p">,</span>
+          <span class="s2">&quot;compressed-bytes&quot;</span><span class="p">:</span> <span class="mi">197857614</span><span class="p">,</span>
+          <span class="s2">&quot;uncompressed-bytes&quot;</span><span class="p">:</span> <span class="mi">1544799789</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Specifying <code class="docutils literal notranslate"><span class="pre">compressed-bytes</span></code> (file size of <code class="docutils literal notranslate"><span class="pre">documents.json.bz2</span></code>) and <code class="docutils literal notranslate"><span class="pre">uncompressed-bytes</span></code> (file size of <code class="docutils literal notranslate"><span class="pre">documents.json</span></code>) is optional but helps Rally to provide progress indicators and also verify integrity.</p>
+<p>You’ve now mastered the basics of track development for Rally. It’s time to pat yourself on the back before you dive into the advanced topics!</p>
+</div>
+<div class="section" id="advanced-topics">
+<h2>Advanced topics<a class="headerlink" href="#advanced-topics" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="template-language">
+<span id="id1"></span><h3>Template Language<a class="headerlink" href="#template-language" title="Permalink to this headline">¶</a></h3>
+<p>Rally uses <a class="reference external" href="http://jinja.pocoo.org/docs/dev/">Jinja2</a> as a template language so you can use Jinja2 expressions in track files.</p>
+<p>Elasticsearch utilizes Mustache formatting in a few places, notably in <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/7.4/search-template.html">search templates</a> and <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/7.4/actions-email.html">Watcher templates</a>. If you are using Mustache in your Rally tracks you must <a class="reference external" href="https://jinja.palletsprojects.com/en/2.10.x/templates/#escaping">escape them properly</a>. See <a class="reference internal" href="track.html#put-pipeline"><span class="std std-ref">put-pipeline</span></a> for an example.</p>
+<div class="section" id="extensions">
+<h4>Extensions<a class="headerlink" href="#extensions" title="Permalink to this headline">¶</a></h4>
+<p>Rally also provides a few extensions to Jinja2:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">now</span></code>: a global variable that represents the current date and time when the template is evaluated by Rally.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">days_ago()</span></code>: a <a class="reference external" href="http://jinja.pocoo.org/docs/dev/templates/#filters">filter</a> that you can use for date calculations.</p></li>
+</ul>
+<p>You can find an example in the <code class="docutils literal notranslate"><span class="pre">http_logs</span></code> track:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;range&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;logs-*&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;type&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;range&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">&quot;@timestamp&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;gte&quot;</span><span class="p">:</span> <span class="s2">&quot;now-{{&#39;15-05-1998&#39; | days_ago(now)}}d/d&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;lt&quot;</span><span class="p">:</span> <span class="s2">&quot;now/d&quot;</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The data set that is used in the <code class="docutils literal notranslate"><span class="pre">http_logs</span></code> track starts on 26-04-1998 but we want to ignore the first few days for this query, so we start on 15-05-1998. The expression <code class="docutils literal notranslate"><span class="pre">{{'15-05-1998'</span> <span class="pre">|</span> <span class="pre">days_ago(now)}}</span></code> yields the difference in days between now and the fixed start date and allows us to benchmark time range queries relative to now with a predetermined data set.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">rally.collect(parts)</span></code>: a <a class="reference external" href="https://jinja.pocoo.org/docs/dev/templates/#macros">macro</a> that you can use to join track fragments. See the <a class="reference internal" href="#track-collect-helper"><span class="std std-ref">example above</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rally.exists_set_param(setting_name,</span> <span class="pre">value,</span> <span class="pre">default_value=None,</span> <span class="pre">comma=True)</span></code>: a <a class="reference external" href="https://jinja.pocoo.org/docs/dev/templates/#macros">macro</a> that you can use to set the value of a track parameter without having to check if it exists.</p></li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>To use macros you must declare <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">import</span> <span class="pre">&quot;rally.helpers&quot;</span> <span class="pre">as</span> <span class="pre">rally</span> <span class="pre">with</span> <span class="pre">context</span> <span class="pre">%}</span></code> at the top of your track; see <a class="reference internal" href="#track-collect-helper"><span class="std std-ref">the docs</span></a> for more details and the <a class="reference external" href="https://github.com/elastic/rally-tracks/blob/b2f86df5f0c18461fdb64dd9ee1fe16bd3653b9d/geonames/track.json#L1">geonames track</a> for an example.</p>
+</div>
+<p>Example:</p>
+<p>Suppose you need an operation that specifies the Elasticsearch transient setting <code class="docutils literal notranslate"><span class="pre">indices.recovery.max_bytes_per_sec</span></code> if and only if it has been provided as a track parameter.</p>
+<p>Your operation could look like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;raw-request&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;PUT&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/_cluster/settings&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;transient&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;cluster.routing.allocation.node_initial_primaries_recoveries&quot;</span><span class="p">:</span> <span class="mi">8</span>
+        <span class="p">{{</span> <span class="n">rally</span><span class="o">.</span><span class="n">exists_set_param</span><span class="p">(</span><span class="s2">&quot;indices.recovery.max_bytes_per_sec&quot;</span><span class="p">,</span> <span class="n">es_snapshot_restore_recovery_max_bytes_per_sec</span><span class="p">)</span> <span class="p">}}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Note the lack of a comma after the first setting <code class="docutils literal notranslate"><span class="pre">cluster.routing.allocation.node_initial_primaries_recoveries</span></code>. This is intentional since the helper will insert it if the parameter exists (this behavior can be changed using <code class="docutils literal notranslate"><span class="pre">comma=False</span></code>).</p>
+<p>Assuming we pass <code class="docutils literal notranslate"><span class="pre">--track-params=&quot;es_snapshot_restore_recovery_max_bytes_per_sec:-1&quot;</span></code> the helper will end up rendering the operation as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;raw-request&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;PUT&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/_cluster/settings&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;transient&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;cluster.routing.allocation.node_initial_primaries_recoveries&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span><span class="s2">&quot;indices.recovery.max_bytes_per_sec&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The parameter <code class="docutils literal notranslate"><span class="pre">default_value</span></code> controls the value to use for the setting if it is undefined. If the setting is undefined and there is no default value, nothing will be added.</p>
+</div>
+</div>
+<div class="section" id="custom-parameter-sources">
+<span id="adding-tracks-custom-param-sources"></span><h3>Custom parameter sources<a class="headerlink" href="#custom-parameter-sources" title="Permalink to this headline">¶</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Your parameter source is on a performance-critical code-path. Double-check with <a class="reference internal" href="command_line_reference.html#clr-enable-driver-profiling"><span class="std std-ref">Rally’s profiling support</span></a> that you did not introduce any bottlenecks.</p>
+</div>
+<p>Consider the following operation definition:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;term&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;search&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;term&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;physician&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This query is defined statically but if you want to vary parameters, for example to search also for “mechanic” or “nurse, you can write your own “parameter source” in Python.</p>
+<p>First, define the name of your parameter source in the operation definition:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;term&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;search&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;param-source&quot;</span><span class="p">:</span> <span class="s2">&quot;my-custom-term-param-source&quot;</span>
+  <span class="s2">&quot;professions&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;mechanic&quot;</span><span class="p">,</span> <span class="s2">&quot;physician&quot;</span><span class="p">,</span> <span class="s2">&quot;nurse&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Rally recognizes the parameter source and looks for a file <code class="docutils literal notranslate"><span class="pre">track.py</span></code> next to <code class="docutils literal notranslate"><span class="pre">track.json</span></code>. This file contains the implementation of the parameter source:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+
+
+<span class="k">def</span> <span class="nf">random_profession</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="c1"># choose a suitable index: if there is only one defined for this track</span>
+    <span class="c1"># choose that one, but let the user always override index and type.</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">indices</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">default_index</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">indices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">indices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">types</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">default_type</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">indices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">types</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">default_type</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">default_index</span> <span class="o">=</span> <span class="s2">&quot;_all&quot;</span>
+        <span class="n">default_type</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">index_name</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;index&quot;</span><span class="p">,</span> <span class="n">default_index</span><span class="p">)</span>
+    <span class="n">type_name</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="n">default_type</span><span class="p">)</span>
+
+    <span class="c1"># you must provide all parameters that the runner expects</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;term&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;professions&quot;</span><span class="p">])</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="n">index_name</span><span class="p">,</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">type_name</span><span class="p">,</span>
+        <span class="s2">&quot;cache&quot;</span><span class="p">:</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cache&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="p">}</span>
+
+<span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="n">registry</span><span class="p">):</span>
+    <span class="n">registry</span><span class="o">.</span><span class="n">register_param_source</span><span class="p">(</span><span class="s2">&quot;my-custom-term-param-source&quot;</span><span class="p">,</span> <span class="n">random_profession</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The example above shows a simple case that is sufficient if the operation to which your parameter source is applied is idempotent and it does not matter whether two clients execute the same operation.</p>
+<p>The function <code class="docutils literal notranslate"><span class="pre">random_profession</span></code> is the actual parameter source. Rally will bind the name “my-custom-term-param-source” to this function by calling <code class="docutils literal notranslate"><span class="pre">register</span></code>. <code class="docutils literal notranslate"><span class="pre">register</span></code> is called by Rally before the track is executed.</p>
+<p>The parameter source function needs to declare the parameters <code class="docutils literal notranslate"><span class="pre">track</span></code>, <code class="docutils literal notranslate"><span class="pre">params</span></code> and <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code>. <code class="docutils literal notranslate"><span class="pre">track</span></code> contains a structured representation of the current track and <code class="docutils literal notranslate"><span class="pre">params</span></code> contains all parameters that have been defined in the operation definition in <code class="docutils literal notranslate"><span class="pre">track.json</span></code>. We use it in the example to read the professions to choose. The third parameter is there to ensure a more stable API as Rally evolves.</p>
+<p>We also derive an appropriate index and document type from the track’s index definitions but allow the user to override this choice with the <code class="docutils literal notranslate"><span class="pre">index</span></code> or <code class="docutils literal notranslate"><span class="pre">type</span></code> parameters:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;term&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;search&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;param-source&quot;</span><span class="p">:</span> <span class="s2">&quot;my-custom-term-param-source&quot;</span>
+  <span class="s2">&quot;professions&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;mechanic&quot;</span><span class="p">,</span> <span class="s2">&quot;physician&quot;</span><span class="p">,</span> <span class="s2">&quot;nurse&quot;</span><span class="p">],</span>
+  <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;employee*&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;docs&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If you need more control, you need to implement a class. Below is the implementation of the same parameter source as a class:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+
+
+<span class="k">class</span> <span class="nc">TermParamSource</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># choose a suitable index: if there is only one defined for this track</span>
+        <span class="c1"># choose that one, but let the user always override index and type.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">indices</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">default_index</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">indices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">indices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">types</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">default_type</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">indices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">types</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">default_type</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">default_index</span> <span class="o">=</span> <span class="s2">&quot;_all&quot;</span>
+            <span class="n">default_type</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># we can eagerly resolve these parameters already in the constructor...</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_index_name</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;index&quot;</span><span class="p">,</span> <span class="n">default_index</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_type_name</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="n">default_type</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cache&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="c1"># ... but we need to resolve &quot;profession&quot; lazily on each invocation later</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_params</span> <span class="o">=</span> <span class="n">params</span>
+        <span class="c1"># Determines whether this parameter source will be &quot;exhausted&quot; at some point or</span>
+        <span class="c1"># Rally can draw values infinitely from it.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">infinite</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">partition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">partition_index</span><span class="p">,</span> <span class="n">total_partitions</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># you must provide all parameters that the runner expects</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;term&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;professions&quot;</span><span class="p">])</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_index_name</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_type_name</span><span class="p">,</span>
+            <span class="s2">&quot;cache&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span>
+        <span class="p">}</span>
+
+
+<span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="n">registry</span><span class="p">):</span>
+    <span class="n">registry</span><span class="o">.</span><span class="n">register_param_source</span><span class="p">(</span><span class="s2">&quot;my-custom-term-param-source&quot;</span><span class="p">,</span> <span class="n">TermParamSource</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In <code class="docutils literal notranslate"><span class="pre">register</span></code> you bind the name in the track specification to your parameter source implementation class similar to the previous example. <code class="docutils literal notranslate"><span class="pre">TermParamSource</span></code> is the actual parameter source and needs to fulfill a few requirements:</p>
+<ul class="simple">
+<li><p>The constructor needs to have the signature <code class="docutils literal notranslate"><span class="pre">__init__(self,</span> <span class="pre">track,</span> <span class="pre">params,</span> <span class="pre">**kwargs)</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">partition(self,</span> <span class="pre">partition_index,</span> <span class="pre">total_partitions)</span></code> is called by Rally to “assign” the parameter source across multiple clients. Typically you can just return <code class="docutils literal notranslate"><span class="pre">self</span></code>. If each client needs to act differently then you can provide different parameter source instances here as well.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">params(self)</span></code>: This method returns a dictionary with all parameters that the corresponding “runner” expects. This method will be invoked once for every iteration during the race. In the example, we parameterize the query by randomly selecting a profession from a list.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">infinite</span></code>: This property helps Rally to determine whether to let the parameter source determine when a task should be finished (when <code class="docutils literal notranslate"><span class="pre">infinite</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>) or whether the task properties (e.g. <code class="docutils literal notranslate"><span class="pre">iterations</span></code> or <code class="docutils literal notranslate"><span class="pre">time-period</span></code>) determine when a task should be finished. In the former case, the parameter source needs to raise <code class="docutils literal notranslate"><span class="pre">StopIteration</span></code> to indicate when it is finished.</p></li>
+</ul>
+<p>For cases, where you want to provide a progress indication (this is typically the case when <code class="docutils literal notranslate"><span class="pre">infinite</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>), you can implement a property <code class="docutils literal notranslate"><span class="pre">percent_completed</span></code> which returns a floating point value between <code class="docutils literal notranslate"><span class="pre">0.0</span></code> and <code class="docutils literal notranslate"><span class="pre">1.0</span></code>. Rally will query this value before each call to <code class="docutils literal notranslate"><span class="pre">params()</span></code> and uses it to indicate progress. However:</p>
+<ul class="simple">
+<li><p>Rally will not check <code class="docutils literal notranslate"><span class="pre">percent_completed</span></code> if it can derive progress in any other way.</p></li>
+<li><p>The value of <code class="docutils literal notranslate"><span class="pre">percent_completed</span></code> is purely informational and does not influence when Rally considers an operation to be completed.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The method <code class="docutils literal notranslate"><span class="pre">params(self)</span></code> as well as the property <code class="docutils literal notranslate"><span class="pre">percent_completed</span></code> are called on a performance-critical path. Don’t do anything that takes a lot of time (avoid any I/O). For searches, you should usually throttle throughput anyway and there it does not matter that much but if the corresponding operation is run without throughput throttling, double-check that your custom parameter source does not introduce a bottleneck.</p>
+</div>
+<p>Custom parameter sources can use the Python standard API but using any additional libraries is not supported.</p>
+<p>You can also implement your parameter sources and runners in multiple Python files but the main entry point is always <code class="docutils literal notranslate"><span class="pre">track.py</span></code>. The root package name of your plugin is the name of your track.</p>
+</div>
+<div class="section" id="custom-runners">
+<span id="adding-tracks-custom-runners"></span><h3>Custom runners<a class="headerlink" href="#custom-runners" title="Permalink to this headline">¶</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Your runner is on a performance-critical code-path. Double-check with <a class="reference internal" href="command_line_reference.html#clr-enable-driver-profiling"><span class="std std-ref">Rally’s profiling support</span></a> that you did not introduce any bottlenecks.</p>
+</div>
+<p>Runners execute an operation against Elasticsearch. Rally supports many operations out of the box already, see the <a class="reference internal" href="track.html"><span class="doc">track reference</span></a> for a complete list. If you want to call any other Elasticsearch API, define a custom runner.</p>
+<p>Consider we want to use the percolate API with an older version of Elasticsearch which is not supported by Rally. To achieve this, we implement a custom runner in the following steps.</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">track.json</span></code> set the <code class="docutils literal notranslate"><span class="pre">operation-type</span></code> to “percolate” (you can choose this name freely):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;percolator_with_content_google&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;percolate&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;doc&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;google&quot;</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;track_scores&quot;</span><span class="p">:</span> <span class="n">true</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Then create a file <code class="docutils literal notranslate"><span class="pre">track.py</span></code> next to <code class="docutils literal notranslate"><span class="pre">track.json</span></code> and implement the following two functions:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">def</span> <span class="nf">percolate</span><span class="p">(</span><span class="n">es</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+    <span class="k">await</span> <span class="n">es</span><span class="o">.</span><span class="n">percolate</span><span class="p">(</span>
+            <span class="n">index</span><span class="o">=</span><span class="s2">&quot;queries&quot;</span><span class="p">,</span>
+            <span class="n">doc_type</span><span class="o">=</span><span class="s2">&quot;content&quot;</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;body&quot;</span><span class="p">]</span>
+          <span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="n">registry</span><span class="p">):</span>
+    <span class="n">registry</span><span class="o">.</span><span class="n">register_runner</span><span class="p">(</span><span class="s2">&quot;percolate&quot;</span><span class="p">,</span> <span class="n">percolate</span><span class="p">,</span> <span class="n">async_runner</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The function <code class="docutils literal notranslate"><span class="pre">percolate</span></code> is the actual runner and takes the following parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">es</span></code>, is an instance of the Elasticsearch Python client</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">params</span></code> is a <code class="docutils literal notranslate"><span class="pre">dict</span></code> of parameters provided by its corresponding parameter source. Treat this parameter as read-only.</p></li>
+</ul>
+<p>This function can return:</p>
+<ul class="simple">
+<li><p>Nothing at all. Then Rally will assume by default <code class="docutils literal notranslate"><span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;ops&quot;</span></code> (see below).</p></li>
+<li><p>A tuple of <code class="docutils literal notranslate"><span class="pre">weight</span></code> and a <code class="docutils literal notranslate"><span class="pre">unit</span></code>, which is usually <code class="docutils literal notranslate"><span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;ops&quot;</span></code>. If you run a bulk operation you might return the bulk size here, for example in number of documents or in MB. Then you’d return for example <code class="docutils literal notranslate"><span class="pre">(5000,</span> <span class="pre">&quot;docs&quot;)</span></code> Rally will use these values to store throughput metrics.</p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">dict</span></code> with arbitrary keys. If the <code class="docutils literal notranslate"><span class="pre">dict</span></code> contains the key <code class="docutils literal notranslate"><span class="pre">weight</span></code> it is assumed to be numeric and chosen as weight as defined above. The key <code class="docutils literal notranslate"><span class="pre">unit</span></code> is treated similarly. All other keys are added to the <code class="docutils literal notranslate"><span class="pre">meta</span></code> section of the corresponding service time and latency metrics records.</p></li>
+</ul>
+<p>Similar to a parameter source you also need to bind the name of your operation type to the function within <code class="docutils literal notranslate"><span class="pre">register</span></code>.</p>
+<p>To illustrate how to use custom return values, suppose we want to implement a custom runner that calls the <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-pending.html">pending tasks API</a> and returns the number of pending tasks as additional meta-data:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">def</span> <span class="nf">pending_tasks</span><span class="p">(</span><span class="n">es</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">es</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">pending_tasks</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="s2">&quot;ops&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pending-tasks-count&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;tasks&quot;</span><span class="p">])</span>
+    <span class="p">}</span>
+
+<span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="n">registry</span><span class="p">):</span>
+    <span class="n">registry</span><span class="o">.</span><span class="n">register_runner</span><span class="p">(</span><span class="s2">&quot;pending-tasks&quot;</span><span class="p">,</span> <span class="n">pending_tasks</span><span class="p">,</span> <span class="n">async_runner</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you need more control, you can also implement a runner class. The example above, implemented as a class looks as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">PercolateRunner</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">es</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="k">await</span> <span class="n">es</span><span class="o">.</span><span class="n">percolate</span><span class="p">(</span>
+            <span class="n">index</span><span class="o">=</span><span class="s2">&quot;queries&quot;</span><span class="p">,</span>
+            <span class="n">doc_type</span><span class="o">=</span><span class="s2">&quot;content&quot;</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;body&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;percolate&quot;</span>
+
+<span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="n">registry</span><span class="p">):</span>
+    <span class="n">registry</span><span class="o">.</span><span class="n">register_runner</span><span class="p">(</span><span class="s2">&quot;percolate&quot;</span><span class="p">,</span> <span class="n">PercolateRunner</span><span class="p">(),</span> <span class="n">async_runner</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The actual runner is implemented in the method <code class="docutils literal notranslate"><span class="pre">__call__</span></code> and the same return value conventions apply as for functions. For debugging purposes you should also implement <code class="docutils literal notranslate"><span class="pre">__repr__</span></code> and provide a human-readable name for your runner. Finally, you need to register your runner in the <code class="docutils literal notranslate"><span class="pre">register</span></code> function.</p>
+<p>Runners also support Python’s <a class="reference external" href="https://docs.python.org/3/reference/datamodel.html#async-context-managers">asynchronous context manager</a> interface. Rally uses a new context for each request. Implementing the asynchronous context manager interface can be handy for cleanup of resources after executing an operation. Rally uses it, for example, to clear open scrolls.</p>
+<p>If you have specified multiple Elasticsearch clusters using <a class="reference internal" href="command_line_reference.html#command-line-reference-advanced-topics"><span class="std std-ref">target-hosts</span></a> you can make Rally pass a dictionary of client connections instead of one for the <code class="docutils literal notranslate"><span class="pre">default</span></code> cluster in the <code class="docutils literal notranslate"><span class="pre">es</span></code> parameter.</p>
+<p>To achieve this you need to:</p>
+<ul class="simple">
+<li><p>Use a runner class</p></li>
+<li><p>Specify <code class="docutils literal notranslate"><span class="pre">multi_cluster</span> <span class="pre">=</span> <span class="pre">True</span></code> as a class attribute</p></li>
+<li><p>Use any of the cluster names specified in <a class="reference internal" href="command_line_reference.html#command-line-reference-advanced-topics"><span class="std std-ref">target-hosts</span></a> as a key for the <code class="docutils literal notranslate"><span class="pre">es</span></code> dict</p></li>
+</ul>
+<p>Example (assuming Rally has been invoked specifying <code class="docutils literal notranslate"><span class="pre">default</span></code> and <code class="docutils literal notranslate"><span class="pre">remote</span></code> in <cite>target-hosts</cite>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CreateIndexInRemoteCluster</span><span class="p">:</span>
+    <span class="n">multi_cluster</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">es</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="k">await</span> <span class="n">es</span><span class="p">[</span><span class="s2">&quot;remote&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;remote-index&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;create-index-in-remote-cluster&quot;</span>
+
+<span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="n">registry</span><span class="p">):</span>
+    <span class="n">registry</span><span class="o">.</span><span class="n">register_runner</span><span class="p">(</span><span class="s2">&quot;create-index-in-remote-cluster&quot;</span><span class="p">,</span> <span class="n">CreateIndexInRemoteCluster</span><span class="p">(),</span> <span class="n">async_runner</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You need to implement <code class="docutils literal notranslate"><span class="pre">register</span></code> just once and register all parameter sources and runners there.</p>
+</div>
+<p>For cases, where you want to provide a progress indication, you can implement the two properties <code class="docutils literal notranslate"><span class="pre">percent_completed</span></code> which returns a floating point value between <code class="docutils literal notranslate"><span class="pre">0.0</span></code> and <code class="docutils literal notranslate"><span class="pre">1.0</span></code> and the property <code class="docutils literal notranslate"><span class="pre">completed</span></code> which needs to return <code class="docutils literal notranslate"><span class="pre">True</span></code> if the runner has completed. This can be useful in cases when it is only possible to determine progress by calling an API, for example when waiting for a recovery to finish.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Rally will still treat such a runner like any other. If you want to poll status at certain intervals then limit the number of calls by specifying the <code class="docutils literal notranslate"><span class="pre">target-throughput</span></code> property on the corresponding task.</p>
+</div>
+</div>
+<div class="section" id="custom-schedulers">
+<span id="adding-tracks-custom-schedulers"></span><h3>Custom schedulers<a class="headerlink" href="#custom-schedulers" title="Permalink to this headline">¶</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Your scheduler is on a performance-critical code-path. Double-check with <a class="reference internal" href="command_line_reference.html#clr-enable-driver-profiling"><span class="std std-ref">Rally’s profiling support</span></a> that you did not introduce any bottlenecks.</p>
+</div>
+<p>If you want to rate-limit execution of tasks, you can specify a <code class="docutils literal notranslate"><span class="pre">target-throughput</span></code> either as a number to specify the operations per second or, if supported by the operation, as string denoting the target throughput with a different unit. For example, Rally attempts to run this term query 20 times per second:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="s2">&quot;term&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;target-throughput&quot;</span><span class="p">:</span> <span class="mi">20</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This is identical to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="s2">&quot;term&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;target-throughput&quot;</span><span class="p">:</span> <span class="s2">&quot;20 ops/s&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>By default, Rally uses a <a class="reference external" href="https://en.wikipedia.org/wiki/Degenerate_distribution">deterministic distribution</a> to determine when to schedule the next operation. Hence it executes the term query at 0, 50ms, 100ms, 150ms and so on. The scheduler is also aware of the number of clients. Consider this example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="s2">&quot;term&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;target-throughput&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+  <span class="s2">&quot;clients&quot;</span><span class="p">:</span> <span class="mi">4</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If Rally would not take the number of clients into account and would still issue requests (from each of the four clients) at the same points in time (i.e. 0, 50ms, 100ms, 150ms, …), it would run at a target throughput of 4 * 20 = 80 operations per second. Hence, Rally will automatically reduce the rate at which each client will execute requests. Each client will issue requests at 0, 200ms, 400ms, 600ms, 800ms, 1000ms and so on. Each client issues five requests per second but as there are four of them, we still have a target throughput of 20 operations per second. You should keep this in mind, when writing your own custom schedules.</p>
+<p>To create a custom scheduler, create a file <code class="docutils literal notranslate"><span class="pre">track.py</span></code> next to <code class="docutils literal notranslate"><span class="pre">track.json</span></code> and implement the scheduler class:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+
+<span class="k">class</span> <span class="nc">RandomScheduler</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task</span><span class="p">,</span> <span class="n">target_throughput</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rate</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">target_throughput</span>
+        <span class="c1"># scale accordingly with the number of clients</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">variation</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">clients</span> <span class="o">*</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;variation-millis&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current</span><span class="p">):</span>
+        <span class="c1"># roughly matches the target throughput with some random variation</span>
+        <span class="k">return</span> <span class="n">current</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">rate</span> <span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">variation</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">variation</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1000.0</span>
+</pre></div>
+</div>
+<p>The scheduler class also needs to be registered:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="n">registry</span><span class="p">):</span>
+    <span class="n">registry</span><span class="o">.</span><span class="n">register_scheduler</span><span class="p">(</span><span class="s2">&quot;my-random&quot;</span><span class="p">,</span> <span class="n">RandomScheduler</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can then use your custom scheduler as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="s2">&quot;term&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;schedule&quot;</span><span class="p">:</span> <span class="s2">&quot;my-random&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;clients&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+  <span class="s2">&quot;target-throughput&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+  <span class="s2">&quot;variation-millis&quot;</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="developing.html" class="btn btn-neutral float-right" title="Developing Rally" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="recipes.html" class="btn btn-neutral float-left" title="Tips and Tricks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Elasticsearch B.V.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

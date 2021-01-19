@@ -1,0 +1,478 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Using Elasticsearch Plugins &mdash; Rally 2.0.4.dev0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Telemetry Devices" href="telemetry.html" />
+    <link rel="prev" title="Configure Elasticsearch: Cars" href="car.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Rally
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started with Rally</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Running Rally with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="race.html">Run a Benchmark: Races</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tournament.html">Compare Results: Tournaments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cluster_management.html">Setting up a Cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recipes.html">Tips and Tricks</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Extending Rally</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="adding_tracks.html">Define Custom Workloads: Tracks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">Developing Rally</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Elasticsearch Version Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_line_reference.html">Command Line Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="offline.html">Offline Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="track.html">Track Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="car.html">Configure Elasticsearch: Cars</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using Elasticsearch Plugins</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#listing-plugins">Listing plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-a-benchmark-with-plugins">Running a benchmark with plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#building-plugins-from-sources">Building plugins from sources</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#plugins-built-alongside-elasticsearch">Plugins built alongside Elasticsearch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plugins-based-on-a-released-elasticsearch-version">Plugins based on a released Elasticsearch version</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#anatomy-of-a-plugin-specification">Anatomy of a plugin specification</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#simple-plugins">Simple plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plugins-which-require-configuration">Plugins which require configuration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="telemetry.html">Telemetry Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rally_daemon.html">Rally Daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipelines.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="summary_report.html">Summary Report</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Additional Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="migrate.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Community Resources</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Rally</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+    <ul class="wy-breadcrumbs">
+        
+        <li><a href="index.html">Docs</a> &raquo;</li>
+        
+        <li>Using Elasticsearch Plugins</li>
+        
+        
+        <li class="wy-breadcrumbs-aside">
+            
+            
+            <a href="_sources/elasticsearch_plugins.rst.txt" rel="nofollow"> View page source</a>
+            
+            
+        </li>
+        
+    </ul>
+
+    
+    <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="using-elasticsearch-plugins">
+<h1>Using Elasticsearch Plugins<a class="headerlink" href="#using-elasticsearch-plugins" title="Permalink to this headline">¶</a></h1>
+<p>You can have Rally setup an Elasticsearch cluster with plugins for you. Whereas Rally caches downloaded Elasticsearch distributions, plugins will always be installed via the Internet and thus each machine where an Elasticsearch node will be installed, requires an active Internet connection.</p>
+<div class="section" id="listing-plugins">
+<h2>Listing plugins<a class="headerlink" href="#listing-plugins" title="Permalink to this headline">¶</a></h2>
+<p>To see which plugins are available, run <code class="docutils literal notranslate"><span class="pre">esrally</span> <span class="pre">list</span> <span class="pre">elasticsearch-plugins</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Available</span> <span class="n">Elasticsearch</span> <span class="n">plugins</span><span class="p">:</span>
+
+<span class="n">Name</span>                     <span class="n">Configuration</span>
+<span class="o">-----------------------</span>  <span class="o">----------------</span>
+<span class="n">analysis</span><span class="o">-</span><span class="n">icu</span>
+<span class="n">analysis</span><span class="o">-</span><span class="n">kuromoji</span>
+<span class="n">analysis</span><span class="o">-</span><span class="n">phonetic</span>
+<span class="n">analysis</span><span class="o">-</span><span class="n">smartcn</span>
+<span class="n">analysis</span><span class="o">-</span><span class="n">stempel</span>
+<span class="n">analysis</span><span class="o">-</span><span class="n">ukrainian</span>
+<span class="n">discovery</span><span class="o">-</span><span class="n">azure</span><span class="o">-</span><span class="n">classic</span>
+<span class="n">discovery</span><span class="o">-</span><span class="n">ec2</span>
+<span class="n">discovery</span><span class="o">-</span><span class="n">file</span>
+<span class="n">discovery</span><span class="o">-</span><span class="n">gce</span>
+<span class="n">ingest</span><span class="o">-</span><span class="n">attachment</span>
+<span class="n">ingest</span><span class="o">-</span><span class="n">geoip</span>
+<span class="n">ingest</span><span class="o">-</span><span class="n">user</span><span class="o">-</span><span class="n">agent</span>
+<span class="n">lang</span><span class="o">-</span><span class="n">javascript</span>
+<span class="n">lang</span><span class="o">-</span><span class="n">python</span>
+<span class="n">mapper</span><span class="o">-</span><span class="n">attachments</span>
+<span class="n">mapper</span><span class="o">-</span><span class="n">murmur3</span>
+<span class="n">mapper</span><span class="o">-</span><span class="n">size</span>
+<span class="n">repository</span><span class="o">-</span><span class="n">azure</span>
+<span class="n">repository</span><span class="o">-</span><span class="n">gcs</span>
+<span class="n">repository</span><span class="o">-</span><span class="n">hdfs</span>
+<span class="n">repository</span><span class="o">-</span><span class="n">s3</span>
+<span class="n">store</span><span class="o">-</span><span class="n">smb</span>
+</pre></div>
+</div>
+<p>As the availability of plugins may change from release to release we recommend that you include the <code class="docutils literal notranslate"><span class="pre">--distribution-version</span></code> parameter when listing plugins. By default Rally assumes that you want to benchmark the latest master version of Elasticsearch.</p>
+</div>
+<div class="section" id="running-a-benchmark-with-plugins">
+<h2>Running a benchmark with plugins<a class="headerlink" href="#running-a-benchmark-with-plugins" title="Permalink to this headline">¶</a></h2>
+<p>In order to tell Rally to install a plugin, use the <code class="docutils literal notranslate"><span class="pre">--elasticsearch-plugins</span></code> parameter when starting a race. You can provide multiple plugins (comma-separated) and they will be installed in the order to that you define on the command line.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">esrally</span> <span class="o">--</span><span class="n">distribution</span><span class="o">-</span><span class="n">version</span><span class="o">=</span><span class="mf">5.5</span><span class="o">.</span><span class="mi">0</span> <span class="o">--</span><span class="n">elasticsearch</span><span class="o">-</span><span class="n">plugins</span><span class="o">=</span><span class="s2">&quot;analysis-icu,analysis-phonetic&quot;</span>
+</pre></div>
+</div>
+<p>This will install the plugins <code class="docutils literal notranslate"><span class="pre">analysis-icu</span></code> and <code class="docutils literal notranslate"><span class="pre">analysis-phonetic</span></code> (in that order). In order to use the features that these plugins provide, you need to write a <a class="reference internal" href="adding_tracks.html"><span class="doc">custom track</span></a>.</p>
+<p>Rally will use several techniques to install and configure plugins:</p>
+<ul class="simple">
+<li><p>First, Rally checks whether directory <code class="docutils literal notranslate"><span class="pre">plugins/PLUGIN_NAME</span></code> in the currently configured team repository exists. If this is the case, then plugin installation and configuration details will be read from this directory.</p></li>
+<li><p>Next, Rally will use the provided plugin name when running the Elasticsearch plugin installer. With this approach we can avoid to create a plugin configuration directory in the team repository for very simple plugins that do not need any configuration.</p></li>
+</ul>
+<p>As mentioned above, Rally also allows you to specify a plugin configuration and you can even combine them. Here are some examples (requires Elasticsearch &lt; 6.3.0 because with 6.3.0 x-pack has turned into a module of Elasticsearch which is treated as a “car” in Rally):</p>
+<ul class="simple">
+<li><p>Run a benchmark with the <code class="docutils literal notranslate"><span class="pre">x-pack</span></code> plugin in the <code class="docutils literal notranslate"><span class="pre">security</span></code> configuration: <code class="docutils literal notranslate"><span class="pre">--elasticsearch-plugins=x-pack:security</span></code></p></li>
+<li><p>Run a benchmark with the <code class="docutils literal notranslate"><span class="pre">x-pack</span></code> plugin in the <code class="docutils literal notranslate"><span class="pre">security</span></code> and the <code class="docutils literal notranslate"><span class="pre">graph</span></code> configuration: <code class="docutils literal notranslate"><span class="pre">--elasticsearch-plugins=x-pack:security+graph</span></code></p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To benchmark the <code class="docutils literal notranslate"><span class="pre">security</span></code> configuration of <code class="docutils literal notranslate"><span class="pre">x-pack</span></code> you need to add the following command line options: <code class="docutils literal notranslate"><span class="pre">--client-options=&quot;use_ssl:true,verify_certs:false,basic_auth_user:'rally',basic_auth_password:'rally-password'&quot;</span></code></p>
+</div>
+<p>You can also override plugin variables with <code class="docutils literal notranslate"><span class="pre">--plugin-params</span></code> which is needed for example if you want to use the <code class="docutils literal notranslate"><span class="pre">monitoring-http</span></code> configuration in order to export monitoring data. You can export monitoring data e.g. with the following configuration:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">elasticsearch</span><span class="o">-</span><span class="n">plugins</span><span class="o">=</span><span class="s2">&quot;x-pack:monitoring-http&quot;</span> <span class="o">--</span><span class="n">plugin</span><span class="o">-</span><span class="n">params</span><span class="o">=</span><span class="s2">&quot;monitoring_type:&#39;https&#39;,monitoring_host:&#39;some_remote_host&#39;,monitoring_port:10200,monitoring_user:&#39;rally&#39;,monitoring_password:&#39;m0n1t0r1ng&#39;&quot;</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">monitoring_user</span></code> and <code class="docutils literal notranslate"><span class="pre">monitoring_password</span></code> parameters are optional, the other parameters are mandatory. For more details on the configuration options check the <a class="reference external" href="https://www.elastic.co/guide/en/x-pack/current/monitoring-production.html">Monitoring plugin documentation</a>.</p>
+<p>If you are behind a proxy, set the environment variable <code class="docutils literal notranslate"><span class="pre">ES_JAVA_OPTS</span></code> accordingly on each target machine as described in the <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/plugins/current/_other_command_line_parameters.html#_proxy_settings">Elasticsearch plugin documentation</a>.</p>
+</div>
+<div class="section" id="building-plugins-from-sources">
+<h2>Building plugins from sources<a class="headerlink" href="#building-plugins-from-sources" title="Permalink to this headline">¶</a></h2>
+<p>Plugin authors may want to benchmark source builds of their plugins. Your plugin is either:</p>
+<ul class="simple">
+<li><p>built alongside Elasticsearch</p></li>
+<li><p>built against a released version of Elasticsearch</p></li>
+</ul>
+<div class="section" id="plugins-built-alongside-elasticsearch">
+<h3>Plugins built alongside Elasticsearch<a class="headerlink" href="#plugins-built-alongside-elasticsearch" title="Permalink to this headline">¶</a></h3>
+<p>To make this work, you need to manually edit Rally’s configuration file in <code class="docutils literal notranslate"><span class="pre">~/.rally/rally.ini</span></code>. Suppose, we want to benchmark the plugin “my-plugin”. Then you need to add the following entries in the <code class="docutils literal notranslate"><span class="pre">source</span></code> section:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plugin</span><span class="o">.</span><span class="n">my</span><span class="o">-</span><span class="n">plugin</span><span class="o">.</span><span class="n">remote</span><span class="o">.</span><span class="n">repo</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">example</span><span class="o">-</span><span class="n">org</span><span class="o">/</span><span class="n">my</span><span class="o">-</span><span class="n">plugin</span><span class="o">.</span><span class="n">git</span>
+<span class="n">plugin</span><span class="o">.</span><span class="n">my</span><span class="o">-</span><span class="n">plugin</span><span class="o">.</span><span class="n">src</span><span class="o">.</span><span class="n">subdir</span> <span class="o">=</span> <span class="n">elasticsearch</span><span class="o">-</span><span class="n">extra</span><span class="o">/</span><span class="n">my</span><span class="o">-</span><span class="n">plugin</span>
+<span class="n">plugin</span><span class="o">.</span><span class="n">my</span><span class="o">-</span><span class="n">plugin</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">command</span> <span class="o">=</span> <span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">my</span><span class="o">-</span><span class="n">plugin</span><span class="p">:</span><span class="n">plugin</span><span class="p">:</span><span class="n">assemble</span>
+<span class="n">plugin</span><span class="o">.</span><span class="n">my</span><span class="o">-</span><span class="n">plugin</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">artifact</span><span class="o">.</span><span class="n">subdir</span> <span class="o">=</span> <span class="n">plugin</span><span class="o">/</span><span class="n">build</span><span class="o">/</span><span class="n">distributions</span>
+</pre></div>
+</div>
+<p>Let’s discuss these properties one by one:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">plugin.my-plugin.remote.repo.url</span></code> (optional): This is needed to let Rally checkout the source code of the plugin. If this is a private repo, credentials need to be setup properly. If the source code is already locally available you may not need to define this property. The remote’s name is assumed to be “origin” and this is not configurable. Also, only git is supported as revision control system.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plugin.my-plugin.src.subdir</span></code> (mandatory): This is the directory to which the plugin will be checked out relative to <code class="docutils literal notranslate"><span class="pre">src.root.dir</span></code>. In order to allow to build the plugin alongside Elasticsearch, the plugin needs to reside in a subdirectory of <code class="docutils literal notranslate"><span class="pre">elasticsearch-extra</span></code> (see also the <a class="reference external" href="https://github.com/elastic/elasticsearch/blob/master/TESTING.asciidoc#building-with-extra-plugins">Elasticsearch testing documentation</a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plugin.my-plugin.build.command</span></code> (mandatory): The full build command to run in order to build the plugin artifact. Note that this command is run from the Elasticsearch source directory as Rally assumes that you want to build your plugin alongside Elasticsearch (otherwise, see the next section).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plugin.my-plugin.build.artifact.subdir</span></code> (mandatory): This is the subdirectory relative to <code class="docutils literal notranslate"><span class="pre">plugin.my-plugin.src.subdir</span></code> in which the final plugin artifact is located.</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><code class="docutils literal notranslate"><span class="pre">plugin.my-plugin.build.command</span></code> has replaced <code class="docutils literal notranslate"><span class="pre">plugin.my-plugin.build.task</span></code> in earlier Rally versions. It now requires the <strong>full</strong> build command.</p>
+</div>
+<p>In order to run a benchmark with <code class="docutils literal notranslate"><span class="pre">my-plugin</span></code>, you’d invoke Rally as follows: <code class="docutils literal notranslate"><span class="pre">esrally</span> <span class="pre">--revision=&quot;elasticsearch:some-elasticsearch-revision,my-plugin:some-plugin-revision&quot;</span> <span class="pre">--elasticsearch-plugins=&quot;my-plugin&quot;</span></code> where you need to replace <code class="docutils literal notranslate"><span class="pre">some-elasticsearch-revision</span></code> and <code class="docutils literal notranslate"><span class="pre">some-plugin-revision</span></code> with the appropriate <a class="reference internal" href="command_line_reference.html#clr-revision"><span class="std std-ref">git revisions</span></a>. Adjust other command line parameters (like track or car) accordingly. In order for this to work, you need to ensure that:</p>
+<ul class="simple">
+<li><p>All prerequisites for source builds are installed.</p></li>
+<li><p>The Elasticsearch source revision is compatible with the chosen plugin revision. Note that you do not need to know the revision hash to build against an already released version and can use git tags instead. E.g. if you want to benchmark against Elasticsearch 5.6.1, you can specify <code class="docutils literal notranslate"><span class="pre">--revision=&quot;elasticsearch:v5.6.1,my-plugin:some-plugin-revision&quot;</span></code> (see e.g. the <a class="reference external" href="https://github.com/elastic/elasticsearch/tags">Elasticsearch tags on Github</a> or use <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">tag</span></code> in the Elasticsearch source directory on the console).</p></li>
+<li><p>If your plugin needs to be configured, create a proper plugin specification (see below).</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Rally can build all <a class="reference external" href="https://github.com/elastic/elasticsearch/tree/master/plugins">Elasticsearch core plugins</a> out of the box without any further configuration.</p>
+</div>
+</div>
+<div class="section" id="plugins-based-on-a-released-elasticsearch-version">
+<h3>Plugins based on a released Elasticsearch version<a class="headerlink" href="#plugins-based-on-a-released-elasticsearch-version" title="Permalink to this headline">¶</a></h3>
+<p>To make this work, you need to manually edit Rally’s configuration file in <code class="docutils literal notranslate"><span class="pre">~/.rally/rally.ini</span></code>. Suppose, we want to benchmark the plugin “my-plugin”. Then you need to add the following entries in the <code class="docutils literal notranslate"><span class="pre">source</span></code> section:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plugin</span><span class="o">.</span><span class="n">my</span><span class="o">-</span><span class="n">plugin</span><span class="o">.</span><span class="n">remote</span><span class="o">.</span><span class="n">repo</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">example</span><span class="o">-</span><span class="n">org</span><span class="o">/</span><span class="n">my</span><span class="o">-</span><span class="n">plugin</span><span class="o">.</span><span class="n">git</span>
+<span class="n">plugin</span><span class="o">.</span><span class="n">my</span><span class="o">-</span><span class="n">plugin</span><span class="o">.</span><span class="n">src</span><span class="o">.</span><span class="n">dir</span> <span class="o">=</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">plugin</span><span class="o">/</span><span class="n">sources</span>
+<span class="n">plugin</span><span class="o">.</span><span class="n">my</span><span class="o">-</span><span class="n">plugin</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">command</span> <span class="o">=</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">gradle</span> <span class="p">:</span><span class="n">my</span><span class="o">-</span><span class="n">plugin</span><span class="p">:</span><span class="n">plugin</span><span class="p">:</span><span class="n">assemble</span>
+<span class="n">plugin</span><span class="o">.</span><span class="n">my</span><span class="o">-</span><span class="n">plugin</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">artifact</span><span class="o">.</span><span class="n">subdir</span> <span class="o">=</span> <span class="n">build</span><span class="o">/</span><span class="n">distributions</span>
+</pre></div>
+</div>
+<p>Let’s discuss these properties one by one:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">plugin.my-plugin.remote.repo.url</span></code> (optional): This is needed to let Rally checkout the source code of the plugin. If this is a private repo, credentials need to be setup properly. If the source code is already locally available you may not need to define this property. The remote’s name is assumed to be “origin” and this is not configurable. Also, only git is supported as revision control system.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plugin.my-plugin.src.dir</span></code> (mandatory): This is the absolute directory to which the source code will be checked out.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plugin.my-plugin.build.command</span></code> (mandatory): The full build command to run in order to build the plugin artifact. This command is run from the plugin project’s root directory.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plugin.my-plugin.build.artifact.subdir</span></code> (mandatory): This is the subdirectory relative to <code class="docutils literal notranslate"><span class="pre">plugin.my-plugin.src.dir</span></code> in which the final plugin artifact is located.</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><code class="docutils literal notranslate"><span class="pre">plugin.my-plugin.build.command</span></code> has replaced <code class="docutils literal notranslate"><span class="pre">plugin.my-plugin.build.task</span></code> in earlier Rally versions. It now requires the <strong>full</strong> build command.</p>
+</div>
+<p>In order to run a benchmark with <code class="docutils literal notranslate"><span class="pre">my-plugin</span></code>, you’d invoke Rally as follows: <code class="docutils literal notranslate"><span class="pre">esrally</span> <span class="pre">--distribution-version=&quot;elasticsearch-version&quot;</span> <span class="pre">--revision=&quot;my-plugin:some-plugin-revision&quot;</span> <span class="pre">--elasticsearch-plugins=&quot;my-plugin&quot;</span></code> where you need to replace <code class="docutils literal notranslate"><span class="pre">elasticsearch-version</span></code> with the correct release (e.g. 6.0.0) and <code class="docutils literal notranslate"><span class="pre">some-plugin-revision</span></code> with the appropriate <a class="reference internal" href="command_line_reference.html#clr-revision"><span class="std std-ref">git revisions</span></a>. Adjust other command line parameters (like track or car) accordingly. In order for this to work, you need to ensure that:</p>
+<ul class="simple">
+<li><p>All prerequisites for source builds are installed.</p></li>
+<li><p>The Elasticsearch release is compatible with the chosen plugin revision.</p></li>
+<li><p>If your plugin needs to be configured, create a proper plugin specification (see below).</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="anatomy-of-a-plugin-specification">
+<h2>Anatomy of a plugin specification<a class="headerlink" href="#anatomy-of-a-plugin-specification" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="simple-plugins">
+<h3>Simple plugins<a class="headerlink" href="#simple-plugins" title="Permalink to this headline">¶</a></h3>
+<p>You can use Rally to benchmark community-contributed or even your own plugins. In the simplest case, the plugin does not need any custom configuration. Then you just need to add the download URL to your Rally configuration file. Consider we want to benchmark the plugin “my-plugin”:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">distributions</span><span class="p">]</span>
+<span class="n">plugin</span><span class="o">.</span><span class="n">my</span><span class="o">-</span><span class="n">plugin</span><span class="o">.</span><span class="n">release</span><span class="o">.</span><span class="n">url</span><span class="o">=</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">example</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">my</span><span class="o">-</span><span class="n">plugin</span><span class="o">/</span><span class="n">releases</span><span class="o">/</span><span class="p">{{</span><span class="n">VERSION</span><span class="p">}}</span><span class="o">/</span><span class="n">my</span><span class="o">-</span><span class="n">plugin</span><span class="o">-</span><span class="p">{{</span><span class="n">VERSION</span><span class="p">}}</span><span class="o">.</span><span class="n">zip</span>
+</pre></div>
+</div>
+<p>Then you can use <code class="docutils literal notranslate"><span class="pre">--elasticsearch-plugins=my-plugin</span></code> to run a benchmark with your plugin. Rally will also replace <code class="docutils literal notranslate"><span class="pre">{{VERSION}}</span></code> with the distribution version that you have specified on the command line.</p>
+</div>
+<div class="section" id="plugins-which-require-configuration">
+<h3>Plugins which require configuration<a class="headerlink" href="#plugins-which-require-configuration" title="Permalink to this headline">¶</a></h3>
+<p>If the plugin needs a custom configuration we recommend to fork the <a class="reference external" href="https://github.com/elastic/rally-teams">official Rally teams repository</a> and add your plugin configuration there. Suppose, you want to benchmark “my-plugin” which has the following settings that can be configured in <code class="docutils literal notranslate"><span class="pre">elasticsearch.yml</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">myplugin.active</span></code>: a boolean which activates the plugin</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">myplugin.mode</span></code>: Either <code class="docutils literal notranslate"><span class="pre">simple</span></code> or <code class="docutils literal notranslate"><span class="pre">advanced</span></code></p></li>
+</ul>
+<p>We want to support two configurations for this plugin: <code class="docutils literal notranslate"><span class="pre">simple</span></code> which will set <code class="docutils literal notranslate"><span class="pre">myplugin.mode</span></code> to <code class="docutils literal notranslate"><span class="pre">simple</span></code> and <code class="docutils literal notranslate"><span class="pre">advanced</span></code> which will set <code class="docutils literal notranslate"><span class="pre">myplugin.mode</span></code> to <code class="docutils literal notranslate"><span class="pre">advanced</span></code>.</p>
+<p>First, we need a template configuration. We will call this a “config base” in Rally. We will just need one config base for this example and will call it “default”.</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">$TEAM_REPO_ROOT</span></code> create the directory structure for the plugin and its config base with <cite>mkdir -p myplugin/default/templates/config</cite> and add the following <code class="docutils literal notranslate"><span class="pre">elasticsearch.yml</span></code> in the new directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myplugin</span><span class="o">.</span><span class="n">active</span><span class="p">:</span> <span class="n">true</span>
+<span class="n">myplugin</span><span class="o">.</span><span class="n">mode</span><span class="o">=</span><span class="p">{{</span><span class="n">my_plugin_mode</span><span class="p">}}</span>
+</pre></div>
+</div>
+<p>That’s it. Later, Rally will just copy all files in <code class="docutils literal notranslate"><span class="pre">myplugin/default/templates</span></code> to the home directory of the Elasticsearch node that it configures. First, Rally will always apply the car’s configuration and then plugins can add their configuration on top. This also explains why we have created a <code class="docutils literal notranslate"><span class="pre">config/elasticsearch.yml</span></code>. Rally will just copy this file and replace template variables on the way.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you create a new customization for a plugin, ensure that the plugin name in the team repository matches the core plugin name. Note that hyphens need to be replaced by underscores (e.g. “x-pack” becomes “x_pack”). The reason is that Rally allows to write custom install hooks and the plugin name will become the root package name of the install hook. However, hyphens are not supported in Python which is why we use underscores instead.</p>
+</div>
+<p>The next step is now to create our two plugin configurations where we will set the variables for our config base “default”. Create a file <code class="docutils literal notranslate"><span class="pre">simple.ini</span></code> in the <code class="docutils literal notranslate"><span class="pre">myplugin</span></code> directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">config</span><span class="p">]</span>
+<span class="c1"># reference our one and only config base here</span>
+<span class="n">base</span><span class="o">=</span><span class="n">default</span>
+
+<span class="p">[</span><span class="n">variables</span><span class="p">]</span>
+<span class="n">my_plugin_mode</span><span class="o">=</span><span class="n">simple</span>
+</pre></div>
+</div>
+<p>Similarly, create <code class="docutils literal notranslate"><span class="pre">advanced.ini</span></code> in the <code class="docutils literal notranslate"><span class="pre">myplugin</span></code> directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">config</span><span class="p">]</span>
+<span class="c1"># reference our one and only config base here</span>
+<span class="n">base</span><span class="o">=</span><span class="n">default</span>
+
+<span class="p">[</span><span class="n">variables</span><span class="p">]</span>
+<span class="n">my_plugin_mode</span><span class="o">=</span><span class="n">advanced</span>
+</pre></div>
+</div>
+<p>Rally will now know about <code class="docutils literal notranslate"><span class="pre">myplugin</span></code> and its two configurations. Let’s check that with <code class="docutils literal notranslate"><span class="pre">esrally</span> <span class="pre">list</span> <span class="pre">elasticsearch-plugins</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Available</span> <span class="n">Elasticsearch</span> <span class="n">plugins</span><span class="p">:</span>
+
+<span class="n">Name</span>                     <span class="n">Configuration</span>
+<span class="o">-----------------------</span>  <span class="o">----------------</span>
+<span class="n">analysis</span><span class="o">-</span><span class="n">icu</span>
+<span class="n">analysis</span><span class="o">-</span><span class="n">kuromoji</span>
+<span class="n">analysis</span><span class="o">-</span><span class="n">phonetic</span>
+<span class="n">analysis</span><span class="o">-</span><span class="n">smartcn</span>
+<span class="n">analysis</span><span class="o">-</span><span class="n">stempel</span>
+<span class="n">analysis</span><span class="o">-</span><span class="n">ukrainian</span>
+<span class="n">discovery</span><span class="o">-</span><span class="n">azure</span><span class="o">-</span><span class="n">classic</span>
+<span class="n">discovery</span><span class="o">-</span><span class="n">ec2</span>
+<span class="n">discovery</span><span class="o">-</span><span class="n">file</span>
+<span class="n">discovery</span><span class="o">-</span><span class="n">gce</span>
+<span class="n">ingest</span><span class="o">-</span><span class="n">attachment</span>
+<span class="n">ingest</span><span class="o">-</span><span class="n">geoip</span>
+<span class="n">ingest</span><span class="o">-</span><span class="n">user</span><span class="o">-</span><span class="n">agent</span>
+<span class="n">lang</span><span class="o">-</span><span class="n">javascript</span>
+<span class="n">lang</span><span class="o">-</span><span class="n">python</span>
+<span class="n">mapper</span><span class="o">-</span><span class="n">attachments</span>
+<span class="n">mapper</span><span class="o">-</span><span class="n">murmur3</span>
+<span class="n">mapper</span><span class="o">-</span><span class="n">size</span>
+<span class="n">myplugin</span>                 <span class="n">simple</span>
+<span class="n">myplugin</span>                 <span class="n">advanced</span>
+<span class="n">repository</span><span class="o">-</span><span class="n">azure</span>
+<span class="n">repository</span><span class="o">-</span><span class="n">gcs</span>
+<span class="n">repository</span><span class="o">-</span><span class="n">hdfs</span>
+<span class="n">repository</span><span class="o">-</span><span class="n">s3</span>
+<span class="n">store</span><span class="o">-</span><span class="n">smb</span>
+</pre></div>
+</div>
+<p>As <code class="docutils literal notranslate"><span class="pre">myplugin</span></code> is not a core plugin, the Elasticsearch plugin manager does not know from where to install it, so we need to add the download URL to <code class="docutils literal notranslate"><span class="pre">~/.rally/rally.ini</span></code> as before:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">distributions</span><span class="p">]</span>
+<span class="n">plugin</span><span class="o">.</span><span class="n">myplugin</span><span class="o">.</span><span class="n">release</span><span class="o">.</span><span class="n">url</span><span class="o">=</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">example</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">myplugin</span><span class="o">/</span><span class="n">releases</span><span class="o">/</span><span class="p">{{</span><span class="n">VERSION</span><span class="p">}}</span><span class="o">/</span><span class="n">myplugin</span><span class="o">-</span><span class="p">{{</span><span class="n">VERSION</span><span class="p">}}</span><span class="o">.</span><span class="n">zip</span>
+</pre></div>
+</div>
+<p>Now you can run benchmarks with the custom Elasticsearch plugin, e.g. with <code class="docutils literal notranslate"><span class="pre">esrally</span> <span class="pre">--distribution-version=5.5.0</span> <span class="pre">--elasticsearch-plugins=&quot;myplugin:simple&quot;</span></code>.</p>
+<p>For this to work you need ensure two things:</p>
+<ol class="arabic simple">
+<li><p>The plugin needs to be available for the version that you want to benchmark (5.5.0 in the example above).</p></li>
+<li><p>Rally will choose the most appropriate branch in the team repository before starting the benchmark. In practice, this will most likely be branch “5” for this example. Therefore you need to ensure that your plugin configuration is also available on that branch. See the <a class="reference external" href="https://github.com/elastic/rally-teams#versioning-scheme">README in the team repository</a> to learn how the versioning scheme works.</p></li>
+</ol>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="telemetry.html" class="btn btn-neutral float-right" title="Telemetry Devices" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="car.html" class="btn btn-neutral float-left" title="Configure Elasticsearch: Cars" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Elasticsearch B.V.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

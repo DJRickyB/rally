@@ -1,0 +1,505 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Rally 2.0.4.dev0 &mdash; Rally 2.0.4.dev0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Quickstart" href="quickstart.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home"> Rally
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started with Rally</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Running Rally with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="race.html">Run a Benchmark: Races</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tournament.html">Compare Results: Tournaments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cluster_management.html">Setting up a Cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recipes.html">Tips and Tricks</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Extending Rally</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="adding_tracks.html">Define Custom Workloads: Tracks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">Developing Rally</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Elasticsearch Version Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_line_reference.html">Command Line Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="offline.html">Offline Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="track.html">Track Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="car.html">Configure Elasticsearch: Cars</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elasticsearch_plugins.html">Using Elasticsearch Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="telemetry.html">Telemetry Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rally_daemon.html">Rally Daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipelines.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="summary_report.html">Summary Report</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Additional Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="migrate.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Community Resources</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Rally</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+    <ul class="wy-breadcrumbs">
+        
+        <li><a href="#">Docs</a> &raquo;</li>
+        
+        <li>Rally 2.0.4.dev0</li>
+        
+        
+        <li class="wy-breadcrumbs-aside">
+            
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+            
+            
+        </li>
+        
+    </ul>
+
+    
+    <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="rally-release">
+<h1>Rally 2.0.4.dev0<a class="headerlink" href="#rally-release" title="Permalink to this headline">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This documentation is for the version of Rally currently under development.
+Were you looking for the <a class="reference external" href="//esrally.readthedocs.io/en/stable/">documentation of the latest stable version</a>?</p>
+</div>
+<p>You want to benchmark Elasticsearch? Then Rally is for you. It can help you with the following tasks:</p>
+<ul class="simple">
+<li><p>Setup and teardown of an Elasticsearch cluster for benchmarking</p></li>
+<li><p>Management of benchmark data and specifications even across Elasticsearch versions</p></li>
+<li><p>Running benchmarks and recording results</p></li>
+<li><p>Finding performance problems by attaching so-called telemetry devices</p></li>
+<li><p>Comparing performance results</p></li>
+</ul>
+<p>We have also put considerable effort in Rally to ensure that benchmarking data are reproducible.</p>
+<div class="section" id="getting-help-or-contributing-to-rally">
+<h2>Getting Help or Contributing to Rally<a class="headerlink" href="#getting-help-or-contributing-to-rally" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Use our <a class="reference external" href="https://discuss.elastic.co/tags/c/elastic-stack/elasticsearch/rally">Discuss forum</a> to provide feedback or ask questions about Rally.</p></li>
+<li><p>See our <a class="reference external" href="https://github.com/elastic/rally/blob/master/CONTRIBUTING.md">contribution guide</a> on guidelines for contributors.</p></li>
+</ul>
+</div>
+<div class="section" id="source-code">
+<h2>Source Code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h2>
+<p>Rally’s source code is available on <a class="reference external" href="https://github.com/elastic/rally">Github</a>. You can also check the <a class="reference external" href="https://github.com/elastic/rally/releases">changelog</a> and the <a class="reference external" href="https://github.com/elastic/rally/milestones">roadmap</a> there.</p>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Getting Started with Rally</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#install">Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#run-your-first-race">Run your first race</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="install.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#installing-rally">Installing Rally</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#virtualenv-install">VirtualEnv Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#docker">Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#offline-install">Offline Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Running Rally with Docker</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="docker.html#limitations">Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html#quickstart">Quickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html#persistence">Persistence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html#specifics-about-the-image">Specifics about the image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html#extending-the-docker-image">Extending the Docker image</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="race.html">Run a Benchmark: Races</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="race.html#definition">Definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="race.html#list-tracks">List Tracks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="race.html#starting-a-race">Starting a Race</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tournament.html">Compare Results: Tournaments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cluster_management.html">Setting up a Cluster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cluster_management.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cluster_management.html#getting-started-benchmarking-a-single-node">Getting Started: Benchmarking a Single Node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cluster_management.html#levelling-up-benchmarking-a-cluster">Levelling Up: Benchmarking a Cluster</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="recipes.html">Tips and Tricks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="recipes.html#benchmarking-an-elastic-cloud-cluster">Benchmarking an Elastic Cloud cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recipes.html#benchmarking-an-existing-cluster">Benchmarking an existing cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recipes.html#benchmarking-a-remote-cluster">Benchmarking a remote cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recipes.html#distributing-the-load-test-driver">Distributing the load test driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recipes.html#changing-the-default-track-repository">Changing the default track repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recipes.html#testing-rally-against-ccr-clusters-using-a-remote-metric-store">Testing Rally against CCR clusters using a remote metric store</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recipes.html#identifying-when-errors-have-been-encountered">Identifying when errors have been encountered</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recipes.html#checking-queries-and-responses">Checking Queries and Responses</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Extending Rally</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="adding_tracks.html">Define Custom Workloads: Tracks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="adding_tracks.html#definition">Definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adding_tracks.html#creating-a-track-from-data-in-an-existing-cluster">Creating a track from data in an existing cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adding_tracks.html#creating-a-track-from-scratch">Creating a track from scratch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adding_tracks.html#adding-support-for-test-mode">Adding support for test mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adding_tracks.html#challenges">Challenges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adding_tracks.html#structuring-your-track">Structuring your track</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adding_tracks.html#sharing-your-track-with-others">Sharing your track with others</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adding_tracks.html#advanced-topics">Advanced topics</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">Developing Rally</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="developing.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing.html#installation-instructions-for-development">Installation Instructions for Development</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing.html#key-components-of-rally">Key Components of Rally</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing.html#how-to-contribute-code">How to contribute code</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Reference Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Elasticsearch Version Support</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="versions.html#minimum-supported-version">Minimum supported version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versions.html#end-of-life-policy">End-of-life Policy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="command_line_reference.html">Command Line Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="command_line_reference.html#subcommands">Subcommands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_line_reference.html#command-line-flags">Command Line Flags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_line_reference.html#advanced-topics">Advanced topics</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#rally-configuration">Rally Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#proxy-configuration">Proxy Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#logging">Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="offline.html">Offline Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="offline.html#installation-and-configuration">Installation and Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="offline.html#command-line-usage">Command Line Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="offline.html#using-tracks">Using tracks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="offline.html#using-cars">Using cars</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="track.html">Track Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="track.html#definition">Definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="track.html#track-file-format-and-storage">Track File Format and Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="track.html#anatomy-of-a-track">Anatomy of a track</a></li>
+<li class="toctree-l2"><a class="reference internal" href="track.html#track-elements">Track elements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="track.html#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="car.html">Configure Elasticsearch: Cars</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="car.html#definition">Definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="car.html#the-anatomy-of-a-car">The Anatomy of a car</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="elasticsearch_plugins.html">Using Elasticsearch Plugins</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="elasticsearch_plugins.html#listing-plugins">Listing plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="elasticsearch_plugins.html#running-a-benchmark-with-plugins">Running a benchmark with plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="elasticsearch_plugins.html#building-plugins-from-sources">Building plugins from sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="elasticsearch_plugins.html#anatomy-of-a-plugin-specification">Anatomy of a plugin specification</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="telemetry.html">Telemetry Devices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="telemetry.html#jfr">jfr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="telemetry.html#jit">jit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="telemetry.html#gc">gc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="telemetry.html#heapdump">heapdump</a></li>
+<li class="toctree-l2"><a class="reference internal" href="telemetry.html#node-stats">node-stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="telemetry.html#recovery-stats">recovery-stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="telemetry.html#ccr-stats">ccr-stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="telemetry.html#transform-stats">transform-stats</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rally_daemon.html">Rally Daemon</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rally_daemon.html#preparation">Preparation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rally_daemon.html#starting">Starting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rally_daemon.html#stopping">Stopping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rally_daemon.html#status">Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rally_daemon.html#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pipelines.html">Pipelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pipelines.html#benchmark-only">benchmark-only</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pipelines.html#from-distribution">from-distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pipelines.html#from-sources">from-sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pipelines.html#from-sources-complete">from-sources-complete</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pipelines.html#from-sources-skip-build">from-sources-skip-build</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html#metrics-records">Metrics Records</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html#metric-keys">Metric Keys</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="summary_report.html">Summary Report</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="summary_report.html#cumulative-indexing-time-of-primary-shards">Cumulative indexing time of primary shards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary_report.html#cumulative-indexing-time-across-primary-shards">Cumulative indexing time across primary shards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary_report.html#cumulative-indexing-throttle-time-of-primary-shards">Cumulative indexing throttle time of primary shards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary_report.html#cumulative-indexing-throttle-time-across-primary-shards">Cumulative indexing throttle time across primary shards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary_report.html#cumulative-merge-time-of-primary-shards">Cumulative merge time of primary shards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary_report.html#cumulative-merge-count-of-primary-shards">Cumulative merge count of primary shards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary_report.html#cumulative-merge-time-across-primary-shards">Cumulative merge time across primary shards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary_report.html#cumulative-refresh-time-of-primary-shards">Cumulative refresh time of primary shards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary_report.html#cumulative-refresh-count-of-primary-shards">Cumulative refresh count of primary shards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary_report.html#cumulative-refresh-time-across-primary-shards">Cumulative refresh time across primary shards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary_report.html#cumulative-flush-time-of-primary-shards">Cumulative flush time of primary shards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary_report.html#cumulative-flush-count-of-primary-shards">Cumulative flush count of primary shards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary_report.html#cumulative-flush-time-across-primary-shards">Cumulative flush time across primary shards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary_report.html#cumulative-merge-throttle-time-of-primary-shards">Cumulative merge throttle time of primary shards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary_report.html#cumulative-merge-throttle-time-across-primary-shards">Cumulative merge throttle time across primary shards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary_report.html#ml-processing-time">ML processing time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary_report.html#total-young-gen-gc-time">Total Young Gen GC time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary_report.html#total-young-gen-gc-count">Total Young Gen GC count</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary_report.html#total-old-gen-gc-time">Total Old Gen GC time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary_report.html#total-old-gen-gc-count">Total Old Gen GC count</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary_report.html#store-size">Store size</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary_report.html#translog-size">Translog size</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary_report.html#heap-used-for-x">Heap used for <code class="docutils literal notranslate"><span class="pre">X</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary_report.html#segment-count">Segment count</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary_report.html#throughput">Throughput</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary_report.html#latency">Latency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary_report.html#service-time">Service time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary_report.html#error-rate">Error rate</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Additional Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="migrate.html">Migration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="migrate.html#migrating-to-rally-2-0-3">Migrating to Rally 2.0.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrate.html#migrating-to-rally-2-0-1">Migrating to Rally 2.0.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrate.html#migrating-to-rally-2-0-0">Migrating to Rally 2.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrate.html#migrating-to-rally-1-4-1">Migrating to Rally 1.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrate.html#migrating-to-rally-1-4-0">Migrating to Rally 1.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrate.html#migrating-to-rally-1-3-0">Migrating to Rally 1.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrate.html#migrating-to-rally-1-2-1">Migrating to Rally 1.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrate.html#migrating-to-rally-1-1-0">Migrating to Rally 1.1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrate.html#migrating-to-rally-1-0-1">Migrating to Rally 1.0.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrate.html#migrating-to-rally-1-0-0">Migrating to Rally 1.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrate.html#migrating-to-rally-0-11-0">Migrating to Rally 0.11.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrate.html#migrating-to-rally-0-10-0">Migrating to Rally 0.10.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrate.html#migrating-to-rally-0-9-0">Migrating to Rally 0.9.0</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions (FAQ)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#a-benchmark-aborts-with-couldn-t-find-a-tar-gz-distribution-what-s-the-problem">A benchmark aborts with <code class="docutils literal notranslate"><span class="pre">Couldn't</span> <span class="pre">find</span> <span class="pre">a</span> <span class="pre">tar.gz</span> <span class="pre">distribution</span></code>. What’s the problem?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#where-does-rally-get-the-benchmark-data-from">Where does Rally get the benchmark data from?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#will-rally-destroy-my-existing-indices">Will Rally destroy my existing indices?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#what-do-latency-and-service-time-mean-and-how-do-they-relate-to-the-took-field-that-elasticsearch-returns">What do <cite>latency</cite> and <cite>service_time</cite> mean and how do they relate to the <cite>took</cite> field that Elasticsearch returns?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#where-and-how-long-does-rally-keep-its-data">Where and how long does Rally keep its data?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#does-rally-spy-on-me">Does Rally spy on me?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#do-i-need-an-internet-connection">Do I need an Internet connection?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Community Resources</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="community.html#talks">Talks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="community.html#articles">Articles</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<p>This software is licensed under the Apache License, version 2 (“ALv2”), quoted below.</p>
+<p>Copyright 2015-2021 Elasticsearch &lt;<a class="reference external" href="https://www.elastic.co">https://www.elastic.co</a>&gt;</p>
+<p>Licensed under the Apache License, Version 2.0 (the “License”); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at</p>
+<blockquote>
+<div><p><a class="reference external" href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+</div></blockquote>
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an “AS IS” BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations under
+the License.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="quickstart.html" class="btn btn-neutral float-right" title="Quickstart" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Elasticsearch B.V.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

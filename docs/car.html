@@ -1,0 +1,419 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Configure Elasticsearch: Cars &mdash; Rally 2.0.4.dev0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Using Elasticsearch Plugins" href="elasticsearch_plugins.html" />
+    <link rel="prev" title="Track Reference" href="track.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Rally
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started with Rally</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Running Rally with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="race.html">Run a Benchmark: Races</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tournament.html">Compare Results: Tournaments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cluster_management.html">Setting up a Cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recipes.html">Tips and Tricks</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Extending Rally</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="adding_tracks.html">Define Custom Workloads: Tracks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">Developing Rally</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Elasticsearch Version Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_line_reference.html">Command Line Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="offline.html">Offline Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="track.html">Track Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configure Elasticsearch: Cars</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#definition">Definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-anatomy-of-a-car">The Anatomy of a car</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#simple-customizations">Simple customizations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-team-repositories">Custom Team Repositories</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#creating-a-new-team-repository">Creating a new team repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#adding-an-already-existing-team-repository">Adding an already existing team repository</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="elasticsearch_plugins.html">Using Elasticsearch Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="telemetry.html">Telemetry Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rally_daemon.html">Rally Daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipelines.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="summary_report.html">Summary Report</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Additional Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="migrate.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Community Resources</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Rally</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+    <ul class="wy-breadcrumbs">
+        
+        <li><a href="index.html">Docs</a> &raquo;</li>
+        
+        <li>Configure Elasticsearch: Cars</li>
+        
+        
+        <li class="wy-breadcrumbs-aside">
+            
+            
+            <a href="_sources/car.rst.txt" rel="nofollow"> View page source</a>
+            
+            
+        </li>
+        
+    </ul>
+
+    
+    <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="configure-elasticsearch-cars">
+<h1>Configure Elasticsearch: Cars<a class="headerlink" href="#configure-elasticsearch-cars" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can skip this section if you use Rally only as a load generator.</p>
+</div>
+<div class="section" id="definition">
+<h2>Definition<a class="headerlink" href="#definition" title="Permalink to this headline">¶</a></h2>
+<p>A Rally “car” is a specific configuration of Elasticsearch. You can list the available cars with <code class="docutils literal notranslate"><span class="pre">esrally</span> <span class="pre">list</span> <span class="pre">cars</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    ____        ____
+   / __ \____ _/ / /_  __
+  / /_/ / __ `/ / / / / /
+ / _, _/ /_/ / / / /_/ /
+/_/ |_|\__,_/_/_/\__, /
+                /____/
+
+Name                     Type    Description
+-----------------------  ------  ----------------------------------
+16gheap                  car     Sets the Java heap to 16GB
+1gheap                   car     Sets the Java heap to 1GB
+2gheap                   car     Sets the Java heap to 2GB
+4gheap                   car     Sets the Java heap to 4GB
+8gheap                   car     Sets the Java heap to 8GB
+defaults                 car     Sets the Java heap to 1GB
+ea                       mixin   Enables Java assertions
+fp                       mixin   Preserves frame pointers
+x-pack-ml                mixin   X-Pack Machine Learning
+x-pack-monitoring-http   mixin   X-Pack Monitoring (HTTP exporter)
+x-pack-monitoring-local  mixin   X-Pack Monitoring (local exporter)
+x-pack-security          mixin   X-Pack Security
+</pre></div>
+</div>
+<p>You can specify the car that Rally should use with e.g. <code class="docutils literal notranslate"><span class="pre">--car=&quot;4gheap&quot;</span></code>. It is also possible to specify one or more “mixins” to further customize the configuration. For example, you can specify <code class="docutils literal notranslate"><span class="pre">--car=&quot;4gheap,ea&quot;</span></code> to run with a 4GB heap and enable Java assertions (they are disabled by default) or <code class="docutils literal notranslate"><span class="pre">--car=&quot;4gheap,x-pack-security&quot;</span></code> to benchmark Elasticsearch with X-Pack Security enabled (requires Elasticsearch 6.3.0 or better).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To benchmark <code class="docutils literal notranslate"><span class="pre">x-pack-security</span></code> you need to add the following command line options: <code class="docutils literal notranslate"><span class="pre">--client-options=&quot;use_ssl:true,verify_certs:false,basic_auth_user:'rally',basic_auth_password:'rally-password'&quot;</span></code></p>
+</div>
+<p>Similar to <a class="reference internal" href="adding_tracks.html"><span class="doc">custom tracks</span></a>, you can also define your own cars.</p>
+</div>
+<div class="section" id="the-anatomy-of-a-car">
+<h2>The Anatomy of a car<a class="headerlink" href="#the-anatomy-of-a-car" title="Permalink to this headline">¶</a></h2>
+<p>The default car definitions of Rally are stored in <code class="docutils literal notranslate"><span class="pre">~/.rally/benchmarks/teams/default/cars</span></code>. There we find the following structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>.
+└── v1
+    ├── 1gheap.ini
+    ├── 2gheap.ini
+    ├── defaults.ini
+    ├── ea
+    │   └── templates
+    │       └── config
+    │           └── jvm.options
+    ├── ea.ini
+    └── vanilla
+        ├── config.ini
+        └── templates
+            └── config
+                ├── elasticsearch.yml
+                ├── jvm.options
+                └── log4j2.properties
+</pre></div>
+</div>
+<p>The top-level directory “v1” denotes the configuration format in version 1. Below that directory, each <code class="docutils literal notranslate"><span class="pre">.ini</span></code> file defines a car. Each directory (<code class="docutils literal notranslate"><span class="pre">ea</span></code> or <code class="docutils literal notranslate"><span class="pre">vanilla</span></code>) contains templates for the config files. Rally will only copy the files in the <code class="docutils literal notranslate"><span class="pre">templates</span></code> subdirectory. The top-level directory is reserved for a special file, <code class="docutils literal notranslate"><span class="pre">config.ini</span></code> which you can use to define default variables that apply to all cars that are based on this configuration. Below is an example <code class="docutils literal notranslate"><span class="pre">config.ini</span></code> file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">variables</span><span class="p">]</span>
+<span class="n">clean_command</span><span class="o">=./</span><span class="n">gradlew</span> <span class="n">clean</span>
+</pre></div>
+</div>
+<p>This defines the variable <code class="docutils literal notranslate"><span class="pre">clean_command</span></code> for all cars that reference this configuration. Rally will treat the following variable names specially:</p>
+<ul class="simple">
+<li><p><cite>clean_command</cite>: The command to clean the Elasticsearch project directory.</p></li>
+<li><p><cite>build_command</cite>: The command to build an Elasticsearch source distribution.</p></li>
+<li><p><cite>artifact_path_pattern</cite>: A glob pattern to find a previously built source distribution within the project directory.</p></li>
+<li><p><cite>release_url</cite>: A download URL for Elasticsearch distributions. The placeholder <code class="docutils literal notranslate"><span class="pre">{{VERSION}}</span></code> is replaced by Rally with the actual Elasticsearch version.</p></li>
+</ul>
+<p>Let’s have a look at the <code class="docutils literal notranslate"><span class="pre">1gheap</span></code> car by inspecting <code class="docutils literal notranslate"><span class="pre">1gheap.ini</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">meta</span><span class="p">]</span>
+<span class="n">description</span><span class="o">=</span><span class="n">Sets</span> <span class="n">the</span> <span class="n">Java</span> <span class="n">heap</span> <span class="n">to</span> <span class="mi">1</span><span class="n">GB</span>
+<span class="nb">type</span><span class="o">=</span><span class="n">car</span>
+
+<span class="p">[</span><span class="n">config</span><span class="p">]</span>
+<span class="n">base</span><span class="o">=</span><span class="n">vanilla</span>
+
+<span class="p">[</span><span class="n">variables</span><span class="p">]</span>
+<span class="n">heap_size</span><span class="o">=</span><span class="mi">1</span><span class="n">g</span>
+</pre></div>
+</div>
+<p>The name of the car is derived from the <code class="docutils literal notranslate"><span class="pre">.ini</span></code> file name. In the <code class="docutils literal notranslate"><span class="pre">meta</span></code> section we can provide a <code class="docutils literal notranslate"><span class="pre">description</span></code> and the <code class="docutils literal notranslate"><span class="pre">type</span></code>. Use <code class="docutils literal notranslate"><span class="pre">car</span></code> if a configuration can be used standalone and <code class="docutils literal notranslate"><span class="pre">mixin</span></code> if it needs to be combined with other configurations. In the <code class="docutils literal notranslate"><span class="pre">config</span></code> section we define that this definition is based on the <code class="docutils literal notranslate"><span class="pre">vanilla</span></code> configuration. We also define a variable <code class="docutils literal notranslate"><span class="pre">heap_size</span></code> and set it to <code class="docutils literal notranslate"><span class="pre">1g</span></code>. Note that variables defined here take precedence over variables defined in the <code class="docutils literal notranslate"><span class="pre">config.ini</span></code> file of any of the referenced configurations.</p>
+<p>Let’s open <code class="docutils literal notranslate"><span class="pre">vanilla/config/templates/jvm.options</span></code> to see how this variable is used (we’ll only show the relevant part here):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Xms represents the initial size of total heap space</span>
+<span class="c1"># Xmx represents the maximum size of total heap space</span>
+
+<span class="o">-</span><span class="n">Xms</span><span class="p">{{</span><span class="n">heap_size</span><span class="p">}}</span>
+<span class="o">-</span><span class="n">Xmx</span><span class="p">{{</span><span class="n">heap_size</span><span class="p">}}</span>
+</pre></div>
+</div>
+<p>So Rally reads all variables and the template files and replaces the variables in the final configuration. Note that Rally does not know anything about <code class="docutils literal notranslate"><span class="pre">jvm.options</span></code> or <code class="docutils literal notranslate"><span class="pre">elasticsearch.yml</span></code>. For Rally, these are just plain text templates that need to be copied to the Elasticsearch directory before running a benchmark. Under the hood, Rally uses <a class="reference external" href="http://jinja.pocoo.org/docs/dev/">Jinja2</a> as template language. This allows you to use Jinja2 expressions in your car configuration files.</p>
+<p>If you open <code class="docutils literal notranslate"><span class="pre">vanilla/templates/config/elasticsearch.yml</span></code> you will see a few variables that are not defined in the <code class="docutils literal notranslate"><span class="pre">.ini</span></code> file:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">network_host</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">http_port</span></code></p></li>
+</ul>
+<p>These values are derived by Rally internally based on command line flags and you cannot override them in your car definition. You also cannot use these names as names for variables because Rally would simply override them.</p>
+<p>If you specify multiple configurations, e.g. <code class="docutils literal notranslate"><span class="pre">--car=&quot;4gheap,ea&quot;</span></code>, Rally will apply them in order. It will first read all variables in <code class="docutils literal notranslate"><span class="pre">4gheap.ini</span></code>, then in <code class="docutils literal notranslate"><span class="pre">ea.ini</span></code>. Afterwards, it will copy all configuration files from the corresponding config base of <code class="docutils literal notranslate"><span class="pre">4gheap</span></code> and <em>append</em> all configuration files from <code class="docutils literal notranslate"><span class="pre">ea</span></code>. This also shows when to define a separate “car” and when to define a “mixin”: If you need to amend configuration files, use a mixin, if you need to have a specific configuration, define a car.</p>
+<div class="section" id="simple-customizations">
+<h3>Simple customizations<a class="headerlink" href="#simple-customizations" title="Permalink to this headline">¶</a></h3>
+<p>For simple customizations you can create the directory hierarchy as outlined above and use the <code class="docutils literal notranslate"><span class="pre">--team-path</span></code> command line parameter to refer to this configuration. For more complex use cases and distributed multi-node benchmarks, we recommend to use custom team repositories.</p>
+</div>
+<div class="section" id="custom-team-repositories">
+<h3>Custom Team Repositories<a class="headerlink" href="#custom-team-repositories" title="Permalink to this headline">¶</a></h3>
+<p>Rally provides a default team repository that is hosted on <a class="reference external" href="https://github.com/elastic/rally-teams">Github</a>. You can also add your own team repositories although this requires a bit of additional work. First of all, team repositories need to be managed by git. The reason is that Rally can benchmark multiple versions of Elasticsearch and we use git branches in the track repository to determine the best match. The versioning scheme is as follows:</p>
+<ul class="simple">
+<li><p>The <cite>master</cite> branch needs to work with the latest <cite>master</cite> branch of Elasticsearch.</p></li>
+<li><p>All other branches need to match the version scheme of Elasticsearch, i.e. <code class="docutils literal notranslate"><span class="pre">MAJOR.MINOR.PATCH-SUFFIX</span></code> where all parts except <code class="docutils literal notranslate"><span class="pre">MAJOR</span></code> are optional.</p></li>
+</ul>
+<p>Rally implements a fallback logic so you don’t need to define a branch for each patch release of Elasticsearch. For example:</p>
+<ul class="simple">
+<li><p>The branch <cite>6.0.0-alpha1</cite> will be chosen for the version <code class="docutils literal notranslate"><span class="pre">6.0.0-alpha1</span></code> of Elasticsearch.</p></li>
+<li><p>The branch <cite>5</cite> will be chosen for all versions for Elasticsearch with the major version 5, e.g. <code class="docutils literal notranslate"><span class="pre">5.0.0</span></code>, <code class="docutils literal notranslate"><span class="pre">5.1.3</span></code> (provided there is no specific branch).</p></li>
+</ul>
+<p>Rally tries to use the branch with the best match to the benchmarked version of Elasticsearch.</p>
+<div class="section" id="creating-a-new-team-repository">
+<h4>Creating a new team repository<a class="headerlink" href="#creating-a-new-team-repository" title="Permalink to this headline">¶</a></h4>
+<p>All team repositories are located in <code class="docutils literal notranslate"><span class="pre">~/.rally/benchmarks/teams</span></code>. If you want to add a dedicated team repository, called <code class="docutils literal notranslate"><span class="pre">private</span></code> follow these steps:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">~/.</span><span class="n">rally</span><span class="o">/</span><span class="n">benchmarks</span><span class="o">/</span><span class="n">teams</span>
+<span class="n">mkdir</span> <span class="n">private</span>
+<span class="n">cd</span> <span class="n">private</span>
+<span class="n">git</span> <span class="n">init</span>
+<span class="c1"># add your team now (don&#39;t forget to add the subdirectory &quot;cars&quot;).</span>
+<span class="n">git</span> <span class="n">add</span> <span class="o">.</span>
+<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s2">&quot;Initial commit&quot;</span>
+</pre></div>
+</div>
+<p>If you want to share your teams with others (or you want to run remote benchmarks) you need to add a remote and push it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">origin</span> <span class="n">git</span><span class="nd">@git</span><span class="o">-</span><span class="n">repos</span><span class="o">.</span><span class="n">acme</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">acme</span><span class="o">/</span><span class="n">rally</span><span class="o">-</span><span class="n">teams</span><span class="o">.</span><span class="n">git</span>
+<span class="n">git</span> <span class="n">push</span> <span class="o">-</span><span class="n">u</span> <span class="n">origin</span> <span class="n">master</span>
+</pre></div>
+</div>
+<p>If you have added a remote you should also add it in <code class="docutils literal notranslate"><span class="pre">~/.rally/rally.ini</span></code>, otherwise you can skip this step. Open the file in your editor of choice and add the following line in the section <code class="docutils literal notranslate"><span class="pre">teams</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">private</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="o">&lt;&lt;</span><span class="n">URL_TO_YOUR_ORIGIN</span><span class="o">&gt;&gt;</span>
+</pre></div>
+</div>
+<p>Rally will then automatically update the local tracking branches before the benchmark starts.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you run benchmarks against a remote machine that is under the control of Rally then you need to add the custom team configuration on every node!</p>
+</div>
+<p>You can now verify that everything works by listing all teams in this team repository:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">esrally</span> <span class="nb">list</span> <span class="n">cars</span> <span class="o">--</span><span class="n">team</span><span class="o">-</span><span class="n">repository</span><span class="o">=</span><span class="n">private</span>
+</pre></div>
+</div>
+<p>This shows all teams that are available on the <code class="docutils literal notranslate"><span class="pre">master</span></code> branch of this repository. Suppose you only created tracks on the branch <code class="docutils literal notranslate"><span class="pre">2</span></code> because you’re interested in the performance of Elasticsearch 2.x, then you can specify also the distribution version:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">esrally</span> <span class="nb">list</span> <span class="n">teams</span> <span class="o">--</span><span class="n">team</span><span class="o">-</span><span class="n">repository</span><span class="o">=</span><span class="n">private</span> <span class="o">--</span><span class="n">distribution</span><span class="o">-</span><span class="n">version</span><span class="o">=</span><span class="mf">7.0</span><span class="o">.</span><span class="mi">0</span>
+</pre></div>
+</div>
+<p>Rally will follow the same branch fallback logic as described above.</p>
+</div>
+<div class="section" id="adding-an-already-existing-team-repository">
+<h4>Adding an already existing team repository<a class="headerlink" href="#adding-an-already-existing-team-repository" title="Permalink to this headline">¶</a></h4>
+<p>If you want to add a team repository that already exists, just open <code class="docutils literal notranslate"><span class="pre">~/.rally/rally.ini</span></code> in your editor of choice and add the following line in the section <code class="docutils literal notranslate"><span class="pre">teams</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">your_repo_name</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="o">&lt;&lt;</span><span class="n">URL_TO_YOUR_ORIGIN</span><span class="o">&gt;&gt;</span>
+</pre></div>
+</div>
+<p>After you have added this line, have Rally list the tracks in this repository:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">esrally</span> <span class="nb">list</span> <span class="n">cars</span> <span class="o">--</span><span class="n">team</span><span class="o">-</span><span class="n">repository</span><span class="o">=</span><span class="n">your_repo_name</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="elasticsearch_plugins.html" class="btn btn-neutral float-right" title="Using Elasticsearch Plugins" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="track.html" class="btn btn-neutral float-left" title="Track Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Elasticsearch B.V.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,522 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Tips and Tricks &mdash; Rally 2.0.4.dev0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Define Custom Workloads: Tracks" href="adding_tracks.html" />
+    <link rel="prev" title="Setting up a Cluster" href="cluster_management.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Rally
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started with Rally</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Running Rally with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="race.html">Run a Benchmark: Races</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tournament.html">Compare Results: Tournaments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cluster_management.html">Setting up a Cluster</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tips and Tricks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#benchmarking-an-elastic-cloud-cluster">Benchmarking an Elastic Cloud cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#benchmarking-an-existing-cluster">Benchmarking an existing cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#benchmarking-a-remote-cluster">Benchmarking a remote cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#distributing-the-load-test-driver">Distributing the load test driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#changing-the-default-track-repository">Changing the default track repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#testing-rally-against-ccr-clusters-using-a-remote-metric-store">Testing Rally against CCR clusters using a remote metric store</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#identifying-when-errors-have-been-encountered">Identifying when errors have been encountered</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#checking-queries-and-responses">Checking Queries and Responses</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Extending Rally</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="adding_tracks.html">Define Custom Workloads: Tracks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">Developing Rally</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Elasticsearch Version Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_line_reference.html">Command Line Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="offline.html">Offline Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="track.html">Track Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="car.html">Configure Elasticsearch: Cars</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elasticsearch_plugins.html">Using Elasticsearch Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="telemetry.html">Telemetry Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rally_daemon.html">Rally Daemon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipelines.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="summary_report.html">Summary Report</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Additional Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="migrate.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Community Resources</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Rally</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+    <ul class="wy-breadcrumbs">
+        
+        <li><a href="index.html">Docs</a> &raquo;</li>
+        
+        <li>Tips and Tricks</li>
+        
+        
+        <li class="wy-breadcrumbs-aside">
+            
+            
+            <a href="_sources/recipes.rst.txt" rel="nofollow"> View page source</a>
+            
+            
+        </li>
+        
+    </ul>
+
+    
+    <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="tips-and-tricks">
+<h1>Tips and Tricks<a class="headerlink" href="#tips-and-tricks" title="Permalink to this headline">¶</a></h1>
+<p>This section covers various tips and tricks in a recipe-style fashion.</p>
+<div class="section" id="benchmarking-an-elastic-cloud-cluster">
+<h2>Benchmarking an Elastic Cloud cluster<a class="headerlink" href="#benchmarking-an-elastic-cloud-cluster" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We assume in this recipe, that Rally is already properly <a class="reference internal" href="configuration.html"><span class="doc">configured</span></a>.</p>
+</div>
+<p>Benchmarking an <a class="reference external" href="https://www.elastic.co/cloud/">Elastic Cloud</a> cluster with Rally is similar to <a class="reference internal" href="#recipe-benchmark-existing-cluster"><span class="std std-ref">benchmarking any other existing cluster</span></a>. In the following example we will run a benchmark against a cluster reachable via the endpoint <code class="docutils literal notranslate"><span class="pre">https://abcdef123456.europe-west1.gcp.cloud.es.io:9243</span></code> by the user <code class="docutils literal notranslate"><span class="pre">elastic</span></code> with the password <code class="docutils literal notranslate"><span class="pre">changeme</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">esrally</span> <span class="o">--</span><span class="n">track</span><span class="o">=</span><span class="n">pmc</span> <span class="o">--</span><span class="n">target</span><span class="o">-</span><span class="n">hosts</span><span class="o">=</span><span class="n">abcdef123456</span><span class="o">.</span><span class="n">europe</span><span class="o">-</span><span class="n">west1</span><span class="o">.</span><span class="n">gcp</span><span class="o">.</span><span class="n">cloud</span><span class="o">.</span><span class="n">es</span><span class="o">.</span><span class="n">io</span><span class="p">:</span><span class="mi">9243</span> <span class="o">--</span><span class="n">pipeline</span><span class="o">=</span><span class="n">benchmark</span><span class="o">-</span><span class="n">only</span> <span class="o">--</span><span class="n">client</span><span class="o">-</span><span class="n">options</span><span class="o">=</span><span class="s2">&quot;timeout:60,use_ssl:true,verify_certs:true,basic_auth_user:&#39;elastic&#39;,basic_auth_password:&#39;changeme&#39;&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="benchmarking-an-existing-cluster">
+<span id="recipe-benchmark-existing-cluster"></span><h2>Benchmarking an existing cluster<a class="headerlink" href="#benchmarking-an-existing-cluster" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you are just getting started with Rally and don’t understand how it works, do NOT run it against any production or production-like cluster. Besides, benchmarks should be executed in a dedicated environment anyway where no additional traffic skews results.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We assume in this recipe, that Rally is already properly <a class="reference internal" href="configuration.html"><span class="doc">configured</span></a>.</p>
+</div>
+<p>Consider the following configuration: You have an existing benchmarking cluster, that consists of three Elasticsearch nodes running on <code class="docutils literal notranslate"><span class="pre">10.5.5.10</span></code>, <code class="docutils literal notranslate"><span class="pre">10.5.5.11</span></code>, <code class="docutils literal notranslate"><span class="pre">10.5.5.12</span></code>. You’ve setup the cluster yourself and want to benchmark it with Rally. Rally is installed on <code class="docutils literal notranslate"><span class="pre">10.5.5.5</span></code>.</p>
+<img alt="Sample Benchmarking Scenario" src="_images/benchmark_existing.png" />
+<p>First of all, we need to decide on a track. So, we run <code class="docutils literal notranslate"><span class="pre">esrally</span> <span class="pre">list</span> <span class="pre">tracks</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Name</span>        <span class="n">Description</span>                                          <span class="n">Documents</span>  <span class="n">Compressed</span> <span class="n">Size</span>    <span class="n">Uncompressed</span> <span class="n">Size</span>    <span class="n">Default</span> <span class="n">Challenge</span>        <span class="n">All</span> <span class="n">Challenges</span>
+<span class="o">----------</span>  <span class="o">-------------------------------------------------</span>  <span class="o">-----------</span>  <span class="o">-----------------</span>  <span class="o">-------------------</span>  <span class="o">-----------------------</span>  <span class="o">---------------------------</span>
+<span class="n">geonames</span>    <span class="n">POIs</span> <span class="kn">from</span> <span class="nn">Geonames</span>                                    <span class="mi">11396505</span>  <span class="mf">252.4</span> <span class="n">MB</span>           <span class="mf">3.3</span> <span class="n">GB</span>               <span class="n">append</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">conflicts</span>      <span class="n">append</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">conflicts</span><span class="p">,</span><span class="n">appe</span><span class="o">...</span>
+<span class="n">geopoint</span>    <span class="n">Point</span> <span class="n">coordinates</span> <span class="kn">from</span> <span class="nn">PlanetOSM</span>                      <span class="mi">60844404</span>  <span class="mf">481.9</span> <span class="n">MB</span>           <span class="mf">2.3</span> <span class="n">GB</span>               <span class="n">append</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">conflicts</span>      <span class="n">append</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">conflicts</span><span class="p">,</span><span class="n">appe</span><span class="o">...</span>
+<span class="n">http_logs</span>   <span class="n">HTTP</span> <span class="n">server</span> <span class="n">log</span> <span class="n">data</span>                                 <span class="mi">247249096</span>  <span class="mf">1.2</span> <span class="n">GB</span>             <span class="mf">31.1</span> <span class="n">GB</span>              <span class="n">append</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">conflicts</span>      <span class="n">append</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">conflicts</span><span class="p">,</span><span class="n">appe</span><span class="o">...</span>
+<span class="n">nested</span>      <span class="n">StackOverflow</span> <span class="n">Q</span><span class="o">&amp;</span><span class="n">A</span> <span class="n">stored</span> <span class="k">as</span> <span class="n">nested</span> <span class="n">docs</span>               <span class="mi">11203029</span>  <span class="mf">663.1</span> <span class="n">MB</span>           <span class="mf">3.4</span> <span class="n">GB</span>               <span class="n">nested</span><span class="o">-</span><span class="n">search</span><span class="o">-</span><span class="n">challenge</span>  <span class="n">nested</span><span class="o">-</span><span class="n">search</span><span class="o">-</span><span class="n">challenge</span><span class="p">,</span><span class="o">...</span>
+<span class="n">noaa</span>        <span class="n">Global</span> <span class="n">daily</span> <span class="n">weather</span> <span class="n">measurements</span> <span class="kn">from</span> <span class="nn">NOAA</span>           <span class="mi">33659481</span>  <span class="mf">947.3</span> <span class="n">MB</span>           <span class="mf">9.0</span> <span class="n">GB</span>               <span class="n">append</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">conflicts</span>      <span class="n">append</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">conflicts</span><span class="p">,</span><span class="n">appe</span><span class="o">...</span>
+<span class="n">nyc_taxis</span>   <span class="n">Taxi</span> <span class="n">rides</span> <span class="ow">in</span> <span class="n">New</span> <span class="n">York</span> <span class="ow">in</span> <span class="mi">2015</span>                       <span class="mi">165346692</span>  <span class="mf">4.5</span> <span class="n">GB</span>             <span class="mf">74.3</span> <span class="n">GB</span>              <span class="n">append</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">conflicts</span>      <span class="n">append</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">conflicts</span><span class="p">,</span><span class="n">appe</span><span class="o">...</span>
+<span class="n">percolator</span>  <span class="n">Percolator</span> <span class="n">benchmark</span> <span class="n">based</span> <span class="n">on</span> <span class="n">AOL</span> <span class="n">queries</span>              <span class="mi">2000000</span>  <span class="mf">102.7</span> <span class="n">kB</span>           <span class="mf">104.9</span> <span class="n">MB</span>             <span class="n">append</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">conflicts</span>      <span class="n">append</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">conflicts</span><span class="p">,</span><span class="n">appe</span><span class="o">...</span>
+<span class="n">pmc</span>         <span class="n">Full</span> <span class="n">text</span> <span class="n">benchmark</span> <span class="k">with</span> <span class="n">academic</span> <span class="n">papers</span> <span class="kn">from</span> <span class="nn">PMC</span>       <span class="mi">574199</span>  <span class="mf">5.5</span> <span class="n">GB</span>             <span class="mf">21.7</span> <span class="n">GB</span>              <span class="n">append</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">conflicts</span>      <span class="n">append</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">conflicts</span><span class="p">,</span><span class="n">appe</span><span class="o">...</span>
+</pre></div>
+</div>
+<p>We’re interested in a full text benchmark, so we’ll choose to run <code class="docutils literal notranslate"><span class="pre">pmc</span></code>. If you have your own data that you want to use for benchmarks <a class="reference internal" href="adding_tracks.html"><span class="doc">create your own track</span></a> instead; the metrics you’ll gather will be more representative and useful than some default track.</p>
+<p>Next, we need to know which machines to target which is easy as we can see that from the diagram above.</p>
+<p>Finally we need to check which <a class="reference internal" href="pipelines.html"><span class="doc">pipeline</span></a> to use. For this case, the <code class="docutils literal notranslate"><span class="pre">benchmark-only</span></code> pipeline is suitable as we don’t want Rally to provision the cluster for us.</p>
+<p>Now we can invoke Rally:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">esrally</span> <span class="o">--</span><span class="n">track</span><span class="o">=</span><span class="n">pmc</span> <span class="o">--</span><span class="n">target</span><span class="o">-</span><span class="n">hosts</span><span class="o">=</span><span class="mf">10.5</span><span class="o">.</span><span class="mf">5.10</span><span class="p">:</span><span class="mi">9200</span><span class="p">,</span><span class="mf">10.5</span><span class="o">.</span><span class="mf">5.11</span><span class="p">:</span><span class="mi">9200</span><span class="p">,</span><span class="mf">10.5</span><span class="o">.</span><span class="mf">5.12</span><span class="p">:</span><span class="mi">9200</span> <span class="o">--</span><span class="n">pipeline</span><span class="o">=</span><span class="n">benchmark</span><span class="o">-</span><span class="n">only</span>
+</pre></div>
+</div>
+<p>If you have <a class="reference external" href="https://www.elastic.co/products/x-pack/security">X-Pack Security</a>  enabled, then you’ll also need to specify another parameter to use https and to pass credentials:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">esrally</span> <span class="o">--</span><span class="n">track</span><span class="o">=</span><span class="n">pmc</span> <span class="o">--</span><span class="n">target</span><span class="o">-</span><span class="n">hosts</span><span class="o">=</span><span class="mf">10.5</span><span class="o">.</span><span class="mf">5.10</span><span class="p">:</span><span class="mi">9243</span><span class="p">,</span><span class="mf">10.5</span><span class="o">.</span><span class="mf">5.11</span><span class="p">:</span><span class="mi">9243</span><span class="p">,</span><span class="mf">10.5</span><span class="o">.</span><span class="mf">5.12</span><span class="p">:</span><span class="mi">9243</span> <span class="o">--</span><span class="n">pipeline</span><span class="o">=</span><span class="n">benchmark</span><span class="o">-</span><span class="n">only</span> <span class="o">--</span><span class="n">client</span><span class="o">-</span><span class="n">options</span><span class="o">=</span><span class="s2">&quot;use_ssl:true,verify_certs:true,basic_auth_user:&#39;elastic&#39;,basic_auth_password:&#39;changeme&#39;&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="benchmarking-a-remote-cluster">
+<span id="recipe-benchmark-remote-cluster"></span><h2>Benchmarking a remote cluster<a class="headerlink" href="#benchmarking-a-remote-cluster" title="Permalink to this headline">¶</a></h2>
+<p>Contrary to the previous recipe, you want Rally to provision all cluster nodes.</p>
+<p>We will use the following configuration for the example:</p>
+<ul class="simple">
+<li><p>You will start Rally on <code class="docutils literal notranslate"><span class="pre">10.5.5.5</span></code>. We will call this machine the “benchmark coordinator”.</p></li>
+<li><p>Your Elasticsearch cluster will consist of two nodes which run on <code class="docutils literal notranslate"><span class="pre">10.5.5.10</span></code> and <code class="docutils literal notranslate"><span class="pre">10.5.5.11</span></code>. We will call these machines the “benchmark candidate”s.</p></li>
+</ul>
+<img alt="Sample Benchmarking Scenario" src="_images/benchmark_remote.png" />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All <code class="docutils literal notranslate"><span class="pre">esrallyd</span></code> nodes form a cluster that communicates via the “benchmark coordinator”. For aesthetic reasons we do not show a direct connection between the “benchmark coordinator” and all nodes.</p>
+</div>
+<p>To run a benchmark for this scenario follow these steps:</p>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="install.html"><span class="doc">Install</span></a> and <a class="reference internal" href="configuration.html"><span class="doc">configure</span></a> Rally on all machines. Be sure that the same version is installed on all of them and fully <a class="reference internal" href="configuration.html"><span class="doc">configured</span></a>.</p></li>
+<li><p>Start the <a class="reference internal" href="rally_daemon.html"><span class="doc">Rally daemon</span></a> on each machine. The Rally daemon allows Rally to communicate with all remote machines. On the benchmark coordinator run <code class="docutils literal notranslate"><span class="pre">esrallyd</span> <span class="pre">start</span> <span class="pre">--node-ip=10.5.5.5</span> <span class="pre">--coordinator-ip=10.5.5.5</span></code> and on the benchmark candidate machines run <code class="docutils literal notranslate"><span class="pre">esrallyd</span> <span class="pre">start</span> <span class="pre">--node-ip=10.5.5.10</span> <span class="pre">--coordinator-ip=10.5.5.5</span></code> and <code class="docutils literal notranslate"><span class="pre">esrallyd</span> <span class="pre">start</span> <span class="pre">--node-ip=10.5.5.11</span> <span class="pre">--coordinator-ip=10.5.5.5</span></code> respectively. The <code class="docutils literal notranslate"><span class="pre">--node-ip</span></code> parameter tells Rally the IP of the machine on which it is running. As some machines have more than one network interface, Rally will not attempt to auto-detect the machine IP. The <code class="docutils literal notranslate"><span class="pre">--coordinator-ip</span></code> parameter tells Rally the IP of the benchmark coordinator node.</p></li>
+<li><p>Start the benchmark by invoking Rally as usual on the benchmark coordinator, for example: <code class="docutils literal notranslate"><span class="pre">esrally</span> <span class="pre">--distribution-version=5.0.0</span> <span class="pre">--target-hosts=10.5.5.10:39200,10.5.5.11:39200</span></code>. Rally will derive from the <code class="docutils literal notranslate"><span class="pre">--target-hosts</span></code>  parameter that it should provision the nodes <code class="docutils literal notranslate"><span class="pre">10.5.5.10</span></code> and <code class="docutils literal notranslate"><span class="pre">10.5.5.11</span></code>.</p></li>
+<li><p>After the benchmark has finished you can stop the Rally daemon again. On the benchmark coordinator and on the benchmark candidates run <code class="docutils literal notranslate"><span class="pre">esrallyd</span> <span class="pre">stop</span></code>.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Logs are managed per machine, so all relevant log files and also telemetry output is stored on the benchmark candidates but not on the benchmark coordinator.</p>
+</div>
+<p>Now you might ask yourself what the differences to benchmarks of existing clusters are. In general you should aim to give Rally as much control as possible as benchmark are easier reproducible and you get more metrics. The following table provides some guidance on when to choose which option:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 74%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Your requirement</p></th>
+<th class="head"><p>Recommendation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>You want to use Rally’s telemetry devices</p></td>
+<td><p>Use Rally daemon, as it can provision the remote node for you</p></td>
+</tr>
+<tr class="row-odd"><td><p>You want to benchmark a source build of Elasticsearch</p></td>
+<td><p>Use Rally daemon, as it can build Elasticsearch for you</p></td>
+</tr>
+<tr class="row-even"><td><p>You want to tweak the cluster configuration yourself</p></td>
+<td><p>Use Rally daemon with a <a class="reference internal" href="car.html"><span class="doc">custom configuration</span></a> or set up the cluster by yourself and use <code class="docutils literal notranslate"><span class="pre">--pipeline=benchmark-only</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>You need to run a benchmark with plugins</p></td>
+<td><p>Use Rally daemon if the <a class="reference internal" href="elasticsearch_plugins.html"><span class="doc">plugins</span></a> are supported or set up the cluster by yourself and use <code class="docutils literal notranslate"><span class="pre">--pipeline=benchmark-only</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>You need to run a benchmark against multiple nodes</p></td>
+<td><p>Use Rally daemon if all nodes can be configured identically. For more complex cases, set up the cluster by yourself and use <code class="docutils literal notranslate"><span class="pre">--pipeline=benchmark-only</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Rally daemon will be able to cover most of the cases described above in the future so there should be almost no case where you need to use the <code class="docutils literal notranslate"><span class="pre">benchmark-only</span></code> pipeline.</p>
+</div>
+<div class="section" id="distributing-the-load-test-driver">
+<span id="recipe-distributed-load-driver"></span><h2>Distributing the load test driver<a class="headerlink" href="#distributing-the-load-test-driver" title="Permalink to this headline">¶</a></h2>
+<p>By default, Rally will generate load on the same machine where you start a benchmark. However, when you are benchmarking larger clusters, a single load test driver machine may not be able to generate sufficient load. In these cases, you should use multiple load driver machines. We will use the following configuration for the example:</p>
+<ul class="simple">
+<li><p>You will start Rally on <code class="docutils literal notranslate"><span class="pre">10.5.5.5</span></code>. We will call this machine the “benchmark coordinator”.</p></li>
+<li><p>You will start two load drivers on <code class="docutils literal notranslate"><span class="pre">10.5.5.6</span></code> and <code class="docutils literal notranslate"><span class="pre">10.5.5.7</span></code>. Note that one load driver will simulate multiple clients. Rally will simply assign clients to load driver machines in a round-robin fashion.</p></li>
+<li><p>Your Elasticsearch cluster will consist of three nodes which run on <code class="docutils literal notranslate"><span class="pre">10.5.5.11</span></code>, <code class="docutils literal notranslate"><span class="pre">10.5.5.12</span></code> and <code class="docutils literal notranslate"><span class="pre">10.5.5.13</span></code>. We will call these machines the “benchmark candidate”. For simplicity, we will assume an externally provisioned cluster but you can also use Rally to setup the cluster for you (see above).</p></li>
+</ul>
+<img alt="Sample Benchmarking Scenario" src="_images/benchmark_distributed_load.png" />
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="install.html"><span class="doc">Install</span></a> and <a class="reference internal" href="configuration.html"><span class="doc">configure</span></a> Rally on all machines. Be sure that the same version is installed on all of them and fully <a class="reference internal" href="configuration.html"><span class="doc">configured</span></a>.</p></li>
+<li><p>Start the <a class="reference internal" href="rally_daemon.html"><span class="doc">Rally daemon</span></a> on each machine. The Rally daemon allows Rally to communicate with all remote machines. On the benchmark coordinator run <code class="docutils literal notranslate"><span class="pre">esrallyd</span> <span class="pre">start</span> <span class="pre">--node-ip=10.5.5.5</span> <span class="pre">--coordinator-ip=10.5.5.5</span></code> and on the load driver machines run <code class="docutils literal notranslate"><span class="pre">esrallyd</span> <span class="pre">start</span> <span class="pre">--node-ip=10.5.5.6</span> <span class="pre">--coordinator-ip=10.5.5.5</span></code> and <code class="docutils literal notranslate"><span class="pre">esrallyd</span> <span class="pre">start</span> <span class="pre">--node-ip=10.5.5.7</span> <span class="pre">--coordinator-ip=10.5.5.5</span></code> respectively. The <code class="docutils literal notranslate"><span class="pre">--node-ip</span></code> parameter tells Rally the IP of the machine on which it is running. As some machines have more than one network interface, Rally will not attempt to auto-detect the machine IP. The <code class="docutils literal notranslate"><span class="pre">--coordinator-ip</span></code> parameter tells Rally the IP of the benchmark coordinator node.</p></li>
+<li><p>Start the benchmark by invoking Rally on the benchmark coordinator, for example: <code class="docutils literal notranslate"><span class="pre">esrally</span> <span class="pre">--pipeline=benchmark-only</span> <span class="pre">--load-driver-hosts=10.5.5.6,10.5.5.7</span> <span class="pre">--target-hosts=10.5.5.11:9200,10.5.5.12:9200,10.5.5.13:9200</span></code>.</p></li>
+<li><p>After the benchmark has finished you can stop the Rally daemon again. On the benchmark coordinator and on the load driver machines run <code class="docutils literal notranslate"><span class="pre">esrallyd</span> <span class="pre">stop</span></code>.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Rally neither distributes code (i.e. <a class="reference internal" href="adding_tracks.html#adding-tracks-custom-runners"><span class="std std-ref">custom runners</span></a> or <a class="reference internal" href="adding_tracks.html#adding-tracks-custom-param-sources"><span class="std std-ref">parameter sources</span></a>) nor data automatically. You should place all tracks and their data on all machines in the same directory before starting the benchmark. Alternatively, you can store your track in a custom track repository.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As indicated in the diagram, track data will be downloaded by each load driver machine separately. If you want to avoid that, you can run a benchmark once without distributing the load test driver (i.e. do not specify <code class="docutils literal notranslate"><span class="pre">--load-driver-hosts</span></code>) and then copy the contents of <code class="docutils literal notranslate"><span class="pre">~/.rally/benchmarks/data</span></code> to all load driver machines.</p>
+</div>
+</div>
+<div class="section" id="changing-the-default-track-repository">
+<h2>Changing the default track repository<a class="headerlink" href="#changing-the-default-track-repository" title="Permalink to this headline">¶</a></h2>
+<p>Rally supports multiple track repositories. This allows you for example to have a separate company-internal repository for your own tracks that is separate from <a class="reference external" href="https://github.com/elastic/rally-tracks">Rally’s default track repository</a>. However, you always need to define <code class="docutils literal notranslate"><span class="pre">--track-repository=my-custom-repository</span></code> which can be cumbersome. If you want to avoid that and want Rally to use your own track repository by default you can just replace the default track repository definition in <code class="docutils literal notranslate"><span class="pre">~./rally/rally.ini</span></code>. Consider this example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="p">[</span><span class="n">tracks</span><span class="p">]</span>
+<span class="n">default</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">elastic</span><span class="o">/</span><span class="n">rally</span><span class="o">-</span><span class="n">tracks</span><span class="o">.</span><span class="n">git</span>
+<span class="n">teamtrackrepo</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">git</span><span class="nd">@example</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">myteam</span><span class="o">/</span><span class="n">my</span><span class="o">-</span><span class="n">tracks</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">teamtrackrepo</span></code> should be the default track repository, just define it as <code class="docutils literal notranslate"><span class="pre">default.url</span></code>. E.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="p">[</span><span class="n">tracks</span><span class="p">]</span>
+<span class="n">default</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">git</span><span class="nd">@example</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">myteam</span><span class="o">/</span><span class="n">my</span><span class="o">-</span><span class="n">tracks</span><span class="o">.</span><span class="n">git</span>
+<span class="n">old</span><span class="o">-</span><span class="n">rally</span><span class="o">-</span><span class="n">default</span><span class="o">.</span><span class="n">url</span><span class="o">=</span><span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">elastic</span><span class="o">/</span><span class="n">rally</span><span class="o">-</span><span class="n">tracks</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+<p>Also don’t forget to rename the folder of your local working copy as Rally will search for a track repository with the name <code class="docutils literal notranslate"><span class="pre">default</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">~/.</span><span class="n">rally</span><span class="o">/</span><span class="n">benchmarks</span><span class="o">/</span><span class="n">tracks</span><span class="o">/</span>
+<span class="n">mv</span> <span class="n">default</span> <span class="n">old</span><span class="o">-</span><span class="n">rally</span><span class="o">-</span><span class="n">default</span>
+<span class="n">mv</span> <span class="n">teamtrackrepo</span> <span class="n">default</span>
+</pre></div>
+</div>
+<p>From now on, Rally will treat your repository as default and you need to run Rally with <code class="docutils literal notranslate"><span class="pre">--track-repository=old-rally-default</span></code> if you want to use the out-of-the-box Rally tracks.</p>
+</div>
+<div class="section" id="testing-rally-against-ccr-clusters-using-a-remote-metric-store">
+<span id="recipe-testing-rally-against-ccr-clusters"></span><h2>Testing Rally against CCR clusters using a remote metric store<a class="headerlink" href="#testing-rally-against-ccr-clusters-using-a-remote-metric-store" title="Permalink to this headline">¶</a></h2>
+<p>Testing Rally features (such as the <code class="docutils literal notranslate"><span class="pre">ccr-stats</span></code> telemetry device) requiring Elasticsearch clusters configured for <a class="reference external" href="https://www.elastic.co/guide/en/elastic-stack-overview/current/ccr-getting-started.html">cross-cluster replication</a> can be a time consuming process. Use <a class="reference external" href="https://github.com/elastic/rally/tree/master/recipes/ccr">recipes/ccr in Rally’s repository</a> to test a simple but complete example.</p>
+<p>Running the <code class="docutils literal notranslate"><span class="pre">start.sh</span></code> script requires Docker locally installed and performs the following actions:</p>
+<ol class="arabic simple">
+<li><p>Starts a single node (512MB heap) Elasticsearch cluster locally, to serve as a <a class="reference internal" href="configuration.html"><span class="doc">metrics store</span></a>. It also starts Kibana attached to the Elasticsearch metric store cluster.</p></li>
+<li><p>Creates a new configuration file for Rally under <code class="docutils literal notranslate"><span class="pre">~/.rally/rally-metricstore.ini</span></code> referencing Elasticsearch from step 1.</p></li>
+<li><p>Starts two additional local Elasticsearch clusters with 1 node each, (version <code class="docutils literal notranslate"><span class="pre">7.3.2</span></code> by default) called <code class="docutils literal notranslate"><span class="pre">leader</span></code> and <code class="docutils literal notranslate"><span class="pre">follower</span></code> listening at ports 32901 and 32902 respectively. Each node uses 1GB heap.</p></li>
+<li><p>Accepts the trial license.</p></li>
+<li><p>Configures <code class="docutils literal notranslate"><span class="pre">leader</span></code> on the <code class="docutils literal notranslate"><span class="pre">follower</span></code> as a <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-remote-clusters.html#configuring-remote-clusters">remote cluster</a>.</p></li>
+<li><p>Sets an <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-put-auto-follow-pattern.html#ccr-put-auto-follow-pattern">auto-follow pattern</a> on the follower for every index on the leader to be replicated as <code class="docutils literal notranslate"><span class="pre">&lt;leader-index-name&gt;-copy</span></code>.</p></li>
+<li><p>Runs the <a class="reference external" href="https://github.com/elastic/rally-tracks/tree/master/geonames">geonames track</a>, <a class="reference external" href="https://github.com/elastic/rally-tracks/blob/d4814aa7bf54a9dafd4c77be076d54500c3f2dd4/geonames/challenges/default.json#L188-L222">append-no-conflicts-index-only challenge</a> challenge, ingesting only 20% of the corpus using 3 primary shards. It also enables the <code class="docutils literal notranslate"><span class="pre">ccr-stats</span></code> <a class="reference internal" href="telemetry.html"><span class="doc">telemetry device</span></a> with a sample rate interval of <code class="docutils literal notranslate"><span class="pre">1s</span></code>.</p></li>
+</ol>
+<p>Rally will push metrics to the metric store configured in 1. and they can be visualized by accessing Kibana at <a class="reference external" href="http://localhost:5601">http://locahost:5601</a>.</p>
+<p>To tear down everything issue <code class="docutils literal notranslate"><span class="pre">./stop.sh</span></code>.</p>
+<p>It is possible to specify a different version of Elasticsearch for step 3. by setting <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">ES_VERSION=&lt;the_desired_version&gt;</span></code>.</p>
+</div>
+<div class="section" id="identifying-when-errors-have-been-encountered">
+<h2>Identifying when errors have been encountered<a class="headerlink" href="#identifying-when-errors-have-been-encountered" title="Permalink to this headline">¶</a></h2>
+<p>Custom track development can be error prone especially if you are testing a new query. A number of reasons can lead to queries returning errors.</p>
+<p>Consider a simple example Rally operation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;geo_distance&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;search&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;logs-*&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="p">{</span>
+       <span class="s2">&quot;geo_distance&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">&quot;distance&quot;</span><span class="p">:</span> <span class="s2">&quot;12km&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;source.geo.location&quot;</span><span class="p">:</span> <span class="s2">&quot;40,-70&quot;</span>
+       <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This query requires the field <code class="docutils literal notranslate"><span class="pre">source.geo.location</span></code> to be mapped as a <code class="docutils literal notranslate"><span class="pre">geo_point</span></code> type. If incorrectly mapped, Elasticsearch will respond with an error.</p>
+<p>Rally will not exit on errors (unless fatal e.g. <a class="reference external" href="http://man7.org/linux/man-pages/man2/connect.2.html">ECONNREFUSED</a>) by default, instead reporting errors in the summary report via the <a class="reference internal" href="summary_report.html#summary-report-error-rate"><span class="std std-ref">Error Rate</span></a> statistic. This can potentially leading to misleading results. This behavior is by design and consistent with other load testing tools such as JMeter i.e. In most cases it is desirable that a large long running benchmark should not fail because of a single error response.</p>
+<p>This behavior can also be changed, by invoking Rally with the <a class="reference internal" href="command_line_reference.html#command-line-reference-on-error"><span class="std std-ref">–on-error</span></a> switch e.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">esrally</span> <span class="o">--</span><span class="n">track</span><span class="o">=</span><span class="n">geonames</span> <span class="o">--</span><span class="n">on</span><span class="o">-</span><span class="n">error</span><span class="o">=</span><span class="n">abort</span>
+</pre></div>
+</div>
+<p>Errors can also be investigated if you have configured a <a class="reference internal" href="configuration.html"><span class="doc">dedicated Elasticsearch metrics store</span></a>.</p>
+</div>
+<div class="section" id="checking-queries-and-responses">
+<h2>Checking Queries and Responses<a class="headerlink" href="#checking-queries-and-responses" title="Permalink to this headline">¶</a></h2>
+<p>As described above, errors can lead to misleading benchmarking results. Some issues, however, are more subtle and the result of queries not behaving and matching as intended.</p>
+<p>Consider the following simple Rally operation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;geo_distance&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;operation-type&quot;</span><span class="p">:</span> <span class="s2">&quot;search&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;logs-*&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;term&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;http.request.method&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;GET&quot;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For this term query to match the field <code class="docutils literal notranslate"><span class="pre">http.request.method</span></code> needs to be type <code class="docutils literal notranslate"><span class="pre">keyword</span></code>. Should this field be <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/dynamic-field-mapping.html">dynamically mapped</a>, its default type will be <code class="docutils literal notranslate"><span class="pre">text</span></code> causing the value <code class="docutils literal notranslate"><span class="pre">GET</span></code> to be <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/text.html">analyzed</a>, and indexed as <code class="docutils literal notranslate"><span class="pre">get</span></code>. The above query will in turn return <code class="docutils literal notranslate"><span class="pre">0</span></code> hits. The field should either be correctly mapped or the query modified to match on <code class="docutils literal notranslate"><span class="pre">http.request.method.keyword</span></code>.</p>
+<p>Issues such as this can lead to misleading benchmarking results. Prior to running any benchmarks for analysis, we therefore recommended users ascertain whether queries are behaving as intended. Rally provides several tools to assist with this.</p>
+<p>Firstly, users can set the <a class="reference internal" href="configuration.html#logging"><span class="std std-ref">log level</span></a> for the Elasticsearch client to <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code> i.e.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;loggers&quot;</span><span class="p">:</span> <span class="p">{</span>
+  <span class="s2">&quot;elasticsearch&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;handlers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;rally_log_handler&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;level&quot;</span><span class="p">:</span> <span class="s2">&quot;DEBUG&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;propagate&quot;</span><span class="p">:</span> <span class="n">false</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;rally.profile&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;handlers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;rally_profile_handler&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;level&quot;</span><span class="p">:</span> <span class="s2">&quot;INFO&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;propagate&quot;</span><span class="p">:</span> <span class="n">false</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This will in turn ensure logs include the Elasticsearch query and accompanying response e.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">16</span> <span class="mi">14</span><span class="p">:</span><span class="mi">56</span><span class="p">:</span><span class="mi">08</span><span class="p">,</span><span class="mi">389</span> <span class="o">-</span><span class="ow">not</span><span class="o">-</span><span class="n">actor</span><span class="o">-/</span><span class="n">PID</span><span class="p">:</span><span class="mi">9790</span> <span class="n">elasticsearch</span> <span class="n">DEBUG</span> <span class="o">&gt;</span> <span class="p">{</span><span class="s2">&quot;sort&quot;</span><span class="p">:[{</span><span class="s2">&quot;geonameid&quot;</span><span class="p">:</span><span class="s2">&quot;asc&quot;</span><span class="p">}],</span><span class="s2">&quot;query&quot;</span><span class="p">:{</span><span class="s2">&quot;match_all&quot;</span><span class="p">:{}}}</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">16</span> <span class="mi">14</span><span class="p">:</span><span class="mi">56</span><span class="p">:</span><span class="mi">08</span><span class="p">,</span><span class="mi">389</span> <span class="o">-</span><span class="ow">not</span><span class="o">-</span><span class="n">actor</span><span class="o">-/</span><span class="n">PID</span><span class="p">:</span><span class="mi">9790</span> <span class="n">elasticsearch</span> <span class="n">DEBUG</span> <span class="o">&lt;</span> <span class="p">{</span><span class="s2">&quot;took&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;timed_out&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span><span class="s2">&quot;_shards&quot;</span><span class="p">:{</span><span class="s2">&quot;total&quot;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span><span class="s2">&quot;successful&quot;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span><span class="s2">&quot;skipped&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">&quot;failed&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">},</span><span class="s2">&quot;hits&quot;</span><span class="p">:{</span><span class="s2">&quot;total&quot;</span><span class="p">:{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span><span class="mi">1000</span><span class="p">,</span><span class="s2">&quot;relation&quot;</span><span class="p">:</span><span class="s2">&quot;eq&quot;</span><span class="p">},</span><span class="s2">&quot;max_score&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span><span class="s2">&quot;hits&quot;</span><span class="p">:[{</span><span class="s2">&quot;_index&quot;</span><span class="p">:</span><span class="s2">&quot;geonames&quot;</span><span class="p">,</span><span class="s2">&quot;_type&quot;</span><span class="p">:</span><span class="s2">&quot;_doc&quot;</span><span class="p">,</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span><span class="s2">&quot;Lb81D28Bu7VEEZ3mXFGw&quot;</span><span class="p">,</span><span class="s2">&quot;_score&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span><span class="s2">&quot;_source&quot;</span><span class="p">:{</span><span class="s2">&quot;geonameid&quot;</span><span class="p">:</span> <span class="mi">2986043</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Pic de Font Blanca&quot;</span><span class="p">,</span> <span class="s2">&quot;asciiname&quot;</span><span class="p">:</span> <span class="s2">&quot;Pic de Font Blanca&quot;</span><span class="p">,</span> <span class="s2">&quot;alternatenames&quot;</span><span class="p">:</span> <span class="s2">&quot;Pic de Font Blanca,Pic du Port&quot;</span><span class="p">,</span> <span class="s2">&quot;feature_class&quot;</span><span class="p">:</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="s2">&quot;feature_code&quot;</span><span class="p">:</span> <span class="s2">&quot;PK&quot;</span><span class="p">,</span> <span class="s2">&quot;country_code&quot;</span><span class="p">:</span> <span class="s2">&quot;AD&quot;</span><span class="p">,</span> <span class="s2">&quot;admin1_code&quot;</span><span class="p">:</span> <span class="s2">&quot;00&quot;</span><span class="p">,</span> <span class="s2">&quot;population&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;dem&quot;</span><span class="p">:</span> <span class="s2">&quot;2860&quot;</span><span class="p">,</span> <span class="s2">&quot;timezone&quot;</span><span class="p">:</span> <span class="s2">&quot;Europe/Andorra&quot;</span><span class="p">,</span> <span class="s2">&quot;location&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.53335</span><span class="p">,</span> <span class="mf">42.64991</span><span class="p">]},</span><span class="s2">&quot;sort&quot;</span><span class="p">:[</span><span class="mi">2986043</span><span class="p">]},</span>
+</pre></div>
+</div>
+<p>Users should discard any performance metrics collected from a benchmark with <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code> logging. This will likely cause a client-side bottleneck so once the correctness of the queries has been established, disable this setting and re-run any benchmarks.</p>
+<p>The number of hits from queries can also be investigated if you have configured a <a class="reference internal" href="configuration.html"><span class="doc">dedicated Elasticsearch metrics store</span></a>. Specifically, documents within the index pattern <code class="docutils literal notranslate"><span class="pre">rally-metrics-*</span></code> contain a <code class="docutils literal notranslate"><span class="pre">meta</span></code> field with a summary of individual responses e.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;@timestamp&quot;</span> <span class="p">:</span> <span class="mi">1597681313435</span><span class="p">,</span>
+  <span class="s2">&quot;relative-time&quot;</span> <span class="p">:</span> <span class="mi">130273374</span><span class="p">,</span>
+  <span class="s2">&quot;race-id&quot;</span> <span class="p">:</span> <span class="s2">&quot;452ad9d7-9c21-4828-848e-89974af3230e&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;race-timestamp&quot;</span> <span class="p">:</span> <span class="s2">&quot;20200817T160412Z&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;environment&quot;</span> <span class="p">:</span> <span class="s2">&quot;Personal&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;track&quot;</span> <span class="p">:</span> <span class="s2">&quot;geonames&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;challenge&quot;</span> <span class="p">:</span> <span class="s2">&quot;append-no-conflicts&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;car&quot;</span> <span class="p">:</span> <span class="s2">&quot;defaults&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;latency&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;value&quot;</span> <span class="p">:</span> <span class="mf">270.77871300025436</span><span class="p">,</span>
+  <span class="s2">&quot;unit&quot;</span> <span class="p">:</span> <span class="s2">&quot;ms&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;sample-type&quot;</span> <span class="p">:</span> <span class="s2">&quot;warmup&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;meta&quot;</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;source_revision&quot;</span> <span class="p">:</span> <span class="s2">&quot;757314695644ea9a1dc2fecd26d1a43856725e65&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;distribution_version&quot;</span> <span class="p">:</span> <span class="s2">&quot;7.8.0&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;distribution_flavor&quot;</span> <span class="p">:</span> <span class="s2">&quot;oss&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;pages&quot;</span> <span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
+    <span class="s2">&quot;hits&quot;</span> <span class="p">:</span> <span class="mi">11396503</span><span class="p">,</span>
+    <span class="s2">&quot;hits_relation&quot;</span> <span class="p">:</span> <span class="s2">&quot;eq&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;timed_out&quot;</span> <span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+    <span class="s2">&quot;took&quot;</span> <span class="p">:</span> <span class="mi">110</span><span class="p">,</span>
+    <span class="s2">&quot;success&quot;</span> <span class="p">:</span> <span class="n">true</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;task&quot;</span> <span class="p">:</span> <span class="s2">&quot;scroll&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;operation&quot;</span> <span class="p">:</span> <span class="s2">&quot;scroll&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;operation-type&quot;</span> <span class="p">:</span> <span class="s2">&quot;Search&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="adding_tracks.html" class="btn btn-neutral float-right" title="Define Custom Workloads: Tracks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="cluster_management.html" class="btn btn-neutral float-left" title="Setting up a Cluster" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Elasticsearch B.V.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

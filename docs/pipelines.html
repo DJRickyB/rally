@@ -1,0 +1,313 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Pipelines &mdash; Rally 2.0.4.dev0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Metrics" href="metrics.html" />
+    <link rel="prev" title="Rally Daemon" href="rally_daemon.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Rally
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started with Rally</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Running Rally with Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="race.html">Run a Benchmark: Races</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tournament.html">Compare Results: Tournaments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cluster_management.html">Setting up a Cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recipes.html">Tips and Tricks</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Extending Rally</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="adding_tracks.html">Define Custom Workloads: Tracks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">Developing Rally</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Elasticsearch Version Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_line_reference.html">Command Line Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="offline.html">Offline Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="track.html">Track Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="car.html">Configure Elasticsearch: Cars</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elasticsearch_plugins.html">Using Elasticsearch Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="telemetry.html">Telemetry Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rally_daemon.html">Rally Daemon</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Pipelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#benchmark-only">benchmark-only</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#from-distribution">from-distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#from-sources">from-sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#from-sources-complete">from-sources-complete</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#from-sources-skip-build">from-sources-skip-build</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="summary_report.html">Summary Report</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Additional Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="migrate.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Community Resources</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Rally</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+    <ul class="wy-breadcrumbs">
+        
+        <li><a href="index.html">Docs</a> &raquo;</li>
+        
+        <li>Pipelines</li>
+        
+        
+        <li class="wy-breadcrumbs-aside">
+            
+            
+            <a href="_sources/pipelines.rst.txt" rel="nofollow"> View page source</a>
+            
+            
+        </li>
+        
+    </ul>
+
+    
+    <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pipelines">
+<h1>Pipelines<a class="headerlink" href="#pipelines" title="Permalink to this headline">¶</a></h1>
+<p>A pipeline is a series of steps that are performed to get benchmark results. This is <em>not</em> intended to customize the actual benchmark but rather what happens before and after a benchmark.</p>
+<p>An example will clarify the concept: If you want to benchmark a binary distribution of Elasticsearch, Rally has to download a distribution archive, decompress it, start Elasticsearch and then run the benchmark. However, if you want to benchmark a source build of Elasticsearch, it first has to build a distribution using the Gradle Wrapper. So, in both cases, different steps are involved and that’s what pipelines are for.</p>
+<p>You can get a list of all pipelines with <code class="docutils literal notranslate"><span class="pre">esrally</span> <span class="pre">list</span> <span class="pre">pipelines</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Available</span> <span class="n">pipelines</span><span class="p">:</span>
+
+<span class="n">Name</span>                     <span class="n">Description</span>
+<span class="o">-----------------------</span>  <span class="o">---------------------------------------------------------------------------------------------</span>
+<span class="n">from</span><span class="o">-</span><span class="n">sources</span>             <span class="n">Builds</span> <span class="ow">and</span> <span class="n">provisions</span> <span class="n">Elasticsearch</span><span class="p">,</span> <span class="n">runs</span> <span class="n">a</span> <span class="n">benchmark</span> <span class="ow">and</span> <span class="n">reports</span> <span class="n">results</span><span class="o">.</span>
+<span class="n">from</span><span class="o">-</span><span class="n">sources</span><span class="o">-</span><span class="n">complete</span>    <span class="n">Builds</span> <span class="ow">and</span> <span class="n">provisions</span> <span class="n">Elasticsearch</span><span class="p">,</span> <span class="n">runs</span> <span class="n">a</span> <span class="n">benchmark</span> <span class="ow">and</span> <span class="n">reports</span> <span class="n">results</span> <span class="p">[</span><span class="n">deprecated</span><span class="p">]</span><span class="o">.</span>
+<span class="n">from</span><span class="o">-</span><span class="n">sources</span><span class="o">-</span><span class="n">skip</span><span class="o">-</span><span class="n">build</span>  <span class="n">Provisions</span> <span class="n">Elasticsearch</span> <span class="p">(</span><span class="n">skips</span> <span class="n">the</span> <span class="n">build</span><span class="p">),</span> <span class="n">runs</span> <span class="n">a</span> <span class="n">benchmark</span> <span class="ow">and</span> <span class="n">reports</span> <span class="n">results</span> <span class="p">[</span><span class="n">deprecated</span><span class="p">]</span><span class="o">.</span>
+<span class="n">from</span><span class="o">-</span><span class="n">distribution</span>        <span class="n">Downloads</span> <span class="n">an</span> <span class="n">Elasticsearch</span> <span class="n">distribution</span><span class="p">,</span> <span class="n">provisions</span> <span class="n">it</span><span class="p">,</span> <span class="n">runs</span> <span class="n">a</span> <span class="n">benchmark</span> <span class="ow">and</span> <span class="n">reports</span> <span class="n">results</span><span class="o">.</span>
+<span class="n">benchmark</span><span class="o">-</span><span class="n">only</span>           <span class="n">Assumes</span> <span class="n">an</span> <span class="n">already</span> <span class="n">running</span> <span class="n">Elasticsearch</span> <span class="n">instance</span><span class="p">,</span> <span class="n">runs</span> <span class="n">a</span> <span class="n">benchmark</span> <span class="ow">and</span> <span class="n">reports</span> <span class="n">results</span>
+</pre></div>
+</div>
+<div class="section" id="benchmark-only">
+<h2>benchmark-only<a class="headerlink" href="#benchmark-only" title="Permalink to this headline">¶</a></h2>
+<p>This is intended if you want to provision a cluster by yourself. Do not use this pipeline unless you are absolutely sure you need to. As Rally has not provisioned the cluster, results are not easily reproducable and it also cannot gather a lot of metrics (like CPU usage).</p>
+<p>To benchmark a cluster, you also have to specify the hosts to connect to. An example invocation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">esrally</span> <span class="o">--</span><span class="n">pipeline</span><span class="o">=</span><span class="n">benchmark</span><span class="o">-</span><span class="n">only</span> <span class="o">--</span><span class="n">target</span><span class="o">-</span><span class="n">hosts</span><span class="o">=</span><span class="n">search</span><span class="o">-</span><span class="n">node</span><span class="o">-</span><span class="n">a</span><span class="o">.</span><span class="n">intranet</span><span class="o">.</span><span class="n">acme</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="mi">9200</span><span class="p">,</span><span class="n">search</span><span class="o">-</span><span class="n">node</span><span class="o">-</span><span class="n">b</span><span class="o">.</span><span class="n">intranet</span><span class="o">.</span><span class="n">acme</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="mi">9200</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="from-distribution">
+<h2>from-distribution<a class="headerlink" href="#from-distribution" title="Permalink to this headline">¶</a></h2>
+<p>This pipeline allows to benchmark an official Elasticsearch distribution which will be automatically downloaded by Rally. An example invocation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">esrally</span> <span class="o">--</span><span class="n">pipeline</span><span class="o">=</span><span class="n">from</span><span class="o">-</span><span class="n">distribution</span> <span class="o">--</span><span class="n">distribution</span><span class="o">-</span><span class="n">version</span><span class="o">=</span><span class="mf">7.0</span><span class="o">.</span><span class="mi">0</span>
+</pre></div>
+</div>
+<p>The version numbers have to match the name in the download URL path.</p>
+<p>You can also benchmark Elasticsearch snapshot versions by specifying the snapshot repository:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">esrally</span> <span class="o">--</span><span class="n">pipeline</span><span class="o">=</span><span class="n">from</span><span class="o">-</span><span class="n">distribution</span> <span class="o">--</span><span class="n">distribution</span><span class="o">-</span><span class="n">version</span><span class="o">=</span><span class="mf">5.0</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="n">SNAPSHOT</span> <span class="o">--</span><span class="n">distribution</span><span class="o">-</span><span class="n">repository</span><span class="o">=</span><span class="n">snapshot</span>
+</pre></div>
+</div>
+<p>However, this feature is mainly intended for continuous integration environments and by default you should just benchmark official distributions.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This pipeline is just mentioned for completeness but Rally will autoselect it for you. All you need to do is to define the <code class="docutils literal notranslate"><span class="pre">--distribution-version</span></code> flag.</p>
+</div>
+</div>
+<div class="section" id="from-sources">
+<span id="pipelines-from-sources"></span><h2>from-sources<a class="headerlink" href="#from-sources" title="Permalink to this headline">¶</a></h2>
+<p>You should use this pipeline when you want to build and benchmark Elasticsearch from sources. This pipeline will only work from Elasticsearch 5.0 onwards because Elasticsearch switched from Maven to Gradle and Rally only supports one build tool in the interest of maintainability.</p>
+<p>Remember that you also need git installed. If that’s not the case you’ll get an error. An example invocation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">esrally</span> <span class="o">--</span><span class="n">pipeline</span><span class="o">=</span><span class="n">from</span><span class="o">-</span><span class="n">sources</span> <span class="o">--</span><span class="n">revision</span><span class="o">=</span><span class="n">latest</span>
+</pre></div>
+</div>
+<p>You have to specify a <a class="reference internal" href="command_line_reference.html#clr-revision"><span class="std std-ref">revision</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This pipeline is just mentioned for completeness but Rally will automatically select it for you. All you need to do is to define the <code class="docutils literal notranslate"><span class="pre">--revision</span></code> flag.</p>
+</div>
+<p>Artifacts are cached for seven days by default in <code class="docutils literal notranslate"><span class="pre">~/.rally/benchmarks/distributions/src</span></code>. Artifact caching can be configured with the following sections in the section <code class="docutils literal notranslate"><span class="pre">source</span></code> in the configuration file in <code class="docutils literal notranslate"><span class="pre">~/.rally/rally.ini</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cache</span></code> (default: <code class="docutils literal notranslate"><span class="pre">True</span></code>): Set to <code class="docutils literal notranslate"><span class="pre">False</span></code> to disable artifact caching.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cache.days</span></code> (default: <code class="docutils literal notranslate"><span class="pre">7</span></code>): The maximum age in days of an artifact before it gets evicted from the artifact cache.</p></li>
+</ul>
+</div>
+<div class="section" id="from-sources-complete">
+<h2>from-sources-complete<a class="headerlink" href="#from-sources-complete" title="Permalink to this headline">¶</a></h2>
+<p>This deprecated pipeline is an alias for <code class="docutils literal notranslate"><span class="pre">from-sources</span></code> and is only provided for backwards-compatibility. Use <code class="docutils literal notranslate"><span class="pre">from-sources</span></code> instead.</p>
+</div>
+<div class="section" id="from-sources-skip-build">
+<h2>from-sources-skip-build<a class="headerlink" href="#from-sources-skip-build" title="Permalink to this headline">¶</a></h2>
+<p>This deprecated pipeline is similar to <code class="docutils literal notranslate"><span class="pre">from-sources-complete</span></code> except that it assumes you have built the binary once. Use <code class="docutils literal notranslate"><span class="pre">from-sources</span></code> instead which caches built artifacts automatically.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="metrics.html" class="btn btn-neutral float-right" title="Metrics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="rally_daemon.html" class="btn btn-neutral float-left" title="Rally Daemon" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Elasticsearch B.V.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
